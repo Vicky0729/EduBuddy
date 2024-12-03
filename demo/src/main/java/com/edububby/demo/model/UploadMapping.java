@@ -1,5 +1,7 @@
 package com.edububby.demo.model;
 
+
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -10,20 +12,16 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name="tb_academic")
-public class Academic {
+@Table(name="tb_upload_mapping")
+public class UploadMapping {
+
 
     @Id
-    @Column(name="academic_idx")
+    @Column(name="upmap_idx")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long academicIdx;
-    @Column(name="academic_type")
-    private String academicType;
-    @Column(name="school_name")
-    private String schoolName;
-    @Column(name="user_id")
-    private String userId;
-
-
-
+    private Long upmapIdx;
+    @Column(name="upload_idx")
+    private Long uploadIdx;
+    @Column(name="upload_mapping")
+    private Long uploadMapping;
 }

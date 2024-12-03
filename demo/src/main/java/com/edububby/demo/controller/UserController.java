@@ -3,9 +3,9 @@ package com.edububby.demo.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-
-import com.edububby.demo.model.User;
 import org.springframework.web.bind.annotation.RequestParam;
+
+
 
 
 @Controller
@@ -37,6 +37,8 @@ public class UserController {
         return "join";
     }
 
+
+    //회원가입 기능 구현
     @PostMapping("/joinUser")
     public String joinUser(){
         
@@ -45,12 +47,18 @@ public class UserController {
         return "Idinfo";
     }
 
+    //회원가입 기능 구현
     @GetMapping("/StudentInfo")
     public String StudentInfoPage() {
         return "StudentInfo";
     }
     
+    @GetMapping("/CheckAnswer")
+    public String CheckAnswerPage() {
 
+        return "CheckAnswer";
+    }
+    
 
 
 }

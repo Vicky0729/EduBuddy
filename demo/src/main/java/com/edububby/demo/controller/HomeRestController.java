@@ -26,10 +26,6 @@ public class HomeRestController {
         String uploadFile = requestData.get("newTitle").toString();
 
         uploadService.editUploadFile(uploadIdx,uploadFile);
-
-
-        
-
     }
 
     @PostMapping("/uploadDelete")
@@ -42,16 +38,7 @@ public class HomeRestController {
         uploadService.deleteUploadFile(uploadIdx);
     }
 
-    @PostMapping("/QuizMaker")
-    public String QuizMakerPage(@RequestBody Map<String, Object> requestData) {
-
-        Long uploadIdx = Long.parseLong(requestData.get("idx").toString());
-        String queLevel = requestData.get("difficulty").toString();
-
-
-
-        return "QuizMaker";
-    }
+    
     
     
     

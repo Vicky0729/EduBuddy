@@ -24,21 +24,22 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 90vh;
+            height: 100vh;
             margin: 0;
             background-color: white;
         }
 
         .login-container {
-            width: 400px;
-            height: 82vh;
+            width: 100%;
+            max-width: 400px;
+            height: 97vh;
             background-color: white;
             border-radius: 20px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             text-align: center;
             padding: 50px 5px;
             margin-top: 55px;
-            border: 2px solid #2c3e50;
+            border: none;
         }
 
         .title {

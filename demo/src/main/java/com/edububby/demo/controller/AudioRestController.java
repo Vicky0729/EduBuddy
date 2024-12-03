@@ -27,6 +27,9 @@ public class AudioRestController {
 
     @Autowired
     UploadService uploadService;
+
+
+
     @PostMapping("/upload-audio")
     public String uploadAudio(@RequestParam("file") MultipartFile file, Model model,Upload upload,HttpSession session) throws IOException {
         System.out.println("오디오 서비스 도착");
@@ -42,7 +45,6 @@ public class AudioRestController {
         upload.setUploadText(transcriptionText);
         uploadService.insertUpload(upload);
 
-        model.addAttribute("transcriptionText", transcriptionText);
 
         
         return "result";  // result.jsp 페이지로 이동
