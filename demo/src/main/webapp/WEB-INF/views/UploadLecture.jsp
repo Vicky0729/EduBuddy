@@ -671,7 +671,7 @@
                         popup.classList.add('difficulty-popup');
                         popup.id = 'difficulty-popup';
                         popup.innerHTML = `
-                <div class="difficulty-popup-content">
+            <div class="difficulty-popup-content">
                 <h3>난이도 설정</h3>
                 <p>추천: 개념부터 학습하는 것을 추천 할께!</p>
                 <form id="difficultyForm" action="/QuizMaker" method="POST">

@@ -383,10 +383,10 @@
                 <!-- 문제 영역 -->
                 <div id="question-section">
                     <!-- 문제 1 -->
-                    <c:forEach var="question" items="${questionList}">
+                    <c:forEach var="question" items="${questionList}" varStatus="status">
                         <div class="question" style="display: block;">
                             <div class="question-header">
-                                <div class="left-section">문제 1</div>
+                                <div class="left-section">문제 ${status.count}</div>
                                 <div class="right-section">
                                     <span class="difficulty-label">난이도 : </span>
                                     <button id="current-difficulty" class="dropdown-button">${difficulty}</button>
@@ -416,6 +416,7 @@
                                     <div class="choice-item" name="3">${question.qesSel3}</div>
                                     <div class="choice-item" name="4">${question.qesSel4}</div>
                                     <div class="choice-item" name="5">${question.qesSel5}</div>
+                                    <input type="hidden" value="${question.qesAnswer}" data-id="${question.qesIdx}">
                                 </div>
                             </div>
                         </div>
@@ -445,7 +446,7 @@
                     <div class="popup-header">해설</div>
                     <div class="popup-content">
                         <p><strong>내가 고른 답:</strong> 선택한 답안</p>
-                        <p><strong>정답:</strong> 올바른 정답</p>
+                        <p><strong>정답:</strong>올바른 정답</p>
                         <hr>
                         <p><strong>설명:</strong> 해설 내용</p>
                     </div>
@@ -455,11 +456,11 @@
 
 
                 <div class="botton-menu">
-                    <button class="menu-item" onclick="location.href='#problem'">
+                    <button class="menu-item" onclick="location.href='problem'">
                         <img src="http://edubuddy.dothome.co.kr/pic/book.svg" alt="문제 탐험대">
                         <span>문제 탐험대</span>
                     </button>
-                    <button class="menu-item" onclick="location.href='#home'">
+                    <button class="menu-item" onclick="location.href='home'">
                         <img src="http://edubuddy.dothome.co.kr/pic/ai1.svg" alt="AI 학습관">
                         <span>AI 학습관</span>
                     </button>
@@ -467,7 +468,7 @@
                         <img src="http://edubuddy.dothome.co.kr/pic/ox.svg" alt="다시도전">
                         <span>오답노트</span>
                     </button>
-                    <button class="menu-item" onclick="location.href='#learning'">
+                    <button class="menu-item" onclick="location.href='learning'">
                         <img src="http://edubuddy.dothome.co.kr/pic/status.svg" alt="학습여정">
                         <span>학습여정</span>
                     </button>
@@ -492,6 +493,7 @@
                 }
 
                 let currentQuestionIndex = 0;
+                let selectedAnswers = {}; // 사용자가 선택한 답안을 저장
                 const questions = document.querySelectorAll(".question");
                 const prevButton = document.getElementById("prev-button");
                 const nextButton = document.getElementById("next-button");
@@ -501,11 +503,7 @@
                 const popupContent = document.querySelector(".popup-content");
 
                 // 문제 해설 데이터
-                const explanations = [
-                    { answer: "백만 볼트", correct: "전류 흐름", explanation: "묽은 염산은 전기 전도성을 가지지만 백만 볼트와 관련이 없습니다." },
-                    { answer: "조선의 경복궁 건립", correct: "신라의 화랑도 설립", explanation: "조선 시대의 사건으로 삼국 시대와 관련이 없습니다." },
-                    { answer: "대기 대순환", correct: "맨틀 대류", explanation: "대기는 판 구조론과 직접적인 관련이 없습니다." }
-                ];
+
 
                 // 현재 문제 표시
                 function showCurrentQuestion() {
@@ -525,6 +523,16 @@
 
                     // 결과 버튼: 마지막 문제에서만 표시
                     resultButton.style.display = currentQuestionIndex === questions.length - 1 ? "inline-block" : "none";
+
+
+
+                    
+
+                    
+
+                    
+
+
                 }
 
 
@@ -545,21 +553,35 @@
                 }
 
                 function openPopup() {
-                    const data = explanations[currentQuestionIndex];
+                    // 현재 문제 영역
+                    const currentQuestion = questions[currentQuestionIndex];
+
+                    // 정답 값 (1~5)
+                    const correctAnswerValue = currentQuestion.querySelector('input[type="hidden"]').value;
+
+                    // 정답 텍스트 가져오기 (qesAnswer 값에 해당하는 텍스트)
+                    const correctAnswerText = currentQuestion.querySelector(`.choice-item[name="${'${correctAnswerValue}'}"]`).textContent.trim();
+
+
+
+                    // 사용자가 선택한 답
+                    const selectedAnswer = selectedAnswers[currentQuestionIndex] || "선택하지 않음";
+                    // 팝업에 데이터 표시
                     document.querySelector(".popup-content").innerHTML = `
-            <p><strong>내가 고른 답:</strong> ${data.answer}</p>
-            <p><strong>정답:</strong> ${data.correct}</p>
-            <hr>
-            <p><strong>해설</strong></p>
-            <p>${data.explanation}</p>
-        `;
+                        <p><strong>내가 고른 답:</strong> ${'${selectedAnswer}'}</p>
+                        <p><strong>정답:</strong>${'${correctAnswerText}'}</p>
+                        <hr>
+                        <p><strong>해설:</strong></p>
+                        <p>알아서 잘해요</p>
+                         `;
+
                     document.getElementById("popup").style.display = "block";
                 }
 
+                // 팝업 닫기
                 function closePopup() {
                     document.getElementById("popup").style.display = "none";
                 }
-
                 function goToResult() {
                     location.href = "CheckAnswer"
                 }
@@ -573,6 +595,9 @@
                         });
                         // 클릭된 항목에 선택 상태 적용
                         item.classList.add('selected');
+
+                        const selectedAnswer = item.textContent.trim();
+                        selectedAnswers[currentQuestionIndex] = selectedAnswer;
                     });
                 });
                 // 초기화
