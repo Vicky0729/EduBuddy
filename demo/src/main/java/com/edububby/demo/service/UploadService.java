@@ -18,8 +18,6 @@ public class UploadService {
         public List<Upload> allUploadByUserId(String userId){
 
             
-            
-
 
 
             return repo.findByUserId(userId);

@@ -672,62 +672,30 @@
                         popup.id = 'difficulty-popup';
                         popup.innerHTML = `
                 <div class="difficulty-popup-content">
-                    <h3>난이도 설정</h3>
-                    <p>추천: 개념부터 학습하는 것을 추천 할께!</p>
+                <h3>난이도 설정</h3>
+                <p>추천: 개념부터 학습하는 것을 추천 할께!</p>
+                <form id="difficultyForm" action="/QuizMaker" method="POST">
                     <div>
                         <label>
-                            <input type="radio" name="difficulty" value="basic"> 개념
+                            <input type="radio" name="difficulty" value="개념" required> 개념
                         </label>
                         <label>
-                            <input type="radio" name="difficulty" value="medium"> 중급
+                            <input type="radio" name="difficulty" value="중급"> 중급
                         </label>
                         <label>
-                            <input type="radio" name="difficulty" value="hard"> 심화
+                            <input type="radio" name="difficulty" value="심화"> 심화
                         </label>
                     </div>
+                    <input type="hidden" name="idx" value="${'${idx}'}">
                     <div class="difficulty-popup-buttons">
-                        <button id='enterButton'>확인</button>
-                        <button id='cancelButton'>취소</button>
+                        <button type="submit" id="enterButton">확인</button>
+                        <button type="button" id="cancelButton">취소</button>
                     </div>
-                </div>
+                </form>
+            </div>
             `;
                         document.body.appendChild(popup); // 팝업을 body에 추가
-                        document.getElementById('enterButton').addEventListener('click', () => LearningPopup.confirm(idx));
-                        document.getElementById('cancelButton').addEventListener('click', () => LearningPopup.close(idx));
-                    },
-
-                    confirm: function (idx) {
-                        const selectedDifficulty = document.querySelector('input[name="difficulty"]:checked');
-                        if (selectedDifficulty) {
-                            const difficulty = selectedDifficulty.value; // 선택된 난이도 값
-                            console.log(`선택된 난이도: ${difficulty}`); // 확인용
-                            console.log(`해당 idx: ${idx}`);
-
-                            // 동기적으로 데이터 전송
-                            const xhr = new XMLHttpRequest();
-                            xhr.open("POST", "QuizMaker", false); // 동기적 요청
-                            xhr.setRequestHeader("Content-Type", "application/json");
-                            xhr.onload = function () {
-                                if (xhr.status === 200) {
-                                    console.log("난이도 설정 전송 성공");
-                                    alert("난이도가 성공적으로 전송되었습니다!");
-                                } else {
-                                    console.error("난이도 설정 전송 실패", xhr.statusText);
-                                    alert("난이도 전송 중 문제가 발생했습니다.");
-                                }
-                            };
-                            xhr.onerror = function () {
-                                console.error("요청 중 네트워크 오류 발생");
-                                alert("네트워크 오류가 발생했습니다. 다시 시도해주세요.");
-                            };
-
-                            // JSON 데이터 전송
-                            xhr.send(JSON.stringify({ idx: idx, difficulty: difficulty }));
-
-                            LearningPopup.close(); // 팝업 닫기
-                        } else {
-                            alert('난이도를 선택해주세요!'); // 선택하지 않았을 때 경고 메시지
-                        }
+                        document.getElementById('cancelButton').addEventListener('click', LearningPopup.close);
                     },
 
                     close: function () {
