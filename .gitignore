@@ -1,3 +1,9 @@
+# edubuddy_env 폴더 전체 무시
+edubuddy_env/
+
+# main.py 파일은 Git에 포함
+!edubuddy_env/main.py
+
 # Compiled class file
 *.class
 
