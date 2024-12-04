@@ -1,16 +1,19 @@
 package com.edububby.demo.controller;
 
 import java.util.List;
-
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.edububby.demo.model.QuestionBank;
 import com.edububby.demo.service.QuestionService;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class QuizController {
@@ -19,13 +22,16 @@ public class QuizController {
     @Autowired
     QuestionService questionService;
 
+    
     @PostMapping("/QuizMaker")
-    public String QuizMaker( @RequestParam("idx") Long uploadIdx,@RequestParam("difficulty") String difficulty,Model model){
+    public String QuizMaker( @RequestParam("idx") Long uploadIdx,@RequestParam("difficulty") String difficulty,Model model,HttpSession session){
 
         int qesLevel; 
         System.out.println("가지고온 식별자:"+uploadIdx);
         System.out.println("가지고온 난이도:"+difficulty);
         
+        session.setAttribute("uploadIdx", uploadIdx);
+
 
         if(difficulty.equals("개념")){
             qesLevel=1;
@@ -43,6 +49,10 @@ public class QuizController {
 
         return "QuizMaker";
     }
+
+
+
+   
 
 
 }

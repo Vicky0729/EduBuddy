@@ -4,6 +4,10 @@ import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Data;
@@ -14,6 +18,7 @@ import lombok.Data;
 public class Solving {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="solving_idx")
     private Long solvingIdx;
     @Column(name="user_id")
@@ -30,12 +35,13 @@ public class Solving {
     private int selAnswerVal;
     @Column(name="sel_answer_text")
     private String selAnswerText;
-    @Column(name="corr_answer_yn")
+    @Column(name="corr_answer_yn", nullable = false)
     private char corrAnswerYn;
     @Column(name="solving_dt")
     private LocalDateTime solvingDt;
 
 
-
+    
+    
 
 }

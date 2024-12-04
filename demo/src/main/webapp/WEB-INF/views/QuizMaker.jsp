@@ -494,6 +494,8 @@
 
                 let currentQuestionIndex = 0;
                 let selectedAnswers = {}; // 사용자가 선택한 답안을 저장
+                let selectedAnswerValues = {};
+                const allQuestionData = [];
                 const questions = document.querySelectorAll(".question");
                 const prevButton = document.getElementById("prev-button");
                 const nextButton = document.getElementById("next-button");
@@ -526,18 +528,18 @@
 
 
 
-                    
-
-                    
-
-                    
-
 
                 }
 
-
                 // 다음 문제로 이동
                 function nextQuestion() {
+
+                    updateAllQuestionData() 
+
+                    
+                    console.log("모든 문제 데이터:", allQuestionData);
+
+
                     if (currentQuestionIndex < questions.length - 1) {
                         currentQuestionIndex++;
                         showCurrentQuestion();
@@ -583,7 +585,33 @@
                     document.getElementById("popup").style.display = "none";
                 }
                 function goToResult() {
-                    location.href = "CheckAnswer"
+
+                    updateAllQuestionData() 
+
+                    const payload = {
+                        questions: allQuestionData
+                    };
+
+
+                    // JSON 데이터를 POST 요청으로 서버에 전달
+                    fetch('userQuizData', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(payload) // JSON 데이터 변환
+                    })
+                        .then(response => {
+                            if (response.ok) {
+                                window.location.href = 'CheckAnswer';
+                            } else {
+                                // 오류 처리 (필요시)
+                                console.error('Failed to send data to the server.');
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                        });
                 }
 
                 // 선택 이벤트 추가
@@ -594,14 +622,54 @@
                             choice.classList.remove('selected');
                         });
                         // 클릭된 항목에 선택 상태 적용
+
                         item.classList.add('selected');
 
-                        const selectedAnswer = item.textContent.trim();
-                        selectedAnswers[currentQuestionIndex] = selectedAnswer;
+                        const selectedValue = item.getAttribute('name'); // 선택한 답안의 값 (1~5)
+                        const selectedAnswer = item.textContent.trim(); // 선택한 답안의 텍스트
+
+
+                        selectedAnswerValues[currentQuestionIndex] = selectedValue; // 값 저장
+                        selectedAnswers[currentQuestionIndex] = selectedAnswer; // 텍스트 저장
                     });
                 });
                 // 초기화
                 showCurrentQuestion();
+
+
+                function updateAllQuestionData() {
+                    allQuestionData.length = 0; // 기존 데이터를 초기화하여 중복 방지
+
+                    questions.forEach((question, index) => {
+                        // 문제 식별자 가져오기
+                        const questionId = question.querySelector('input[type="hidden"]').dataset.id;
+
+                        // 정답 값 (1~5)
+                        const correctAnswerValue = question.querySelector('input[type="hidden"]').value;
+
+                        // 정답 텍스트 가져오기
+                        const correctAnswerText = question.querySelector(`.choice-item[name="${'${correctAnswerValue}'}"]`).textContent.trim();
+
+                        // 사용자가 선택한 답의 값과 텍스트
+                        const selectedAnswerValue = selectedAnswerValues[index] || "선택하지 않음";
+                        const selectedAnswerText = selectedAnswers[index] || "선택하지 않음";
+
+                        // 각 문제의 데이터를 JSON으로 저장
+                        const questionData = {
+                            qesIndex: index + 1, // 문제 번호
+                            qesIdx: questionId, // 문제 식별자
+                            corrAnswerVal: correctAnswerValue, // 정답 번호
+                            corrAnswerText: correctAnswerText, // 정답 텍스트
+                            selAnswerVal: selectedAnswerValue, // 사용자가 선택한 답의 번호
+                            selAnswerText: selectedAnswerText, // 사용자가 선택한 답의 텍스트
+                        };
+
+                        allQuestionData.push(questionData); // 데이터 배열에 추가
+                    });
+
+                    console.log("업데이트된 문제 데이터:", allQuestionData);
+                }
+
             </script>
         </body>
 
