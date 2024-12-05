@@ -8,7 +8,7 @@
 </head>
 <body>
     
-    <form action="Home" method="post">
+    <form action="login" method="post">
         <h3>이메일</h3>
         <input type="text" placeholder="이메일을 입력해주세요" name="user_id">
 

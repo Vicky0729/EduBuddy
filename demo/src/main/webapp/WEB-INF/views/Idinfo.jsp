@@ -11,7 +11,7 @@
 </head>
 
 <body>
-    
+    `
     <div class="IdInfo-container">
         <h2 class="buddyChat">
             너만을 위한 맞춤 문제를 준비하기 위해<br>

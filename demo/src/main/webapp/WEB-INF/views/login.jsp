@@ -34,7 +34,7 @@
         </button>
         <button class="button phone" onclick="window.location.href='phonelogin'">
             <span class="button-content">
-                <img src="http://edubuddy.dothome.co.kr/pic/PhoneLogo.png" alt="핸드폰 로고">핸드폰 번호로 시작하기
+                <img src="http://edubuddy.dothome.co.kr/pic/PhoneLogo.png" alt="핸드폰 로고">기존 회원으로 시작하기
             </span>
         </button>
     </div>

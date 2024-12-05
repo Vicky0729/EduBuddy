@@ -13,15 +13,14 @@ import com.edububby.demo.repo.SolvingRepository;
 @Service
 public class SolvingService {
 
-
     @Autowired
     SolvingRepository repo;
 
-    public int insertSolving(Long uploadIdx,String userId,List<Map<String, Object>> questions){
+    public int insertSolving(Long uploadIdx, String userId, List<Map<String, Object>> questions) {
 
         int insertCount = 0;
         System.out.println("service enter");
-        
+
         System.out.println(questions);
 
         for (Map<String, Object> question : questions) {
@@ -31,12 +30,15 @@ public class SolvingService {
             String corrAnswerText = question.get("corrAnswerText").toString();
             int selAnswerVal = Integer.parseInt(question.get("selAnswerVal").toString());
             String selAnswerText = question.get("selAnswerText").toString();
+            // "qesFav"의 값을 char로 변환
+            String favString = question.get("qesFav").toString(); // "qesFav"가 String으로 반환됨
+            char questionFav = favString != null && !favString.isEmpty() ? favString.charAt(0) : 'N';
 
             // 정답 여부 판단
-            boolean isCorrect = corrAnswerVal == selAnswerVal; 
+            boolean isCorrect = corrAnswerVal == selAnswerVal;
 
             // SolvingEntity 생성
-            Solving solving= new Solving();
+            Solving solving = new Solving();
             solving.setUploadIdx(uploadIdx);
             solving.setUserId(userId);
             solving.setQesIdx(questionId);
@@ -46,6 +48,7 @@ public class SolvingService {
             solving.setSelAnswerText(selAnswerText);
             solving.setCorrAnswerYn(isCorrect ? 'Y' : 'N');
             solving.setSolvingDt(LocalDateTime.now()); // 현재 시간 설정 (추가)
+            solving.setSolvingFav(questionFav);
 
             // Repository를 통해 DB에 저장
             repo.save(solving);
@@ -55,13 +58,4 @@ public class SolvingService {
         return insertCount; // 삽입된 데이터 수 반환
     }
 
-
-
-        
 }
-
-
-
-
-
-

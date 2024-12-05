@@ -489,24 +489,8 @@
                     </c:forEach>
                 </div>
 
-                <div class="bottom-menu">
-                    <button class="menu-item" onclick="location.href='Problem'">
-                        <img src="http://edubuddy.dothome.co.kr/pic/book.svg" alt="문제 탐험대">
-                        <span>문제 탐험대</span>
-                    </button>
-                    <button class="menu-item" onclick="location.href='Home'">
-                        <img src="http://edubuddy.dothome.co.kr/pic/ai1.svg" alt="AI 학습관">
-                        <span>AI 학습관</span>
-                    </button>
-                    <button class="menu-item" onclick="location.href='#dashboard'">
-                        <img src="http://edubuddy.dothome.co.kr/pic/ox.svg" alt="다시도전">
-                        <span>오답노트</span>
-                    </button>
-                    <button class="menu-item" onclick="location.href='#learning'">
-                        <img src="http://edubuddy.dothome.co.kr/pic/status.svg" alt="학습여정">
-                        <span>학습여정</span>
-                    </button>
-                </div>
+                <jsp:include page="Menubar.jsp" />
+
             </div>
 
             <script>
@@ -677,13 +661,13 @@
                 <form id="difficultyForm" action="/QuizMaker" method="POST">
                     <div>
                         <label>
-                            <input type="radio" name="difficulty" value="개념" required> 개념
+                            <input type="radio" name="difficulty" value="1" required> 개념
                         </label>
                         <label>
-                            <input type="radio" name="difficulty" value="중급"> 중급
+                            <input type="radio" name="difficulty" value="2"> 중급
                         </label>
                         <label>
-                            <input type="radio" name="difficulty" value="심화"> 심화
+                            <input type="radio" name="difficulty" value="3"> 심화
                         </label>
                     </div>
                     <input type="hidden" name="idx" value="${'${idx}'}">

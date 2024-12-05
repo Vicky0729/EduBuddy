@@ -39,6 +39,8 @@ public class Solving {
     private char corrAnswerYn;
     @Column(name="solving_dt")
     private LocalDateTime solvingDt;
+    @Column(name="solving_fav")
+    private char solvingFav;
 
 
     

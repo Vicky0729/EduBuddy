@@ -417,6 +417,7 @@
                                     <div class="choice-item" name="4">${question.qesSel4}</div>
                                     <div class="choice-item" name="5">${question.qesSel5}</div>
                                     <input type="hidden" value="${question.qesAnswer}" data-id="${question.qesIdx}">
+                                    <input type="hidden" value="${question.qesExp}" name="explanation">
                                 </div>
                             </div>
                         </div>
@@ -455,24 +456,8 @@
 
 
 
-                <div class="botton-menu">
-                    <button class="menu-item" onclick="location.href='problem'">
-                        <img src="http://edubuddy.dothome.co.kr/pic/book.svg" alt="문제 탐험대">
-                        <span>문제 탐험대</span>
-                    </button>
-                    <button class="menu-item" onclick="location.href='home'">
-                        <img src="http://edubuddy.dothome.co.kr/pic/ai1.svg" alt="AI 학습관">
-                        <span>AI 학습관</span>
-                    </button>
-                    <button class="menu-item" onclick="location.href='#dashboard'">
-                        <img src="http://edubuddy.dothome.co.kr/pic/ox.svg" alt="다시도전">
-                        <span>오답노트</span>
-                    </button>
-                    <button class="menu-item" onclick="location.href='learning'">
-                        <img src="http://edubuddy.dothome.co.kr/pic/status.svg" alt="학습여정">
-                        <span>학습여정</span>
-                    </button>
-                </div>
+                <jsp:include page="Menubar.jsp" />
+
             </div>
             <script>
                 function togglemark(button) {
@@ -564,8 +549,8 @@
                     // 정답 텍스트 가져오기 (qesAnswer 값에 해당하는 텍스트)
                     const correctAnswerText = currentQuestion.querySelector(`.choice-item[name="${'${correctAnswerValue}'}"]`).textContent.trim();
 
-
-
+                    const explanation = currentQuestion.querySelector('input[name="explanation"]').value || "해설 없음";
+                    
                     // 사용자가 선택한 답
                     const selectedAnswer = selectedAnswers[currentQuestionIndex] || "선택하지 않음";
                     // 팝업에 데이터 표시
@@ -574,7 +559,7 @@
                         <p><strong>정답:</strong>${'${correctAnswerText}'}</p>
                         <hr>
                         <p><strong>해설:</strong></p>
-                        <p>알아서 잘해요</p>
+                        <p>${'${explanation}'}</p>
                          `;
 
                     document.getElementById("popup").style.display = "block";
@@ -654,6 +639,8 @@
                         const selectedAnswerValue = selectedAnswerValues[index] || "선택하지 않음";
                         const selectedAnswerText = selectedAnswers[index] || "선택하지 않음";
 
+                        const markButton = question.querySelector('.mark-button');
+                        const questionFavorite = markButton && markButton.classList.contains('active') ? "Y" : "N";
                         // 각 문제의 데이터를 JSON으로 저장
                         const questionData = {
                             qesIndex: index + 1, // 문제 번호
@@ -662,6 +649,7 @@
                             corrAnswerText: correctAnswerText, // 정답 텍스트
                             selAnswerVal: selectedAnswerValue, // 사용자가 선택한 답의 번호
                             selAnswerText: selectedAnswerText, // 사용자가 선택한 답의 텍스트
+                            qesFav: questionFavorite 
                         };
 
                         allQuestionData.push(questionData); // 데이터 배열에 추가
