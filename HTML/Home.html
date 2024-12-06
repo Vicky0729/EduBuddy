@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EDU BUDDY</title>
+    <style>
+        @font-face {
+            font-family: 'NoonnuBasicGothicRegular';
+            src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noon-2410@1.0/NoonnuBasicGothicRegular.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            margin: 0;
+            background-color: white;
+        }
+
+        .Home-container {
+            width: 400px;
+            height: 92vh;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            padding: 22px 10px;
+            border: 2px solid #2c3e50;
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+            margin-top: 1px;
+        }
+
+        .header {
+            font-size: 20px;
+            font-weight: bold;
+            text-align: left;
+            padding: 20px;
+            background-color: #2c3e50;
+            color: white;
+            border-top-left-radius: 18px;
+            border-top-right-radius: 18px;
+            font-family: 'NoonnuBasicGothicRegular';
+            width: calc(100% + 30px);
+            box-sizing: border-box;
+            margin: 0;
+            position: relative;
+            top: -22px;
+            right: 11px;
+        }
+
+        .chat-container {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            padding-bottom: 10px;
+        }
+
+        .buddyChat {
+            background-color: #2c3e50;
+            padding: 23px;
+            border-radius: 10px;
+            font-size: 14px;
+            line-height: 1.4;
+            max-width: 70%;
+            text-align: left;
+            color: rgba(255, 255, 255, 0.792);
+            font-family: 'NoonnuBasicGothicRegular';
+        }
+
+        /* 채팅방형태 구현 */
+        .buddyChat::after {
+            content: "";
+            position: absolute;
+            left: 79px;
+            top: 140px;
+            border-width: 15px;
+            border-left: 35px;
+            border-bottom: 15px;
+            border-top: 8px;
+            border-style: solid;
+            border-color: transparent #2c3e50 transparent transparent
+        }
+
+        /* 캐릭터 이미지 크기 조절 */
+        .buddy {
+            width: 90px;
+            height: 90px;
+            margin-right: 5px;
+        }
+
+        /* 녹음,일시정지,중단 버튼 이미지 설정 */
+        .buttons-item img {
+            width: 50px;
+            height: 50px;
+            margin-bottom: 5px;
+            padding: 0 40px;
+        }
+
+        /* active 효과: 색 반전과 회전 */
+        .buttons-item img.active {
+            filter: invert(30%) sepia(250%) saturate(500%) hue-rotate(-60deg) brightness(100%) contrast(300%);
+        }
+
+        /* 녹음,일시정지,중단 버튼 글씨 조절 */
+        .buttons-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 12px;
+            color: black;
+            text-decoration: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            margin-top: 15px;
+            font-family: 'NoonnuBasicGothicRegular';
+        }
+
+        /* 녹음,일시정지,중단 버튼 위치설정 */
+        .recording-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 5px;
+        }
+
+
+        .recording-time {
+            text-align: center;
+            /* 중앙 정렬 */
+            font-size: 16px;
+            /* 글자 크기 조정 */
+            font-weight: bold;
+            color: red;
+            margin-top: -10px;
+            /* 버튼과 간격 조정 */
+            font-family: 'NoonnuBasicGothicRegular';
+            position: relative;
+            top: 10px;
+            /* 타이머 위치 조정 */
+        }
+
+        .upload-section {
+            display: flex;
+            flex-direction: column;
+            padding: 0 20px;
+        }
+
+        /* '링크로 온라인 강의 가져오기', '파일업로드' 라벨 위치크기 설정 */
+        .link-input label,
+        .file-upload-label {
+            display: block;
+            margin-top: 5px;
+            margin-bottom: 5px;
+            text-align: left;
+            font-size: 15px;
+            font-weight: bold;
+            font-family: 'NoonnuBasicGothicRegular';
+        }
+
+
+        /* '여기에 링크 주소 넣어줘 input' 설정 */
+        .link-input input {
+            padding: 15px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 13px;
+            margin-bottom: 10px;
+            font-family: 'NoonnuBasicGothicRegular';
+            width: calc(100% - 45px);
+            color: black;
+            text-align: center;
+        }
+
+        .uploadContainer {
+            padding: 7px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 13px;
+            margin-bottom: 10px;
+            font-family: 'NoonnuBasicGothicRegular';
+            width: 94%;
+            text-align: center;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* 파일 업로드 아이콘 */
+        .upload-icon {
+            width: 30px;
+            height: 30px;
+        }
+
+        /* '음성파일 불러오기' 버튼 위치 크기 설정 */
+        .link-input button {
+            width: 96%;
+            padding: 15px;
+            background-color: #2c3e50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 12px;
+            font-family: 'NoonnuBasicGothicRegular';
+            margin-bottom: 12px;
+        }
+
+        /* '파일 업로드' 버튼 설정 */
+        .upload-button button {
+            width: 98%;
+            padding: 15px;
+            background-color: #2c3e50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 12px;
+            font-family: 'NoonnuBasicGothicRegular';
+        }
+
+        /* 버튼 효과 설정 */
+        .link-input button:hover,
+        .upload-button button:hover {
+            background-color: #13202d;
+        }
+
+
+        .bottom-menu {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            width: 100%;
+            height: 70px;
+            background-color: #ffffff;
+            border-top: 1px solid black;
+            border-bottom-left-radius: 18px;
+            border-bottom-right-radius: 18px;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+        }
+
+        .menu-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 12px;
+            color: black;
+            text-decoration: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-family: 'NoonnuBasicGothicRegular';
+        }
+
+        .menu-item img {
+            width: 30px;
+            height: 30px;
+            margin-bottom: 5px;
+            transition: filter 0.2s ease;
+        }
+
+        .menu-item:hover img {
+            filter: invert(40%) sepia(100%) saturate(500%) hue-rotate(200deg) brightness(130%) contrast(150%);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="Home-container">
+        <div class="header">EDU BUDDY</div>
+
+        <div class="chat-container">
+            <img src="http://edubuddy.dothome.co.kr/pic/ailogo.png" class="buddy">
+            <div class="buddyChat">
+                <span>안녕~👋 내 이름은 Buddy</span><br>
+                <span>최신 "인공지능" 기능을 활용해서 앞으로</span><br>
+                <span>너의 공부를 도와줄 친구</span>
+            </div>
+        </div>
+
+        <div class="recording-time" id="recordingTime">00:00</div>
+        <div class="recording-buttons">
+            <button id="start" class="buttons-item" onclick="toggleEffect(this)">
+                <img src="http://edubuddy.dothome.co.kr/pic/btnrcod_1.png" alt="녹음 시작">
+                <span>녹음 시작</span>
+            </button>
+            <button id="pause" class="buttons-item" onclick="toggleEffect(this)">
+                <img src="http://edubuddy.dothome.co.kr/pic/btnPause_1.png" alt="일시 정지">
+                <span>일시 정지</span>
+            </button>
+            <button id="stop" class="buttons-item" onclick="toggleEffect(this)">
+                <img src="http://edubuddy.dothome.co.kr/pic/btnstop_1.png" alt="녹음 정지">
+                <span>녹음 정지</span>
+            </button>
+        </div>
+
+        <div class="upload-section">
+            <div class="link-input">
+                <label>링크 업로드</label>
+                <input type="text" value="여기에 링크 주소를 넣어줘" onfocus="clearText(this)"
+                    onblur="resetText(this, '여기에 링크 주소를 넣어줘')">
+                <button>음성파일 업로드</button>
+            </div>
+
+            <div class="file-upload">
+                <label class="file-upload-label">파일 업로드</label>
+                <div class="uploadContainer" id="uploadContainer" onclick="triggerFileUpload()">
+                    <img src="http://edubuddy.dothome.co.kr/pic/file_add.svg" alt="파일 업로드 이미지" class="upload-icon">
+                </div>
+                <div class="upload-button">
+                    <button>파일 업로드</button>
+                </div>
+                <!-- 숨겨진 파일 입력 필드 -->
+                <input type="file" id="fileInput" onchange="handleFileSelect(event)" style="display: none;">
+            </div>
+        </div>
+
+        <div class="bottom-menu">
+            <button class="menu-item" onclick="location.href='QuizMaker.html'">
+                <img src="http://edubuddy.dothome.co.kr/pic/book.svg" alt="문제 탐험대">
+                <span>문제 탐험대</span>
+            </button>
+            <button class="menu-item" onclick="location.href='Home.html'">
+                <img src="http://edubuddy.dothome.co.kr/pic/ai1.svg" alt="AI 학습관">
+                <span>AI 학습관</span>
+            </button>
+            <button class="menu-item" onclick="location.href='Review.html'">
+                <img src="http://edubuddy.dothome.co.kr/pic/ox.svg" alt="다시도전">
+                <span>오답노트</span>
+            </button>
+            <button class="menu-item" onclick="location.href='#learning'">
+                <img src="http://edubuddy.dothome.co.kr/pic/status.svg" alt="학습여정">
+                <span>학습여정</span>
+            </button>
+        </div>
+    </div>
+
+    <script>
+
+        let timer; // 타이머 변수
+        let seconds = 0; // 시간 카운터
+        let isPaused = false; // 일시정지 상태
+
+        // 타이머 업데이트
+        function updateTimer() {
+            const recordingTime = document.getElementById('recordingTime');
+            if (!recordingTime) return; // 요소가 없을 경우 안전하게 종료
+            seconds++;
+            const minutes = Math.floor(seconds / 60);
+            const remainingSeconds = seconds % 60;
+            recordingTime.textContent = `${String(minutes).padStart(2, '0')}:${String(remainingSeconds).padStart(2, '0')}`;
+        }
+
+        // 타이머 시작
+        function startTimer() {
+            if (!timer) {
+                timer = setInterval(updateTimer, 1000); // 1초마다 updateTimer 호출
+            }
+        }
+
+        // 타이머 정지
+        function stopTimer() {
+            clearInterval(timer);
+            timer = null;
+            seconds = 0; // 시간 초기화
+            const recordingTime = document.getElementById('recordingTime');
+            if (recordingTime) {
+                recordingTime.textContent = '00:00'; // 초기 시간 표시
+            }
+        }
+
+        // 타이머 일시 정지
+        function pauseTimer() {
+            clearInterval(timer);
+            timer = null;
+        }
+
+        // 버튼 상태 변경
+        function toggleEffect(button) {
+            const img = button.querySelector('img');
+            const buttonId = button.id;
+
+            // 녹음 정지 버튼 클릭 시 모든 버튼과 이미지를 초기화
+            if (buttonId === "stop") {
+                stopTimer(); // 타이머 정지
+                resetButtonColors(); // 모든 버튼과 이미지 초기화
+                return; // 초기화 후 함수 종료
+            }
+
+            // 버튼 색상 및 이미지 상태를 초기화
+            resetButtonColors();
+
+            if (buttonId === "start") {
+                startTimer(); // 타이머 시작
+                button.classList.add('active'); // 현재 버튼 활성화
+            } else if (buttonId === "pause") {
+                if (isPaused) {
+                    startTimer(); // 타이머 재개
+                    img.src = "http://edubuddy.dothome.co.kr/pic/btnPause_1.png"; // 원래 이미지
+                } else {
+                    pauseTimer(); // 타이머 멈춤
+                    img.src = "http://edubuddy.dothome.co.kr/pic/play.png"; // 변경된 이미지
+                }
+                isPaused = !isPaused; // 일시정지 상태 토글
+                button.classList.add('active'); // 현재 버튼 활성화
+            }
+
+            if (img) img.classList.add('active'); // 클릭된 버튼 이미지 활성화
+        }
+
+        // 모든 버튼의 활성화 효과 초기화
+        function resetButtonColors() {
+            document.querySelectorAll('.buttons-item img').forEach(image => {
+                image.classList.remove('active'); // 이미지 활성화 클래스 제거
+                // 이미지의 src를 초기값으로 설정 (필요 시 추가)
+                if (image.alt === "녹음 시작") {
+                    image.src = "http://edubuddy.dothome.co.kr/pic/btnrcod_1.png";
+                } else if (image.alt === "일시 정지") {
+                    image.src = "http://edubuddy.dothome.co.kr/pic/btnPause_1.png";
+                } else if (image.alt === "녹음 정지") {
+                    image.src = "http://edubuddy.dothome.co.kr/pic/btnstop_1.png";
+                }
+            });
+
+            document.querySelectorAll('.buttons-item').forEach(button => {
+                button.classList.remove('active'); // 버튼 활성화 클래스 제거
+            });
+        }
+
+        // 입력 창 초기화 함수
+        function clearText(input) {
+            if (input.value === input.defaultValue) {
+                input.value = "";
+            }
+        }
+
+        function resetText(input, defaultText) {
+            if (input.value === "") {
+                input.value = defaultText;
+            }
+        }
+
+        // 파일 등록 함수
+        function triggerFileUpload() {
+            const fileInput = document.getElementById('fileInput');
+            if (fileInput) {
+                fileInput.click();
+            }
+        }
+
+        function handleFileSelect(event) {
+            const fileInput = event.target;
+            const fileNameDisplay = document.getElementById("fileNameDisplay");
+
+            if (fileInput.files.length > 0) {
+                const fileName = fileInput.files[0].name; // 선택된 파일의 이름 가져오기
+                if (fileNameDisplay) {
+                    fileNameDisplay.textContent = fileName; // 파일명을 표시
+                }
+            } else {
+                if (fileNameDisplay) {
+                    fileNameDisplay.textContent = ""; // 파일이 없을 경우 파일명 표시 내용 초기화
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>
