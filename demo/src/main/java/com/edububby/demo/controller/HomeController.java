@@ -150,6 +150,16 @@ public class HomeController {
 
         return "StudentInfo";
     }
+
+    @GetMapping("/ProblemSolvingPage")
+    public String ProblemSolvingPage() {
+
+
+
+
+        return "ProblemSolving";
+    }
+    
     
 
     

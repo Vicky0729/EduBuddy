@@ -221,6 +221,12 @@
 
         <body>
 
+            <c:if test="${not empty errorMessage}">
+                <script>
+                    alert("${errorMessage}");
+                </script>
+            </c:if>
+
             <div class="checkAnswer-container">
                 <div class="header">EDU BUDDY</div>
 
@@ -261,7 +267,7 @@
 
                                 <td>
                                     <c:choose>
-                                        <c:when test="${question.corrAnswerVal == question.selAnswerVal}">
+                                        <c:when test="${question.corrAnswerYn == 'Y'}">
                                             O
                                         </c:when>
                                         <c:otherwise>
@@ -277,15 +283,15 @@
                 </table>
 
                 <!-- 버튼 -->
-            <div style="display: flex; justify-content: space-around; margin-top: 20px;">
-                <form action="Review" method="get">
-                    <button type="submit" class="result-button">오답노트 바로가기</button>
-                </form>
-             </div>
+                <div style="display: flex; justify-content: space-around; margin-top: 20px;">
+                    <form action="ReviewPage" method="get">
+                        <button type="submit" class="result-button">오답노트 바로가기</button>
+                    </form>
+                </div>
                 <div style="display: flex; justify-content: space-around; margin: 20px;">
                     <form action="NextLevel" method="get">
                         <button type="submit" class="result-button">다음 단계</button>
-                    </form>  
+                    </form>
                 </div>
 
                 <jsp:include page="Menubar.jsp" />
@@ -328,7 +334,7 @@
                             datasets: [
                                 {
                                     data: [correctCount, wrongCount],
-                                    backgroundColor: ["rgb(48, 48, 112)","rgb(187, 71, 71)"],
+                                    backgroundColor: ["rgb(48, 48, 112)", "rgb(187, 71, 71)"],
                                 },
                             ],
                         },
@@ -341,8 +347,8 @@
                             },
                         },
                     });
-                }); 
-               
+                });
+
             </script>
         </body>
 

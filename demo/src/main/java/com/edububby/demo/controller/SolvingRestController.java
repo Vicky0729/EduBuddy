@@ -32,18 +32,14 @@ public class SolvingRestController {
         Long uploadIdx = (Long)session.getAttribute("uploadIdx");
         String userId = (String)session.getAttribute("user");
 
-        int insertSuccess = solvingService.insertSolving(uploadIdx,userId,questions);
-        
-        if (insertSuccess>0) {
-            session.setAttribute("questions", questions);
-        }else{
 
-            System.out.println("insert fail");
-        }
-
+        System.out.println(questions);
+        solvingService.insertSolving(uploadIdx,userId,questions);
         
-
         
+      
+        session.setAttribute("questions", questions);
+
         
 
         

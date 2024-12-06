@@ -32,7 +32,7 @@
                 <img src="http://edubuddy.dothome.co.kr/pic/facebookLogo.png" alt="페이스북 로고">페이스북으로 시작하기
             </span>
         </button>
-        <button class="button phone" onclick="window.location.href='phonelogin'">
+        <button class="button phone" onclick="window.location.href='PhoneloginPage'">
             <span class="button-content">
                 <img src="http://edubuddy.dothome.co.kr/pic/PhoneLogo.png" alt="핸드폰 로고">기존 회원으로 시작하기
             </span>

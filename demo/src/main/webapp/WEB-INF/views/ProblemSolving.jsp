@@ -6,7 +6,7 @@
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>QuizMaker</title>
+            <title>Edubuddy</title>
         </head>
         <style>
             @font-face {
@@ -437,8 +437,10 @@
                             </div>
                         </div>
 
-                        
-        
+
+                       
+                           
+                      
                     </c:forEach>
                 </div>
 
@@ -460,7 +462,7 @@
                     </button>
                 </div>
 
-                
+
                 <!-- 팝업창 -->
                 <div class="popup-container" id="popup">
                     <div class="popup-header">해설</div>
@@ -659,18 +661,17 @@
                         const selectedAnswerValue = selectedAnswerValues[index] || "선택하지 않음";
                         const selectedAnswerText = selectedAnswers[index] || "선택하지 않음";
 
-                        const isCorrect = selectedAnswerValue === correctAnswerValue ? "Y" : "N";
-
-
                         const markButton = question.querySelector('.mark-button');
                         const questionFavorite = markButton && markButton.classList.contains('active') ? "Y" : "N";
                         // 각 문제의 데이터를 JSON으로 저장
                         const questionData = {
                             qesIndex: index + 1, // 문제 번호
                             qesIdx: questionId, // 문제 식별자
-                            corrAnswerYn : isCorrect,
+                            corrAnswerVal: correctAnswerValue, // 정답 번호
+                            corrAnswerText: correctAnswerText, // 정답 텍스트
+                            selAnswerVal: selectedAnswerValue, // 사용자가 선택한 답의 번호
+                            selAnswerText: selectedAnswerText, // 사용자가 선택한 답의 텍스트
                             qesFav: questionFavorite
-
                         };
 
                         allQuestionData.push(questionData); // 데이터 배열에 추가

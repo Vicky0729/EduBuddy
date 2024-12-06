@@ -35,15 +35,7 @@ public class SolvingController {
 
     }
 
-    @GetMapping("/ProblemSolved")
-    public String ProblemSolved(){
-
-
-
-
-
-        return new String();
-    }
+    
 
     
     

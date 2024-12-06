@@ -310,17 +310,18 @@
                 </div>
                 <div class="table-body">
 
-                <c:forEach var="qesCountList" items="${qesCountList}">
+                <c:forEach var="qesSolving" items="${questionList}">
                     <form action="" method="post">
                         <div class="table-row">
                             <div class="table-content">
                                 <span class="table-index">1.</span>
-                                <span>${qesCountList.qesType}</span>
+                                <span>${qesSolving.qesType}</span>
                             </div>
-                            <span class="table-problems">[ ${qesCountList.questionCount} ]문제</span>
+                            <span class="table-problems">[ ${qesSolving.wrongCnt} ]문제</span>
                             <button class="table-button">
                                 <img src="../pic/Click.png" alt="문제이동">
                             </button>
+                            <input type="hidden" value="${qesCountList.qesType}" name="qesType">
                         </div>
                     </form>
                 </c:forEach>

@@ -16,46 +16,38 @@ public class SolvingService {
     @Autowired
     SolvingRepository repo;
 
-    public int insertSolving(Long uploadIdx, String userId, List<Map<String, Object>> questions) {
-
-        int insertCount = 0;
-        System.out.println("service enter");
-
-        System.out.println(questions);
+    public void insertSolving(Long uploadIdx, String userId, List<Map<String, Object>> questions) {
 
         for (Map<String, Object> question : questions) {
 
             Long questionId = Long.parseLong(question.get("qesIdx").toString());
-            int corrAnswerVal = Integer.parseInt(question.get("corrAnswerVal").toString());
-            String corrAnswerText = question.get("corrAnswerText").toString();
-            int selAnswerVal = Integer.parseInt(question.get("selAnswerVal").toString());
-            String selAnswerText = question.get("selAnswerText").toString();
-            // "qesFav"의 값을 char로 변환
-            String favString = question.get("qesFav").toString(); // "qesFav"가 String으로 반환됨
-            char questionFav = favString != null && !favString.isEmpty() ? favString.charAt(0) : 'N';
+            char qesFav = question.get("qesFav").toString().charAt(0);
+            char corrAnswerYn = question.get("corrAnswerYn").toString().charAt(0);
 
-            // 정답 여부 판단
-            boolean isCorrect = corrAnswerVal == selAnswerVal;
+            // SolvingEntity 생성 또는 업데이트
+            Solving solving = repo.findByUserIdAndQesIdxAndUploadIdx(userId, questionId, uploadIdx)
+                    .orElse(new Solving()); // 존재하지 않으면 새로운 엔티티 생성
 
-            // SolvingEntity 생성
-            Solving solving = new Solving();
+            int wrongCnt = solving.getWrongCnt();
+            
+            if(corrAnswerYn != 'Y'){
+                wrongCnt++;
+            }
+
+            // 기존 값이 없으면 새로 설정
             solving.setUploadIdx(uploadIdx);
             solving.setUserId(userId);
             solving.setQesIdx(questionId);
-            solving.setCorrAnswerVal(corrAnswerVal);
-            solving.setCorrAnswerText(corrAnswerText);
-            solving.setSelAnswerVal(selAnswerVal);
-            solving.setSelAnswerText(selAnswerText);
-            solving.setCorrAnswerYn(isCorrect ? 'Y' : 'N');
-            solving.setSolvingDt(LocalDateTime.now()); // 현재 시간 설정 (추가)
-            solving.setSolvingFav(questionFav);
+            solving.setCorrAnswerYn(corrAnswerYn);
+            solving.setSolvingDt(LocalDateTime.now()); // 현재 시간 설정
+            solving.setSolvingFav(qesFav);
+            solving.setWrongCnt(wrongCnt);
 
-            // Repository를 통해 DB에 저장
+            // Repository를 통해 DB에 저장 (insert 또는 update)
             repo.save(solving);
-            insertCount++;
         }
 
-        return insertCount; // 삽입된 데이터 수 반환
+     // 삽입된 데이터 수 반환
     }
 
 }

@@ -27,20 +27,14 @@ public class Solving {
     private Long qesIdx;
     @Column(name="upload_idx")
     private Long uploadIdx;
-    @Column(name="corr_answer_val")
-    private int corrAnswerVal;
-    @Column(name="corr_answer_text")
-    private String corrAnswerText;
-    @Column(name="sel_answer_val")
-    private int selAnswerVal;
-    @Column(name="sel_answer_text")
-    private String selAnswerText;
     @Column(name="corr_answer_yn", nullable = false)
     private char corrAnswerYn;
     @Column(name="solving_dt")
     private LocalDateTime solvingDt;
     @Column(name="solving_fav")
     private char solvingFav;
+    @Column(name="wrong_cnt")
+    private int wrongCnt;
 
 
     
