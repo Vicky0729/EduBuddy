@@ -290,9 +290,13 @@
                 </div>
             </div>
 
-            <form action="ProblemSolved" method="get">
-                <input type="submit" value="방금 푼 문제">
-            </form>
+            
+            <c:if test="${not empty sessionScope.questions}">
+                <form action="ProblemSolved" method="get">  
+                    <input type="submit" value="방금 푼 문제">
+                </form>
+            </c:if>
+           
 
             <div class="category-tabs">
                 <button class="category-tab active">국어</button>
@@ -306,22 +310,24 @@
             <div class="table-container">
                 <div class="table-header">
                     <span>목차</span>
-                    <button onclick="">모든문제</button>
+                <form action="AllProblem" method="get">
+                    <button type="submit">모든문제</button>
+                </form>
                 </div>
                 <div class="table-body">
 
-                <c:forEach var="qesSolving" items="${questionList}">
-                    <form action="" method="post">
+                <c:forEach var="qesCountList" items="${qesCountList}" varStatus="status">
+                    <form action="TypeProblem" method="post">
                         <div class="table-row">
                             <div class="table-content">
-                                <span class="table-index">1.</span>
-                                <span>${qesSolving.qesType}</span>
+                                <span class="table-index">${status.count}</span>
+                                <span>${qesCountList.qesType}</span>
                             </div>
-                            <span class="table-problems">[ ${qesSolving.wrongCnt} ]문제</span>
+                            <span class="table-problems">[ ${qesCountList.questionCount} ]문제</span>
                             <button class="table-button">
                                 <img src="../pic/Click.png" alt="문제이동">
                             </button>
-                            <input type="hidden" value="${qesCountList.qesType}" name="qesType">
+                          <input type="hidden" name="qesIdxList" value="${qesCountList.qesIdxList}">
                         </div>
                     </form>
                 </c:forEach>

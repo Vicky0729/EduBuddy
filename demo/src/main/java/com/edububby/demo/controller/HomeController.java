@@ -1,6 +1,7 @@
 package com.edububby.demo.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.aspectj.weaver.patterns.TypePatternQuestions.Question;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.edububby.demo.dto.QuestionCountDTO;
 import com.edububby.demo.model.Upload;
 import com.edububby.demo.service.QuestionService;
+import com.edububby.demo.service.SolvingService;
 import com.edububby.demo.service.UploadService;
 import com.edububby.demo.service.UserService;
 
@@ -35,7 +37,8 @@ public class HomeController {
     @Autowired
     QuestionService questionService;
 
-
+    @Autowired
+    SolvingService solvingService;
 
     
 
@@ -75,8 +78,8 @@ public class HomeController {
 
         String userId = (String)session.getAttribute("user");
 
-        List<QuestionCountDTO> qesCountList = questionService.getQuestionCountsByUserId(userId);
-
+        List<QuestionCountDTO> qesCountList = questionService.findQuestionCountWithQesIdxByUserId(userId);
+        System.out.println(qesCountList);
         model.addAttribute("qesCountList", qesCountList);
 
 
@@ -85,7 +88,14 @@ public class HomeController {
 
 
     @GetMapping("/DashBoardPage")
-    public String DashBoard() {
+    public String DashBoard(HttpSession session,Model model) {
+
+        String userId = (String)session.getAttribute("user");
+        
+        int correctNumber  = solvingService.correctNumber(userId);
+
+        model.addAttribute("correctNumber", correctNumber);
+
 
 
         return "DashBoard";
@@ -101,9 +111,12 @@ public class HomeController {
         return "QuizMaker";
     }
     @GetMapping("/CheckAnswerPage")
-    public String CheckAnswerPage(){
+    public String CheckAnswerPage(@RequestParam(value = "from", required = false) String from,HttpSession session, Model model){
 
-
+        List<Map<String, Object>> questions = (List<Map<String, Object>>) session.getAttribute("questions");
+        model.addAttribute("from", from);
+        model.addAttribute("questions", questions);
+       
 
 
         return "CheckAnswer";

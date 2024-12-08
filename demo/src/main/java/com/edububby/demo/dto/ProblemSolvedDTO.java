@@ -10,7 +10,7 @@ import lombok.Data;
 public class ProblemSolvedDTO {
 
 
-    private Long qesIdx;         // 문제 식별자
+    private Long qesIdx;         // 문제 ID
     private String qesType;      // 문제 유형
     private String qesContent;   // 문제 내용
     private String qesAnswer;    // 정답
@@ -22,8 +22,10 @@ public class ProblemSolvedDTO {
     private String qesSel4;      // 선택지 4
     private String qesSel5;      // 선택지 5
     private String qesExp;       // 해설
-    private int wrongCnt;       // 틀린 횟수
+    private Integer wrongCnt;    // 틀린 횟수
 
+
+  
 
 
 

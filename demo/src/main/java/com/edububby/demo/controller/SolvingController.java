@@ -21,19 +21,7 @@ public class SolvingController {
 
 
 
-     @GetMapping("/CheckAnswer")
-    public String CheckAnswerPage(HttpSession session,Model model) {
-       
-        List<Map<String, Object>> questions = (List<Map<String, Object>>) session.getAttribute("questions");
-
-        System.out.println(questions); // 데이터 출력
-
-        model.addAttribute("questions", questions);
-
-
-        return "redirect:/CheckAnswerPage";
-
-    }
+     
 
     
 

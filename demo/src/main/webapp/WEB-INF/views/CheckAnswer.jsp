@@ -288,11 +288,13 @@
                         <button type="submit" class="result-button">오답노트 바로가기</button>
                     </form>
                 </div>
+            <c:if test="${from == 'QuizMaker'}">
                 <div style="display: flex; justify-content: space-around; margin: 20px;">
                     <form action="NextLevel" method="get">
                         <button type="submit" class="result-button">다음 단계</button>
                     </form>
                 </div>
+            </c:if>
 
                 <jsp:include page="Menubar.jsp" />
 

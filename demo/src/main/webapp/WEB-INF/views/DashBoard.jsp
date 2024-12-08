@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -450,7 +451,7 @@
 
                 <div class="catelog">
                     <h2>몇 문제 풀었지?</h2>
-                    <p><strong>35</strong> 문제</p>
+                    <p><strong>${correctNumber}</strong> 문제</p>
                     <div class="keywords">
                         <span>여태까지</span>
                     </div>

@@ -18,6 +18,7 @@ public class SolvingService {
 
     public void insertSolving(Long uploadIdx, String userId, List<Map<String, Object>> questions) {
 
+       
         for (Map<String, Object> question : questions) {
 
             Long questionId = Long.parseLong(question.get("qesIdx").toString());
@@ -44,10 +45,49 @@ public class SolvingService {
             solving.setWrongCnt(wrongCnt);
 
             // Repository를 통해 DB에 저장 (insert 또는 update)
-            repo.save(solving);
+           repo.save(solving);
+           
         }
 
+       
      // 삽입된 데이터 수 반환
     }
+
+    public void updateSolving(String userId,List<Map<String, Object>> questions){
+
+        for (Map<String, Object> question : questions) {
+
+            Long questionId = Long.parseLong(question.get("qesIdx").toString());
+            char qesFav = question.get("qesFav").toString().charAt(0);
+            char corrAnswerYn = question.get("corrAnswerYn").toString().charAt(0);
+
+            Solving solving = repo.findByUserIdAndQesIdx(userId,questionId).orElse(new Solving());
+
+            int wrongCnt = solving.getWrongCnt();
+
+            if(corrAnswerYn != 'Y'){
+                wrongCnt++;
+            }
+
+            solving.setCorrAnswerYn(corrAnswerYn);
+            solving.setSolvingDt(LocalDateTime.now()); // 현재 시간 설정
+            solving.setSolvingFav(qesFav);
+            solving.setWrongCnt(wrongCnt);
+
+
+            repo.save(solving);
+
+
+        }
+
+
+    }
+
+    public int correctNumber(String userId){
+
+
+        return repo.countCorrectAnswersByUserId(userId);
+    }
+    
 
 }

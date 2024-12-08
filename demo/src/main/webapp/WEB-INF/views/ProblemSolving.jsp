@@ -391,13 +391,13 @@
                                     <span class="difficulty-label">난이도 : </span>
                                     <button id="current-difficulty" class="dropdown-button">
                                         <c:choose>
-                                            <c:when test="${difficulty == 1}">
+                                            <c:when test="${question.qesLevel == 1}">
                                                 개념
                                             </c:when>
-                                            <c:when test="${difficulty == 2}">
+                                            <c:when test="${question.qesLevel == 2}">
                                                 중급
                                             </c:when>
-                                            <c:when test="${difficulty == 3}">
+                                            <c:when test="${question.qesLevel == 3}">
                                                 심화
                                             </c:when>
                                             <c:otherwise>
@@ -433,8 +433,11 @@
                                     <div class="choice-item" name="5">${question.qesSel5}</div>
                                     <input type="hidden" value="${question.qesAnswer}" data-id="${question.qesIdx}">
                                     <input type="hidden" value="${question.qesExp}" name="explanation">
+
                                 </div>
+                                
                             </div>
+                            <div>틀린횟수:${question.wrongCnt}</div>
                         </div>
 
 
@@ -601,7 +604,7 @@
 
 
                     // JSON 데이터를 POST 요청으로 서버에 전달
-                    fetch('userQuizData', {
+                    fetch('TypeQuizData', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
@@ -610,7 +613,7 @@
                     })
                         .then(response => {
                             if (response.ok) {
-                                window.location.href = 'CheckAnswer';
+                                window.location.href = 'CheckAnswerPage?from=ProblemSolving';
                             } else {
                                 // 오류 처리 (필요시)
                                 console.error('Failed to send data to the server.');
@@ -661,17 +664,18 @@
                         const selectedAnswerValue = selectedAnswerValues[index] || "선택하지 않음";
                         const selectedAnswerText = selectedAnswers[index] || "선택하지 않음";
 
+                        const isCorrect = selectedAnswerValue === correctAnswerValue ? "Y" : "N";
+
+
                         const markButton = question.querySelector('.mark-button');
                         const questionFavorite = markButton && markButton.classList.contains('active') ? "Y" : "N";
                         // 각 문제의 데이터를 JSON으로 저장
                         const questionData = {
                             qesIndex: index + 1, // 문제 번호
                             qesIdx: questionId, // 문제 식별자
-                            corrAnswerVal: correctAnswerValue, // 정답 번호
-                            corrAnswerText: correctAnswerText, // 정답 텍스트
-                            selAnswerVal: selectedAnswerValue, // 사용자가 선택한 답의 번호
-                            selAnswerText: selectedAnswerText, // 사용자가 선택한 답의 텍스트
+                            corrAnswerYn : isCorrect,
                             qesFav: questionFavorite
+
                         };
 
                         allQuestionData.push(questionData); // 데이터 배열에 추가

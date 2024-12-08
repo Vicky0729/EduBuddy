@@ -608,7 +608,7 @@
                     })
                         .then(response => {
                             if (response.ok) {
-                                window.location.href = 'CheckAnswer';
+                                window.location.href = 'CheckAnswerPage?from=QuizMaker';
                             } else {
                                 // 오류 처리 (필요시)
                                 console.error('Failed to send data to the server.');

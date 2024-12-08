@@ -21,7 +21,8 @@ public interface QuestionRepository extends JpaRepository<QuestionBank, Long> {
     @Query(value = """
             SELECT
                 qb.qes_type AS qesType,
-                COUNT(DISTINCT s.qes_idx) AS questionCount
+                COUNT(DISTINCT s.qes_idx) AS questionCount,
+                GROUP_CONCAT(DISTINCT s.qes_idx) AS qesIdxList
             FROM
                 tb_solving s
             JOIN
@@ -35,23 +36,33 @@ public interface QuestionRepository extends JpaRepository<QuestionBank, Long> {
                 qb.qes_type
             LIMIT 0, 1000
             """, nativeQuery = true)
-    public List<Object[]> findQuestionCountByUserId(String userId);
+    public List<Object[]> findQuestionCountWithQesIdxByUserId(String userId);
 
 
 
+    @Query("SELECT new com.edububby.demo.dto.ProblemSolvedDTO(" +
+           "qb.qesIdx, qb.qesType, qb.qesContent, qb.qesAnswer, qb.qesDt, qb.qesLevel, " +
+           "qb.qesSel1, qb.qesSel2, qb.qesSel3, qb.qesSel4, qb.qesSel5, qb.qesExp, " +
+           "s.wrongCnt) " +
+           "FROM QuestionBank qb " +
+           "LEFT JOIN Solving s ON qb.qesIdx = s.qesIdx AND s.userId = :userId " +
+           "WHERE qb.qesIdx IN :qesIdxList")
+    public List<ProblemSolvedDTO> ProblemSolved(@Param("qesIdxList") List<Long> qesIdxList,@Param("userId") String userId);
 
-
-    @Query("SELECT new com.edubuddy.demo.dto.ProblemSolvedDTO(" +
-    "qb.qesIdx, qb.qesType, qb.qesContent, qb.qesAnswer, qb.qesDt, qb.qesLevel, " +
-    "qb.qesSel1, qb.qesSel2, qb.qesSel3, qb.qesSel4, qb.qesSel5, qb.qesExp, " +
-    "COUNT(CASE WHEN s.corrAnswerYn = 'N' THEN 1 END)) " +
-    "FROM QuestionBank qb " +
-    "LEFT JOIN Solving s ON qb.qesIdx = s.qesIdx " +
-    "WHERE qb.qesIdx IN :qesIdxList " +
-    "  AND s.userId = :userId " +
-    "  AND (s.corrAnswerYn = 'N' OR s.solvingFav = 'Y') " +
-    "GROUP BY qb.qesIdx, qb.qesType, qb.qesContent, qb.qesAnswer, qb.qesDt, qb.qesLevel, " +
-    "qb.qesSel1, qb.qesSel2, qb.qesSel3, qb.qesSel4, qb.qesSel5, qb.qesExp")
-List<ProblemSolvedDTO> ProblemSolved(@Param("qesIdxList") List<Long> qesIdxList,
-                                               @Param("userId") String userId);
+    
+    
+    @Query("""
+            SELECT new com.edububby.demo.dto.ProblemSolvedDTO(
+                qb.qesIdx, qb.qesType, qb.qesContent, qb.qesAnswer, qb.qesDt, qb.qesLevel,
+                qb.qesSel1, qb.qesSel2, qb.qesSel3, qb.qesSel4, qb.qesSel5, qb.qesExp,
+                s.wrongCnt
+            )
+            FROM QuestionBank qb
+            JOIN Solving s ON qb.qesIdx = s.qesIdx
+            WHERE s.userId = :userId
+              AND (s.corrAnswerYn = 'N' OR s.solvingFav = 'Y')
+            """)
+    List<ProblemSolvedDTO> findProblemsByUserId(@Param("userId") String userId);
+    
+   
 }
