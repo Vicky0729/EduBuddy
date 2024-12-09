@@ -1,151 +1,208 @@
+@font-face {
+    font-family: 'NoonnuBasicGothicRegular';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noon-2410@1.0/NoonnuBasicGothicRegular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
 
-        @font-face {
-            font-family: 'NoonnuBasicGothicRegular';
-            src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noon-2410@1.0/NoonnuBasicGothicRegular.woff2') format('woff2');
-            font-weight: normal;
-            font-style: normal;
-        }
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    margin: 0;
+    background-color: white;
+}
 
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 95vh;
-            margin: 15px;
-            background-color: white;
-        }
+.Join-container {
+    width: 400px;
+    height: 93vh;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    padding: 22px 10px;
+    border: 2px solid #2c3e50;
+    border-radius: 20px;
+    position: relative;
+    overflow: hidden;
+    margin-top: 2px;
+}
 
-        .buddy {
-            width: 120px;
-            height: 150px;
-            float: right;
-            transform: scaleX(-1);
-            margin-top: 80px;
-        }
+.contents {
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-bottom: 80px;
+    scrollbar-width: none;
+}
 
-        .IdInfo-container {
-            width: 370px;
-            height: 620px;
-            background-color: white;
-            border-radius: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            padding: 20px;
-            margin-top: 5px;
-            margin-bottom: 5px;
-            border: 2px solid rgb(102, 196, 196);
-        }
+.buddy {
+    width: 150px;
+    height: 150px;
+    float: right;
+    transform: scaleX(-1);
+}
 
-        .buddyChat {
-            background-color: rgb(102, 196, 196);;
-            padding: 13px;
-            border-radius: 10px;
-            font-size: 14px;
-            margin-top: 25px;
-            float: left;
-            font-family: 'NoonnuBasicGothicRegular';
-            position: relative;
-            max-width: 70%;
-            text-align: left;
-            line-height: 1.4;
-            max-width: 80%;
-            margin-left: auto;
-        }
+.buddyChat {
+    background-color: #2c3e50;
+    padding: 20px 13px;
+    border-radius: 10px;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.792);
+    float: left;
+    position: relative;
+    text-align: left;
+    line-height: 1.5;
+    max-width: 100%;
+    margin-left: auto;
+    font-family: 'NoonnuBasicGothicRegular';
+}
 
-        .buddyChat::after {
-            content: "";
-            position: absolute;
-            right: -22px;
-            border-width: 10px;
-            border-left: 20px;
-            border-style: solid;
-            border-color: transparent transparent transparent rgb(102, 196, 196);
-        }
+.buddyChat::after {
+    content: "";
+    position: absolute;
+    right: -22px;
+    border-width: 10px;
+    border-left: 20px;
+    border-style: solid;
+    border-color: transparent transparent transparent #2c3e50;
+}
 
-        .Id {
-            margin-top: 230px;
-            text-align: left;
-            width: 100%;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
+.E-mail label {
+    display: block;
+    text-align: left;
+    width: 100%;
+    margin-top: 150px;
+    margin-bottom: 8px;
+    padding-left: 9px;
+    font-size: 15px;
+    font-weight: bold;
+    font-family: 'NoonnuBasicGothicRegular';
+}
 
-        .Id label {
-            display: block;
-            padding-left: 9px;
-            margin-top: 40px;
-            width: 100%;
-            text-align: left;
-            font-weight: bold;
-            font-family: 'NoonnuBasicGothicRegular';
-        }
+.info-button {
+    margin-top: 10px;
+    width: 30%;
+    padding: 10px;
+    font-size: 16px;
+    background-color: #2c3e50;
+    color: rgba(255, 255, 255, 0.792);
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-family: 'NoonnuBasicGothicRegular';
+    font-weight: bold;
+}
 
-        .Id input{
-            width: calc(100% - 50px);
-            padding: 15px;
-            margin-top: 20px;
-            border-radius: 7px;
-            border: 1px solid #ccc;
-            color: rgba(0, 0, 0, 0.5);
-            font-family: 'NoonnuBasicGothicRegular';
-        }
+.Password label {
+    display: block;
+    padding-left: 9px;
+    margin-top: 15px;
+    width: 100%;
+    text-align: left;
+    font-weight: bold;
+    font-family: 'NoonnuBasicGothicRegular';
+}
 
-        .Password label {
-            display: block;
-            padding-left: 9px;
-            margin-top: 30px;
-            width: 100%;
-            text-align: left;
-            font-weight: bold;
-            font-family: 'NoonnuBasicGothicRegular';
-        }
+.Name label {
+    display: block;
+    padding-left: 9px;
+    margin-top: 15px;
+    width: 100%;
+    text-align: left;
+    font-weight: bold;
+    font-family: 'NoonnuBasicGothicRegular';
+}
 
-        .Password input {
-            width: calc(100% - 50px);
-            padding: 15px;
-            margin-top: 15px;
-            border-radius: 7px;
-            border: 1px solid #ccc;
-            color: rgba(0, 0, 0, 0.5);
-            font-family: 'NoonnuBasicGothicRegular';
-        }
+.Phone label {
+    display: block;
+    padding-left: 9px;
+    margin-top: 15px;
+    width: 100%;
+    text-align: left;
+    font-weight: bold;
+    font-family: 'NoonnuBasicGothicRegular';
+}
 
-        .Phone label {
-            display: block;
-            padding-left: 9px;
-            margin-top: 30px;
-            width: 100%;
-            text-align: left;
-            font-weight: bold;
-            font-family: 'NoonnuBasicGothicRegular';
-        }
+.birth label {
+    display: block;
+    padding-left: 9px;
+    margin-top: 15px;
+    width: 100%;
+    text-align: left;
+    font-weight: bold;
+    font-family: 'NoonnuBasicGothicRegular';
+}
 
-        .Phone input {
-            width: calc(100% - 50px);
-            padding: 15px;
-            margin-top: 10px;
-            border-radius: 7px;
-            border: 1px solid #ccc;
-            color: rgba(0, 0, 0, 0.5);
-            font-family: 'NoonnuBasicGothicRegular';
-        }
+.E-mail input {
+    width: calc(100% - 50px);
+    padding: 15px;
+    margin-top: 5px;
+    border-radius: 7px;
+    border: 1px solid #ccc;
+    color: rgba(0, 0, 0, 0.5);
+    font-family: 'NoonnuBasicGothicRegular';
+    margin-left: 3px;
+}
 
-        .submit-button {
-            margin-top: 25px;
-            width: 95%;
-            padding: 10px;
-            font-size: 16px;
-            background-color: rgb(102, 196, 196);
-            color: black;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            font-family: 'NoonnuBasicGothicRegular';
-            font-weight: bold;
-            /* margin-left: 70%; */
-        }
+.Password input {
+    width: calc(100% - 50px);
+    padding: 15px;
+    margin-top: 5px;
+    border-radius: 7px;
+    border: 1px solid #ccc;
+    color: rgba(0, 0, 0, 0.5);
+    font-family: 'NoonnuBasicGothicRegular';
+}
 
-        .submit-button:hover {
-            background-color: rgb(102, 196, 196);
-        }
-   
+.Name input {
+    width: calc(100% - 50px);
+    padding: 15px;
+    margin-top: 5px;
+    border-radius: 7px;
+    border: 1px solid #ccc;
+    color: rgba(0, 0, 0, 0.5);
+    font-family: 'NoonnuBasicGothicRegular';
+}
+
+.birth input {
+    width: calc(100% - 50px);
+    padding: 15px;
+    margin-top: 5px;
+    border-radius: 7px;
+    border: 1px solid #ccc;
+    color: rgba(0, 0, 0, 0.5);
+    font-family: 'NoonnuBasicGothicRegular';
+}
+
+.Phone input {
+    width: calc(100% - 50px);
+    padding: 15px;
+    margin-top: 7px;
+    border-radius: 7px;
+    border: 1px solid #ccc;
+    color: rgba(0, 0, 0, 0.5);
+    font-family: 'NoonnuBasicGothicRegular';
+}
+
+.submit-button {
+    margin-top: 25px;
+    width: 95%;
+    padding: 20px;
+    font-size: 16px;
+    background-color: #2c3e50;
+    color: rgba(255, 255, 255, 0.792);
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-family: 'NoonnuBasicGothicRegular';
+    font-weight: bold;
+}
+
+.submit-button:hover {
+    background-color: rgb(115, 173, 173);
+}
+
+.info-button:hover {
+    background-color: rgb(115, 173, 173);
+}
