@@ -32,6 +32,7 @@ public class AudioRestController {
 
     @PostMapping("/upload-audio")
     public String uploadAudio(@RequestParam("file") MultipartFile file, Model model,Upload upload,HttpSession session) throws IOException {
+        
         System.out.println("오디오 서비스 도착");
         //파이썬에서 텍스트화된 데이터 받아오기 
         String transcriptionText = audioService.transcribeAudio(file);
