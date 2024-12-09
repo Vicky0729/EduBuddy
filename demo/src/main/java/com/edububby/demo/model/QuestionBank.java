@@ -15,7 +15,6 @@ public class QuestionBank {
 
     @Id
     @Column(name="qes_idx")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long qesIdx;
     @Column(name="qes_type")
     private String qesType;
@@ -27,8 +26,6 @@ public class QuestionBank {
     private String qesDt;
     @Column(name="qes_level")
     private int qesLevel;
-    @Column(name="qes_mapping")
-    private int qesMapping;
     @Column(name="qes_sel1")
     private String qesSel1;
     @Column(name="qes_sel2")
@@ -39,7 +36,8 @@ public class QuestionBank {
     private String qesSel4;
     @Column(name="qes_sel5")
     private String qesSel5;
-
+    @Column(name="qes_exp")
+    private String qesExp;
 
 
 

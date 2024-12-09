@@ -12,6 +12,12 @@
 
         <body>
 
+            <c:if test="${not empty errorMessage}">
+                <script>
+                    alert("${errorMessage}");
+                </script>
+            </c:if>
+
             <div class="checkAnswer-container">
                 <div class="header">EDU BUDDY</div>
 
@@ -52,7 +58,7 @@
 
                                 <td>
                                     <c:choose>
-                                        <c:when test="${question.corrAnswerVal == question.selAnswerVal}">
+                                        <c:when test="${question.corrAnswerYn == 'Y'}">
                                             O
                                         </c:when>
                                         <c:otherwise>
@@ -69,30 +75,20 @@
 
                 <!-- 버튼 -->
                 <div style="display: flex; justify-content: space-around; margin-top: 20px;">
-                    <button class="result-button" onclick="goToNote()">오답노트 바로가기</button>
+                    <form action="ReviewPage" method="get">
+                        <button type="submit" class="result-button">오답노트 바로가기</button>
+                    </form>
                 </div>
+            <c:if test="${from == 'QuizMaker'}">
                 <div style="display: flex; justify-content: space-around; margin: 20px;">
-                    <button class="result-button" onclick="nextStage()">다음 단계</button>
+                    <form action="NextLevel" method="get">
+                        <button type="submit" class="result-button">다음 단계</button>
+                    </form>
                 </div>
+            </c:if>
 
-                <div class="botton-menu">
-                    <button class="menu-item" onclick="location.href='#problem'">
-                        <img src="http://edubuddy.dothome.co.kr/pic/book.svg" alt="문제 탐험대">
-                        <span>문제 탐험대</span>
-                    </button>
-                    <button class="menu-item" onclick="location.href='#home'">
-                        <img src="http://edubuddy.dothome.co.kr/pic/ai1.svg" alt="AI 학습관">
-                        <span>AI 학습관</span>
-                    </button>
-                    <button class="menu-item" onclick="location.href='#dashboard'">
-                        <img src="http://edubuddy.dothome.co.kr/pic/ox.svg" alt="다시도전">
-                        <span>오답노트</span>
-                    </button>
-                    <button class="menu-item" onclick="location.href='#learning'">
-                        <img src="http://edubuddy.dothome.co.kr/pic/status.svg" alt="학습여정">
-                        <span>학습여정</span>
-                    </button>
-                </div>
+                <jsp:include page="Menubar.jsp" />
+
             </div>
 
             <script src="/js/CheckAnswer.js"></script>

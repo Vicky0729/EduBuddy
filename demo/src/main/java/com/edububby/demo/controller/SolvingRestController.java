@@ -1,15 +1,18 @@
 package com.edububby.demo.controller;
 
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.edububby.demo.service.SolvingService;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -23,34 +26,40 @@ public class SolvingRestController {
 
 
     @PostMapping("/userQuizData")
-    public String userQuizData(@RequestBody Map<String, Object> payload,HttpSession session) {
+    public ResponseEntity<?> userQuizData(@RequestBody Map<String, Object> payload,HttpSession session,HttpServletRequest request) {
 
 
+        System.out.println("userQuizData도착");
         
 
         List<Map<String, Object>> questions = (List<Map<String, Object>>) payload.get("questions");
         Long uploadIdx = (Long)session.getAttribute("uploadIdx");
         String userId = (String)session.getAttribute("user");
 
-        int insertSuccess = solvingService.insertSolving(uploadIdx,userId,questions);
-        
-        if (insertSuccess>0) {
-            session.setAttribute("questions", questions);
-        }else{
 
-            System.out.println("insert fail");
-        }
-
+        System.out.println(questions);
         
-
+        solvingService.insertSolving(uploadIdx,userId,questions);
         
         
-
-        
-        return "redirect:/CheckAnswer";
+        session.setAttribute("questions", questions);
+       
+        return ResponseEntity.ok("Success");
     }
    
-    
+    @PostMapping("/TypeQuizData")
+    public ResponseEntity<?> TypeQuizData(@RequestBody Map<String, Object> payload,HttpSession session){
+
+        List<Map<String, Object>> questions = (List<Map<String, Object>>) payload.get("questions");
+        String userId = (String)session.getAttribute("user");
+
+        solvingService.updateSolving(userId,questions);
+
+        session.setAttribute("questions", questions);
+
+
+        return ResponseEntity.ok("Success");
+    }
 
 
 

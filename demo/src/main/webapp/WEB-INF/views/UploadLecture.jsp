@@ -67,24 +67,8 @@
                     </c:forEach>
                 </div>
 
-                <div class="bottom-menu">
-                    <button class="menu-item" onclick="location.href='Problem'">
-                        <img src="http://edubuddy.dothome.co.kr/pic/book.svg" alt="문제 탐험대">
-                        <span>문제 탐험대</span>
-                    </button>
-                    <button class="menu-item" onclick="location.href='Home'">
-                        <img src="http://edubuddy.dothome.co.kr/pic/ai1.svg" alt="AI 학습관">
-                        <span>AI 학습관</span>
-                    </button>
-                    <button class="menu-item" onclick="location.href='#dashboard'">
-                        <img src="http://edubuddy.dothome.co.kr/pic/ox.svg" alt="다시도전">
-                        <span>오답노트</span>
-                    </button>
-                    <button class="menu-item" onclick="location.href='#learning'">
-                        <img src="http://edubuddy.dothome.co.kr/pic/status.svg" alt="학습여정">
-                        <span>학습여정</span>
-                    </button>
-                </div>
+                <jsp:include page="Menubar.jsp" />
+
             </div>
 
             <script src="/js/UploadLecture.js"></script>

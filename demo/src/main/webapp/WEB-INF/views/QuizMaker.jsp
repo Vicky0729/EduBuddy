@@ -22,7 +22,22 @@
                                 <div class="left-section">문제 ${status.count}</div>
                                 <div class="right-section">
                                     <span class="difficulty-label">난이도 : </span>
-                                    <button id="current-difficulty" class="dropdown-button">${difficulty}</button>
+                                    <button id="current-difficulty" class="dropdown-button">
+                                        <c:choose>
+                                            <c:when test="${difficulty == 1}">
+                                                개념
+                                            </c:when>
+                                            <c:when test="${difficulty == 2}">
+                                                중급
+                                            </c:when>
+                                            <c:when test="${difficulty == 3}">
+                                                심화
+                                            </c:when>
+                                            <c:otherwise>
+                                                알 수 없음
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </button>
                                 </div>
                                 <button class="mark-button" onclick="togglemark(this)">
                                     <img src="http://edubuddy.dothome.co.kr/pic/saveB.svg" alt="찜버튼">
@@ -50,9 +65,13 @@
                                     <div class="choice-item" name="4">${question.qesSel4}</div>
                                     <div class="choice-item" name="5">${question.qesSel5}</div>
                                     <input type="hidden" value="${question.qesAnswer}" data-id="${question.qesIdx}">
+                                    <input type="hidden" value="${question.qesExp}" name="explanation">
                                 </div>
                             </div>
                         </div>
+
+                        
+        
                     </c:forEach>
                 </div>
 
@@ -74,6 +93,7 @@
                     </button>
                 </div>
 
+                
                 <!-- 팝업창 -->
                 <div class="popup-container" id="popup">
                     <div class="popup-header">해설</div>
@@ -88,24 +108,8 @@
 
 
 
-                <div class="botton-menu">
-                    <button class="menu-item" onclick="location.href='problem'">
-                        <img src="http://edubuddy.dothome.co.kr/pic/book.svg" alt="문제 탐험대">
-                        <span>문제 탐험대</span>
-                    </button>
-                    <button class="menu-item" onclick="location.href='home'">
-                        <img src="http://edubuddy.dothome.co.kr/pic/ai1.svg" alt="AI 학습관">
-                        <span>AI 학습관</span>
-                    </button>
-                    <button class="menu-item" onclick="location.href='#dashboard'">
-                        <img src="http://edubuddy.dothome.co.kr/pic/ox.svg" alt="다시도전">
-                        <span>오답노트</span>
-                    </button>
-                    <button class="menu-item" onclick="location.href='learning'">
-                        <img src="http://edubuddy.dothome.co.kr/pic/status.svg" alt="학습여정">
-                        <span>학습여정</span>
-                    </button>
-                </div>
+                <jsp:include page="Menubar.jsp" />
+
             </div>
             <script src="/js/QuizMaker.js"></script>
         </body>

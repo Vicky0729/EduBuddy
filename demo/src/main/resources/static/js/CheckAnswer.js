@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
             datasets: [
                 {
                     data: [correctCount, wrongCount],
-                    backgroundColor: ["rgb(48, 48, 112)","rgb(187, 71, 71)"],
+                    backgroundColor: ["rgb(48, 48, 112)", "rgb(187, 71, 71)"],
                 },
             ],
         },
@@ -45,12 +45,4 @@ document.addEventListener("DOMContentLoaded", () => {
             },
         },
     });
-}); 
-// 오답노트로 이동
-function goToNote() {
-    location.href = "";
-}
-// 다음 단계로 이동 
-function nextStage() {
-    location.href = "";
-}
+});

@@ -13,55 +13,81 @@ import com.edububby.demo.repo.SolvingRepository;
 @Service
 public class SolvingService {
 
-
     @Autowired
     SolvingRepository repo;
 
-    public int insertSolving(Long uploadIdx,String userId,List<Map<String, Object>> questions){
+    public void insertSolving(Long uploadIdx, String userId, List<Map<String, Object>> questions) {
 
-        int insertCount = 0;
-        System.out.println("service enter");
-        
-        System.out.println(questions);
+       
+        for (Map<String, Object> question : questions) {
+
+            Long questionId = Long.parseLong(question.get("qesIdx").toString());
+            char qesFav = question.get("qesFav").toString().charAt(0);
+            char corrAnswerYn = question.get("corrAnswerYn").toString().charAt(0);
+
+            // SolvingEntity 생성 또는 업데이트
+            Solving solving = repo.findByUserIdAndQesIdxAndUploadIdx(userId, questionId, uploadIdx)
+                    .orElse(new Solving()); // 존재하지 않으면 새로운 엔티티 생성
+
+            int wrongCnt = solving.getWrongCnt();
+            
+            if(corrAnswerYn != 'Y'){
+                wrongCnt++;
+            }
+
+            // 기존 값이 없으면 새로 설정
+            solving.setUploadIdx(uploadIdx);
+            solving.setUserId(userId);
+            solving.setQesIdx(questionId);
+            solving.setCorrAnswerYn(corrAnswerYn);
+            solving.setSolvingDt(LocalDateTime.now()); // 현재 시간 설정
+            solving.setSolvingFav(qesFav);
+            solving.setWrongCnt(wrongCnt);
+
+            // Repository를 통해 DB에 저장 (insert 또는 update)
+           repo.save(solving);
+           
+        }
+
+       
+     // 삽입된 데이터 수 반환
+    }
+
+    public void updateSolving(String userId,List<Map<String, Object>> questions){
 
         for (Map<String, Object> question : questions) {
 
             Long questionId = Long.parseLong(question.get("qesIdx").toString());
-            int corrAnswerVal = Integer.parseInt(question.get("corrAnswerVal").toString());
-            String corrAnswerText = question.get("corrAnswerText").toString();
-            int selAnswerVal = Integer.parseInt(question.get("selAnswerVal").toString());
-            String selAnswerText = question.get("selAnswerText").toString();
+            char qesFav = question.get("qesFav").toString().charAt(0);
+            char corrAnswerYn = question.get("corrAnswerYn").toString().charAt(0);
 
-            // 정답 여부 판단
-            boolean isCorrect = corrAnswerVal == selAnswerVal; 
+            Solving solving = repo.findByUserIdAndQesIdx(userId,questionId).orElse(new Solving());
 
-            // SolvingEntity 생성
-            Solving solving= new Solving();
-            solving.setUploadIdx(uploadIdx);
-            solving.setUserId(userId);
-            solving.setQesIdx(questionId);
-            solving.setCorrAnswerVal(corrAnswerVal);
-            solving.setCorrAnswerText(corrAnswerText);
-            solving.setSelAnswerVal(selAnswerVal);
-            solving.setSelAnswerText(selAnswerText);
-            solving.setCorrAnswerYn(isCorrect ? 'Y' : 'N');
-            solving.setSolvingDt(LocalDateTime.now()); // 현재 시간 설정 (추가)
+            int wrongCnt = solving.getWrongCnt();
 
-            // Repository를 통해 DB에 저장
+            if(corrAnswerYn != 'Y'){
+                wrongCnt++;
+            }
+
+            solving.setCorrAnswerYn(corrAnswerYn);
+            solving.setSolvingDt(LocalDateTime.now()); // 현재 시간 설정
+            solving.setSolvingFav(qesFav);
+            solving.setWrongCnt(wrongCnt);
+
+
             repo.save(solving);
-            insertCount++;
+
+
         }
 
-        return insertCount; // 삽입된 데이터 수 반환
+
     }
 
+    public int correctNumber(String userId){
 
 
-        
+        return repo.countCorrectAnswersByUserId(userId);
+    }
+    
+
 }
-
-
-
-
-
-
