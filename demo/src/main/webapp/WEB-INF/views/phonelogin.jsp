@@ -46,7 +46,7 @@
                 <input type="submit" class="submit-button" value="로그인">
                 <br>
                 <br>
-                <a href="join.html" type="button">회원가입</a>
+                <a href="IdinfoPage" type="button">회원가입</a>
 
             </form>
 
