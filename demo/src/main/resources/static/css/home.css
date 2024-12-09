@@ -1,277 +1,266 @@
+@font-face {
+    font-family: 'NoonnuBasicGothicRegular';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noon-2410@1.0/NoonnuBasicGothicRegular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
 
-                @font-face {
-                    font-family: 'NoonnuBasicGothicRegular';
-                    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noon-2410@1.0/NoonnuBasicGothicRegular.woff2') format('woff2');
-                    font-weight: normal;
-                    font-style: normal;
-                }
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    margin: 0;
+    background-color: white;
+}
 
-                body {
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    height: 100vh;
-                    background-color: white;
-                    margin: 0;
-                }
+.Home-container {
+    width: 400px;
+    height: 93vh;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    padding: 22px 10px;
+    border: 2px solid #2c3e50;
+    border-radius: 20px;
+    position: relative;
+    overflow: hidden;
+    margin-top: 1px;
+}
 
-                .Home-container {
-                    width: 100%;
-                    max-width: 400px;
-                    height: 97vh;
-                    border: 2px solid black;
-                    border-radius: 20px;
-                    position: relative;
-                    background-color: white;
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: space-between;
-                    overflow: hidden;
-                    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-                }
+.header {
+    font-size: 20px;
+    font-weight: bold;
+    text-align: left;
+    padding: 20px;
+    background-color: #2c3e50;
+    color: white;
+    border-top-left-radius: 18px;
+    border-top-right-radius: 18px;
+    font-family: 'NoonnuBasicGothicRegular';
+    width: calc(100% + 30px);
+    box-sizing: border-box;
+    margin: 0;
+    position: relative;
+    top: -22px;
+    right: 11px;
+}
 
-                .header {
-                    font-size: 20px;
-                    font-weight: bold;
-                    text-align: left;
-                    padding: 10px;
-                    background-color: #2c3e50;
-                    color: white;
-                    border-top-left-radius: 8px;
-                    border-top-right-radius: 8px;
-                    font-family: 'NoonnuBasicGothicRegular';
-                }
+.chat-container {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    padding-bottom: 10px;
+}
 
-                .chat-container {
-                    display: flex;
-                    align-items: center;
-                    padding: 20px;
-                    padding-bottom: 10px;
-                }
+.buddyChat {
+    background-color: #2c3e50;
+    padding: 23px;
+    border-radius: 10px;
+    font-size: 14px;
+    line-height: 1.4;
+    max-width: 70%;
+    text-align: left;
+    color: rgba(255, 255, 255, 0.792);
+    font-family: 'NoonnuBasicGothicRegular';
+}
 
-                .buddyChat {
-                    background-color: #2c3e50;
-                    padding: 15px;
-                    border-radius: 10px;
-                    font-size: 14px;
-                    line-height: 1.4;
-                    max-width: 70%;
-                    text-align: left;
-                    color: rgba(255, 255, 255, 0.792);
-                    font-family: 'NoonnuBasicGothicRegular';
-                }
+/* 채팅방형태 구현 */
+.buddyChat::after {
+    content: "";
+    position: absolute;
+    left: 79px;
+    top: 140px;
+    border-width: 15px;
+    border-left: 35px;
+    border-bottom: 15px;
+    border-top: 8px;
+    border-style: solid;
+    border-color: transparent #2c3e50 transparent transparent
+}
 
-                /* 채팅방형태 구현 */
-                .buddyChat::after {
-                    content: "";
-                    position: absolute;
-                    left: 80px;
-                    top: 120px;
-                    border-width: 15px;
-                    border-left: 35px;
-                    border-bottom: 15px;
-                    border-top: 8px;
-                    border-style: solid;
-                    border-color: transparent #2c3e50 transparent transparent
-                }
+/* 캐릭터 이미지 크기 조절 */
+.buddy {
+    width: 90px;
+    height: 90px;
+    margin-right: 5px;
+}
 
-                /* 캐릭터 이미지 크기 조절 */
-                .buddy {
-                    width: 100px;
-                    height: 100px;
-                    margin-right: 5px;
-                }
+/* 녹음,일시정지,중단 버튼 이미지 설정 */
+.buttons-item img {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 5px;
+    padding: 0 40px;
+}
 
-                /* 녹음,일시정지,중단 버튼 이미지 설정 */
-                .buttons-item img {
-                    width: 35px;
-                    height: 35px;
-                    margin-bottom: 5px;
-                    padding: 0 45px;
-                }
+/* active 효과: 색 반전과 회전 */
+.buttons-item img.active {
+    filter: invert(30%) sepia(250%) saturate(500%) hue-rotate(-60deg) brightness(100%) contrast(300%);
+}
 
-                /* active 효과: 색 반전과 회전 */
-                .buttons-item img.active {
-                    filter: invert(30%) sepia(250%) saturate(500%) hue-rotate(-60deg) brightness(100%) contrast(300%);
-                }
+/* 녹음,일시정지,중단 버튼 글씨 조절 */
+.buttons-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 12px;
+    color: black;
+    text-decoration: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-top: 15px;
+    font-family: 'NoonnuBasicGothicRegular';
+}
 
-                /* 녹음,일시정지,중단 버튼 글씨 조절 */
-                .buttons-item {
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                    font-size: 12px;
-                    color: black;
-                    text-decoration: none;
-                    background: none;
-                    border: none;
-                    cursor: pointer;
-                    margin-top: 15px;
-                    font-family: 'NoonnuBasicGothicRegular';
-                }
-
-                /* 녹음,일시정지,중단 버튼 위치설정 */
-                .recording-buttons {
-                    display: flex;
-                    justify-content: center;
-                    gap: 10px;
-                    margin-bottom: 5px;
-                }
-
-
-                .recording-time {
-                    text-align: center;
-                    /* 중앙 정렬 */
-                    font-size: 16px;
-                    /* 글자 크기 조정 */
-                    font-weight: bold;
-                    color: red;
-                    margin-top: -10px;
-                    /* 버튼과 간격 조정 */
-                    font-family: 'NoonnuBasicGothicRegular';
-                    position: relative;
-                    top: 10px;
-                    /* 타이머 위치 조정 */
-                }
-
-                .upload-section {
-                    display: flex;
-                    flex-direction: column;
-                    padding: 0 20px;
-                    margin-bottom: 100px;
-                }
-
-                /* '링크로 온라인 강의 가져오기', '파일업로드' 라벨 위치크기 설정 */
-                .link-input label,
-                .file-upload-label {
-                    display: block;
-                    margin-top: 5px;
-                    margin-bottom: 5px;
-                    text-align: left;
-                    font-weight: bold;
-                    font-family: 'NoonnuBasicGothicRegular';
-                }
+/* 녹음,일시정지,중단 버튼 위치설정 */
+.recording-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 5px;
+}
 
 
-                /* '여기에 링크 주소 넣어줘 input' 설정 */
-                .link-input input {
-                    padding: 23px;
-                    border-radius: 5px;
-                    border: 1px solid #ccc;
-                    font-size: 13px;
-                    margin-bottom: 10px;
-                    font-family: 'NoonnuBasicGothicRegular';
-                    width: calc(100% - 45px);
-                    color: black;
-                    text-align: center;
-                }
+.recording-time {
+    text-align: center;
+    /* 중앙 정렬 */
+    font-size: 16px;
+    /* 글자 크기 조정 */
+    font-weight: bold;
+    color: red;
+    margin-top: -10px;
+    /* 버튼과 간격 조정 */
+    font-family: 'NoonnuBasicGothicRegular';
+    position: relative;
+    top: 10px;
+    /* 타이머 위치 조정 */
+}
 
-                .uploadContainer {
-                    padding: 12px;
-                    border-radius: 5px;
-                    border: 1px solid #ccc;
-                    font-size: 13px;
-                    margin-bottom: 10px;
-                    font-family: 'NoonnuBasicGothicRegular';
-                    width: 94%;
-                    text-align: center;
-                    cursor: pointer;
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                    justify-content: center;
-                }
+.upload-section {
+    display: flex;
+    flex-direction: column;
+    padding: 0 20px;
+}
 
-                /* 파일 업로드 아이콘 */
-                .upload-icon {
-                    width: 30px;
-                    height: 30px;
-                }
-
-                /* '음성파일 불러오기' 버튼 위치 크기 설정 */
-                .link-input button {
-                    width: 101%;
-                    padding: 20px;
-                    background-color: #2c3e50;
-                    color: white;
-                    border: none;
-                    border-radius: 5px;
-                    cursor: pointer;
-                    font-size: 14px;
-                    font-family: 'NoonnuBasicGothicRegular';
-                    margin-bottom: 12px;
-                }
-
-                /* '파일 업로드' 버튼 설정 */
-                .upload-button button {
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    width: 101%;
-                    max-width: 400px;
-                    height: 50px;
-                    background-color: #2c3e50;
-                    color: white;
-                    font-size: 14px;
-                    font-weight: bold;
-                    border: none;
-                    border-radius: 5px;
-                    cursor: pointer;
-                    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-                }
-
-                /* 버튼 효과 설정 */
-                .link-input button:hover,
-                .upload-button button:hover {
-                    background-color: #13202d;
-                }
+/* '링크로 온라인 강의 가져오기', '파일업로드' 라벨 위치크기 설정 */
+.link-input label,
+.file-upload-label {
+    display: block;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    text-align: left;
+    font-size: 15px;
+    font-weight: bold;
+    font-family: 'NoonnuBasicGothicRegular';
+}
 
 
-                .botton-menu {
-                    display: flex;
-                    justify-content: space-around;
-                    align-items: center;
-                    width: 100%;
-                    height: 80px;
-                    background-color: #ffffff;
-                    border-top: 1px solid black;
-                    border-bottom-left-radius: 18px;
-                    border-bottom-right-radius: 18px;
-                    position: absolute;
-                    bottom: 0;
-                    left: 0;
-                }
+/* '여기에 링크 주소 넣어줘 input' 설정 */
+.link-input input {
+    padding: 15px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 13px;
+    margin-bottom: 10px;
+    font-family: 'NoonnuBasicGothicRegular';
+    width: calc(100% - 45px);
+    color: black;
+    text-align: center;
+}
 
-                .menu-item {
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                    font-size: 12px;
-                    color: black;
-                    text-decoration: none;
-                    background: none;
-                    border: none;
-                    cursor: pointer;
-                    font-family: 'NoonnuBasicGothicRegular';
-                }
+.uploadContainer {
+    padding: 7px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 13px;
+    margin-bottom: 10px;
+    font-family: 'NoonnuBasicGothicRegular';
+    width: 94%;
+    text-align: center;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
 
-                .menu-item img {
-                    width: 30px;
-                    height: 30px;
-                    margin-bottom: 5px;
-                    transition: filter 0.2s ease;
-                }
+/* 파일 업로드 아이콘 */
+.upload-icon {
+    width: 30px;
+    height: 30px;
+}
 
-                .menu-item:hover img {
-                    filter: invert(40%) sepia(100%) saturate(500%) hue-rotate(200deg) brightness(130%) contrast(150%);
-                }
+/* '음성파일 불러오기' 버튼 위치 크기 설정 */
+.link-input button {
+    width: 96%;
+    padding: 15px;
+    background-color: #2c3e50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 12px;
+    font-family: 'NoonnuBasicGothicRegular';
+    margin-bottom: 12px;
+}
 
-                .file-name-display {
-                    display: none;
-                    /* 기본적으로 숨김 */
-                    font-size: 14px;
-                    color: #000;
-                    text-align: center;
-                    margin-top: 5px;
-                }
-       
+/* '파일 업로드' 버튼 설정 */
+.upload-button button {
+    width: 98%;
+    padding: 15px;
+    background-color: #2c3e50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 12px;
+    font-family: 'NoonnuBasicGothicRegular';
+}
+
+/* 버튼 효과 설정 */
+.link-input button:hover,
+.upload-button button:hover {
+    background-color: #13202d;
+}
+
+
+.bottom-menu {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    height: 70px;
+    background-color: #ffffff;
+    border-top: 1px solid black;
+    border-bottom-left-radius: 18px;
+    border-bottom-right-radius: 18px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+.menu-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 12px;
+    color: black;
+    text-decoration: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: 'NoonnuBasicGothicRegular';
+}
+
+.menu-item img {
+    width: 30px;
+    height: 30px;
+    margin-bottom: 5px;
+    transition: filter 0.2s ease;
+}
+
+.menu-item:hover img {
+    filter: invert(40%) sepia(100%) saturate(500%) hue-rotate(200deg) brightness(130%) contrast(150%);
+}

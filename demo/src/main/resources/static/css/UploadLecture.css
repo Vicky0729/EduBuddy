@@ -1,0 +1,388 @@
+@font-face {
+    font-family: 'NoonnuBasicGothicRegular';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noon-2410@1.0/NoonnuBasicGothicRegular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    background-color: white;
+    margin: 0;
+}
+
+.Upload-container {
+    width: 400px;
+    height: 93vh;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    padding: 22px 10px;
+    border: 2px solid #2c3e50;
+    border-radius: 20px;
+    position: relative;
+    overflow: hidden;
+    margin-top: 1px;
+}
+
+.header {
+    font-size: 23px;
+    font-weight: bold;
+    text-align: left;
+    padding: 20px;
+    background-color: #2c3e50;
+    color: white;
+    border-top-left-radius: 18px;
+    border-top-right-radius: 18px;
+    font-family: 'NoonnuBasicGothicRegular';
+    width: calc(100% + 22px);
+    box-sizing: border-box;
+    margin: 0;
+    position: relative;
+    top: -22px;
+    right: 11px;
+}
+
+.chat-container {
+    flex-shrink: 0;
+    display: flex;
+    align-items: flex-start;
+    padding: 5px;
+    gap: 5px;
+}
+
+.buddy {
+    width: 100px;
+    height: auto;
+    margin-right: 10px;
+    margin-top: 3px;
+}
+
+.buddyChat {
+    background-color: #2c3e50;
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 13px;
+    line-height: 1.5;
+    max-width: 80%;
+    text-align: left;
+    color: rgba(255, 255, 255, 0.792);
+    font-family: 'NoonnuBasicGothicRegular';
+}
+
+/* 말풍선 구현 */
+.buddyChat::after {
+    content: "";
+    position: absolute;
+    left: -181px;
+    top: 125px;
+    border-width: 20px;
+    border-left: 294px;
+    border-bottom: 15px;
+    border-top: 8px;
+    border-style: solid;
+    border-color: transparent #2c3e50 transparent transparent
+}
+
+.category-tabs {
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 0;
+    background-color: white;
+    border-bottom: 1px solid #ddd;
+}
+
+.category-tab {
+    flex: 1;
+    margin: 0 16px;
+    padding: 10px 0;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 900;
+    color: black;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 10px 0;
+    font-family: 'NoonnuBasicGothicRegular';
+
+}
+
+.category-tab.active {
+    color: black;
+    border-bottom: 2px solid black;
+}
+
+.recordings-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 20px;
+    overflow-y: auto;
+    max-height: calc(93vh - 200px);
+    /* 적절히 계산된 높이 설정 */
+    background-color: #f9f9f9;
+    border-top: 1px solid #ddd;
+    scrollbar-width: none;
+}
+
+.recording-item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px;
+    background-color: #2c3e50;
+    border: 1px solid #2c3e50;
+    gap: 10px;
+    position: relative;
+    border-radius: 5px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.recording-content {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.792);
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'NoonnuBasicGothicRegular';
+}
+
+.recording-date {
+    font-size: 15px;
+    color: rgba(255, 255, 255, 0.792);
+    text-align: right;
+    width: 100%;
+    margin-top: 5px;
+    font-family: 'NoonnuBasicGothicRegular';
+}
+
+.recording-button {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 15px 140px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    background-color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: 10px;
+    text-align: center;
+    white-space: nowrap;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+    font-family: 'NoonnuBasicGothicRegular';
+}
+
+.recording-button:hover {
+    background-color: rgba(255, 255, 255, 0.792);
+}
+
+.recording-content p {
+    margin: 5px 0;
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.792);
+    font-family: 'NoonnuBasicGothicRegular';
+}
+
+.edit-button {
+    background-color: #5db6c6;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-size: 12px;
+    cursor: pointer;
+    margin-left: 5px;
+    font-family: 'NoonnuBasicGothicRegular';
+}
+
+.edit-button:hover {
+    background-color: #98dde9;
+}
+
+.delete-button {
+    background-color: #ff1a1a;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-size: 12px;
+    cursor: pointer;
+    margin-left: 5px;
+    font-family: 'NoonnuBasicGothicRegular';
+}
+
+.delete-button:hover {
+    background-color: #da7e7e;
+}
+
+.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.popup-content {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 300px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.popup-content h3 {
+    margin: 0 0 10px;
+}
+
+.popup-content input {
+    width: 90%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.popup-buttons {
+    display: flex;
+    justify-content: space-around;
+}
+
+.popup-buttons button {
+    padding: 10px 20px;
+    background-color: #2c3e50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.popup-buttons button:hover {
+    background-color: #34495e;
+}
+
+/* 난이도 설정 팝업 스타일 */
+.difficulty-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.difficulty-popup-content {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 300px;
+    text-align: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    font-family: 'NoonnuBasicGothicRegular';
+}
+
+.difficulty-popup-content h3 {
+    margin: 0 0 10px;
+    font-size: 25px;
+    color: #333;
+    font-family: 'NoonnuBasicGothicRegular';
+}
+
+.difficulty-popup-content p {
+    font-size: 20px;
+    color: #666;
+    margin-bottom: 15px;
+    font-family: 'NoonnuBasicGothicRegular';
+}
+
+.difficulty-popup-content label {
+    display: block;
+    margin: 8px 0;
+    text-align: left;
+    font-size: 20px;
+    cursor: pointer;
+    font-family: 'NoonnuBasicGothicRegular';
+}
+
+.difficulty-popup-content input[type="radio"] {
+    margin-right: 8px;
+}
+
+.difficulty-popup-buttons {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 15px;
+}
+
+.difficulty-popup-buttons button {
+    padding: 10px 20px;
+    background-color: #2c3e50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.difficulty-popup-buttons button:hover {
+    background-color: #34495e;
+}
+
+.bottom-menu {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    height: 80px;
+    background-color: #ffffff;
+    border-top: 1px solid black;
+    border-bottom-left-radius: 18px;
+    border-bottom-right-radius: 18px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+.menu-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 12px;
+    color: black;
+    text-decoration: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: 'NoonnuBasicGothicRegular';
+}
+
+.menu-item img {
+    width: 30px;
+    height: 30px;
+    margin-bottom: 5px;
+    transition: filter 0.2s ease;
+}
+
+.menu-item:hover img {
+    filter: invert(40%) sepia(100%) saturate(500%) hue-rotate(200deg) brightness(130%) contrast(150%);
+}

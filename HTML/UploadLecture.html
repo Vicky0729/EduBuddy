@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        @font-face {
+            font-family: 'NoonnuBasicGothicRegular';
+            src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noon-2410@1.0/NoonnuBasicGothicRegular.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            background-color: white;
+            margin: 0;
+        }
+
+        .Upload-container {
+            width: 400px;
+            height: 93vh;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            padding: 22px 10px;
+            border: 2px solid #2c3e50;
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+            margin-top: 1px;
+        }
+
+        .header {
+            font-size: 23px;
+            font-weight: bold;
+            text-align: left;
+            padding: 20px;
+            background-color: #2c3e50;
+            color: white;
+            border-top-left-radius: 18px;
+            border-top-right-radius: 18px;
+            font-family: 'NoonnuBasicGothicRegular';
+            width: calc(100% + 22px);
+            box-sizing: border-box;
+            margin: 0;
+            position: relative;
+            top: -22px;
+            right: 11px;
+        }
+
+        .chat-container {
+            flex-shrink: 0;
+            display: flex;
+            align-items: flex-start;
+            padding: 5px;
+            gap: 5px;
+        }
+
+        .buddy {
+            width: 100px;
+            height: auto;
+            margin-right: 10px;
+            margin-top: 3px;
+        }
+
+        .buddyChat {
+            background-color: #2c3e50;
+            padding: 10px;
+            border-radius: 10px;
+            font-size: 13px;
+            line-height: 1.5;
+            max-width: 80%;
+            text-align: left;
+            color: rgba(255, 255, 255, 0.792);
+            font-family: 'NoonnuBasicGothicRegular';
+        }
+
+        /* 말풍선 구현 */
+        .buddyChat::after {
+            content: "";
+            position: absolute;
+            left: -181px;
+            top: 125px;
+            border-width: 20px;
+            border-left: 294px;
+            border-bottom: 15px;
+            border-top: 8px;
+            border-style: solid;
+            border-color: transparent #2c3e50 transparent transparent
+        }
+
+        .category-tabs {
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            background-color: white;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .category-tab {
+            flex: 1;
+            margin: 0 16px;
+            padding: 10px 0;
+            text-align: center;
+            font-size: 15px;
+            font-weight: 900;
+            color: black;
+            background-color: transparent;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 10px 0;
+            font-family: 'NoonnuBasicGothicRegular';
+
+        }
+
+        .category-tab.active {
+            color: black;
+            border-bottom: 2px solid black;
+        }
+
+        .recordings-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding: 20px;
+            overflow-y: auto;
+            max-height: calc(93vh - 200px);
+            /* 적절히 계산된 높이 설정 */
+            background-color: #f9f9f9;
+            border-top: 1px solid #ddd;
+            scrollbar-width: none;
+        }
+
+        .recording-item {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            padding: 10px;
+            background-color: #2c3e50;
+            border: 1px solid #2c3e50;
+            gap: 10px;
+            position: relative;
+            border-radius: 5px;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .recording-content {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.792);
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: 'NoonnuBasicGothicRegular';
+        }
+
+        .recording-date {
+            font-size: 15px;
+            color: rgba(255, 255, 255, 0.792);
+            text-align: right;
+            width: 100%;
+            margin-top: 5px;
+            font-family: 'NoonnuBasicGothicRegular';
+        }
+
+        .recording-button {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            padding: 15px 140px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+            background-color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-top: 10px;
+            text-align: center;
+            white-space: nowrap;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+            font-family: 'NoonnuBasicGothicRegular';
+        }
+
+        .recording-button:hover {
+            background-color: rgba(255, 255, 255, 0.792);
+        }
+
+        .recording-content p {
+            margin: 5px 0;
+            font-size: 16px;
+            color: rgba(255, 255, 255, 0.792);
+            font-family: 'NoonnuBasicGothicRegular';
+        }
+
+        .edit-button {
+            background-color: #5db6c6;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            font-size: 12px;
+            cursor: pointer;
+            margin-left: 5px;
+            font-family: 'NoonnuBasicGothicRegular';
+        }
+
+        .edit-button:hover {
+            background-color: #98dde9;
+        }
+
+        .delete-button {
+            background-color: #ff1a1a;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            font-size: 12px;
+            cursor: pointer;
+            margin-left: 5px;
+            font-family: 'NoonnuBasicGothicRegular';
+        }
+
+        .delete-button:hover {
+            background-color: #da7e7e;
+        }
+
+        .popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .popup-content {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            width: 300px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .popup-content h3 {
+            margin: 0 0 10px;
+        }
+
+        .popup-content input {
+            width: 90%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .popup-buttons {
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .popup-buttons button {
+            padding: 10px 20px;
+            background-color: #2c3e50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .popup-buttons button:hover {
+            background-color: #34495e;
+        }
+
+        /* 난이도 설정 팝업 스타일 */
+        .difficulty-popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .difficulty-popup-content {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            width: 300px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            font-family: 'NoonnuBasicGothicRegular';
+        }
+
+        .difficulty-popup-content h3 {
+            margin: 0 0 10px;
+            font-size: 25px;
+            color: #333;
+            font-family: 'NoonnuBasicGothicRegular';
+        }
+
+        .difficulty-popup-content p {
+            font-size: 20px;
+            color: #666;
+            margin-bottom: 15px;
+            font-family: 'NoonnuBasicGothicRegular';
+        }
+
+        .difficulty-popup-content label {
+            display: block;
+            margin: 8px 0;
+            text-align: left;
+            font-size: 20px;
+            cursor: pointer;
+            font-family: 'NoonnuBasicGothicRegular';
+        }
+
+        .difficulty-popup-content input[type="radio"] {
+            margin-right: 8px;
+        }
+
+        .difficulty-popup-buttons {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 15px;
+        }
+
+        .difficulty-popup-buttons button {
+            padding: 10px 20px;
+            background-color: #2c3e50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .difficulty-popup-buttons button:hover {
+            background-color: #34495e;
+        }
+
+        .bottom-menu {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            width: 100%;
+            height: 80px;
+            background-color: #ffffff;
+            border-top: 1px solid black;
+            border-bottom-left-radius: 18px;
+            border-bottom-right-radius: 18px;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+        }
+
+        .menu-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 12px;
+            color: black;
+            text-decoration: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-family: 'NoonnuBasicGothicRegular';
+        }
+
+        .menu-item img {
+            width: 30px;
+            height: 30px;
+            margin-bottom: 5px;
+            transition: filter 0.2s ease;
+        }
+
+        .menu-item:hover img {
+            filter: invert(40%) sepia(100%) saturate(500%) hue-rotate(200deg) brightness(130%) contrast(150%);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="loading-overlay" class="loading-overlay" style="display: none;">
+        <div class="loading-content">
+            <p>텍스트로 변환 중...</p>
+            <div class="spinner"></div>
+        </div>
+    </div>
+
+    <div class="Upload-container">
+        <div class="header">EDU BUDDY</div>
+
+        <div class="chat-container">
+            <img src="http://edubuddy.dothome.co.kr/pic/ailogo.png" class="buddy">
+
+            <div class="buddyChat">
+                <p><span id="userName">{사용자이름}</span>이 학습한 내용이야</span></p>
+                <p>이번엔 너가 녹음한 강의에서 중요한 내용을 뽑아서 문제를 만들어 줄게. 준비됐지?</p>
+                <p>문제 풀기를 시작하려면 학습하기 버튼을 눌러봐!</p>
+            </div>
+        </div>
+
+        <div class="category-tabs">
+            <button class="category-tab active">국어</button>
+            <button class="category-tab">영어</button>
+            <button class="category-tab">수학</button>
+            <button class="category-tab">사회</button>
+            <button class="category-tab">과학</button>
+            <button class="category-tab">역사</button>
+        </div>
+
+        <div class="recordings-container">
+            <!-- 음성 녹음 들어오는 곳 -->
+        </div>
+
+        <div class="bottom-menu">
+            <button class="menu-item" onclick="location.href='#problem'">
+                <img src="http://edubuddy.dothome.co.kr/pic/book.svg" alt="문제 탐험대">
+                <span>문제 탐험대</span>
+            </button>
+            <button class="menu-item" onclick="location.href='#home'">
+                <img src="http://edubuddy.dothome.co.kr/pic/ai1.svg" alt="AI 학습관">
+                <span>AI 학습관</span>
+            </button>
+            <button class="menu-item" onclick="location.href='#dashboard'">
+                <img src="http://edubuddy.dothome.co.kr/pic/ox.svg" alt="다시도전">
+                <span>오답노트</span>
+            </button>
+            <button class="menu-item" onclick="location.href='#learning'">
+                <img src="http://edubuddy.dothome.co.kr/pic/status.svg" alt="학습여정">
+                <span>학습여정</span>
+            </button>
+        </div>
+    </div>
+
+    <script>
+
+        // 모든 탭 버튼 가져오기
+        const tabs = document.querySelectorAll('.category-tab');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // 모든 탭에서 active 클래스 제거
+                tabs.forEach(t => t.classList.remove('active'));
+
+                // 클릭된 탭에 active 클래스 추가
+                tab.classList.add('active');
+
+                // 콘텐츠 업데이트
+                content.innerHTML = `<p>현재 선택된 카테고리: <strong>${tab.textContent}</strong></p>`;
+            });
+        });
+
+        const recordingsContainer = document.querySelector('.recordings-container');
+
+        // 녹음 항목 추가 함수
+        function addRecording(title, timestamp) {
+            const recordingItem = document.createElement('div');
+            recordingItem.classList.add('recording-item');
+
+            recordingItem.innerHTML = `
+                    <div class="recording-content">
+                        <p>${title}</p>
+                        <div class="button-container">
+                            <button class="edit-button" onclick="EditPopup.show(this)">수정</button>
+                            <button class="delete-button" onclick="DeletePopup.show(this)">삭제</button>
+                        </div>
+                    </div>
+                    <div class="recording-date">
+                        <p>${timestamp}</p>
+                    </div>
+                    <div class="button-container">
+                        <button class="recording-button" onclick="LearningPopup.show(this)">학습하기</button>
+                    </div>
+                `;
+
+            recordingsContainer.appendChild(recordingItem); // 컨테이너에 추가
+        }
+
+        // 예시 데이터 추가
+        let count = 1;
+        setInterval(() => {
+            const now = new Date();
+            const formattedDate = now.toISOString().split('T')[0];
+            addRecording(`학생 메모 내용: 문서 제목 ${count}`, formattedDate);
+            count++;
+        }, 2000);
+
+        const EditPopup = {
+            show: function (button) {
+                const titleElement = button.closest('.recording-content').querySelector('p'); // 제목 요소 선택
+                const currentTitle = titleElement.textContent; // 현재 제목 가져오기
+
+                // 팝업창 생성
+                const popup = document.createElement('div');
+                popup.classList.add('popup');
+                popup.id = 'edit-popup';
+                popup.innerHTML = `
+                    <div class="popup-content">
+                        <input type="text" id="editTitleInput" value="${currentTitle}">
+                        <div class="popup-buttons">
+                            <button onclick="EditPopup.save()">변경</button>
+                            <button onclick="EditPopup.close()">취소</button>
+                        </div>
+                    </div>
+                `;
+
+                // 팝업에 관련된 제목 요소 저장
+                popup.relatedElement = titleElement;
+
+                // 팝업을 body에 추가
+                document.body.appendChild(popup);
+            },
+            save: function () {
+                const popup = document.getElementById('edit-popup');
+                if (popup) {
+                    const newTitle = document.getElementById('editTitleInput').value; // 입력값 가져오기
+                    const titleElement = popup.relatedElement; // 관련된 제목 요소 가져오기
+                    if (newTitle) {
+                        titleElement.textContent = newTitle; // 제목 업데이트
+                    }
+                    EditPopup.close(); // 팝업 닫기
+                }
+            },
+            close: function () {
+                const popup = document.getElementById('edit-popup');
+                if (popup) {
+                    document.body.removeChild(popup); // 팝업 제거
+                }
+            }
+        };
+
+        // 삭제 팝업과 관련된 함수와 변수
+        const DeletePopup = {
+            show: function (button) {
+                const recordingItem = button.closest('.recording-item');
+
+                // 팝업창 생성
+                const popup = document.createElement('div');
+                popup.classList.add('popup');
+                popup.id = 'delete-popup';
+                popup.innerHTML = `
+                    <div class="popup-content">
+                        <p>정말 삭제할꺼야?</p>
+                        <div class="popup-buttons">
+                            <button onclick="DeletePopup.confirm()">삭제</button>
+                            <button onclick="DeletePopup.close()">취소</button>
+                        </div>
+                    </div>
+                `;
+                popup.relatedElement = recordingItem; // 연결된 요소 저장
+                document.body.appendChild(popup); // 팝업을 body에 추가
+            },
+            confirm: function () {
+                const popup = document.getElementById('delete-popup');
+                const recordingItem = popup.relatedElement; // 연결된 요소 가져오기
+                if (recordingItem) {
+                    recordingItem.remove(); // 해당 요소 삭제
+                }
+                DeletePopup.close(); // 팝업 닫기
+            },
+            close: function () {
+                const popup = document.getElementById('delete-popup');
+                if (popup) {
+                    document.body.removeChild(popup); // 팝업 제거
+                }
+            }
+        };
+
+        const LearningPopup = {
+            show: function () {
+                // 난이도 설정 팝업창 생성
+                const popup = document.createElement('div');
+                popup.classList.add('difficulty-popup');
+                popup.id = 'difficulty-popup';
+                popup.innerHTML = `
+                    <div class="difficulty-popup-content">
+                        <h3>난이도 설정</h3>
+                        <p>추천: 개념부터 학습하는 것을 추천 할께!</p>
+                        <div>
+                            <label>
+                                <input type="radio" name="difficulty" value="basic"> 개념
+                            </label>
+                            <label>
+                                <input type="radio" name="difficulty" value="medium"> 중급
+                            </label>
+                            <label>
+                                <input type="radio" name="difficulty" value="hard"> 심화
+                            </label>
+                        </div>
+                        <div class="difficulty-popup-buttons">
+                            <button onclick="LearningPopup.confirm()">확인</button>
+                            <button onclick="LearningPopup.close()">취소</button>
+                        </div>
+                    </div>
+                `;
+                document.body.appendChild(popup); // 팝업을 body에 추가
+            },
+            confirm: function () {
+                const selectedDifficulty = document.querySelector('input[name="difficulty"]:checked');
+                if (selectedDifficulty) {
+                    const difficulty = selectedDifficulty.value; // 선택된 난이도 값
+                    console.log(`선택된 난이도: ${difficulty}`); // 확인용
+                    LearningPopup.close(); // 팝업 닫기
+
+                    // 문제 페이지로 이동 (난이도 전달)
+                    window.location.href = `QuizMaker.html?difficulty=${difficulty}`;
+                } else {
+                    alert('난이도를 선택해주세요!'); // 선택하지 않았을 때 경고 메시지
+                }
+            },
+            close: function () {
+                const popup = document.getElementById('difficulty-popup');
+                if (popup) {
+                    document.body.removeChild(popup); // 팝업 제거
+                }
+            }
+        };
+
+    </script>
+
+</body>
+
+</html>
