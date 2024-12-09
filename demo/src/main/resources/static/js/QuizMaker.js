@@ -87,7 +87,7 @@ function openPopup() {
     // 정답 텍스트 가져오기 (qesAnswer 값에 해당하는 텍스트)
     const correctAnswerText = currentQuestion.querySelector(`.choice-item[name="${'${correctAnswerValue}'}"]`).textContent.trim();
 
-
+    const explanation = currentQuestion.querySelector('input[name="explanation"]').value || "해설 없음";
 
     // 사용자가 선택한 답
     const selectedAnswer = selectedAnswers[currentQuestionIndex] || "선택하지 않음";
@@ -97,7 +97,7 @@ function openPopup() {
         <p><strong>정답:</strong>${'${correctAnswerText}'}</p>
         <hr>
         <p><strong>해설:</strong></p>
-        <p>알아서 잘해요</p>
+        <p>${'${explanation}'}</p>
          `;
 
     document.getElementById("popup").style.display = "block";
@@ -110,6 +110,7 @@ function closePopup() {
 function goToResult() {
 
     updateAllQuestionData()
+
 
     const payload = {
         questions: allQuestionData
@@ -126,7 +127,7 @@ function goToResult() {
     })
         .then(response => {
             if (response.ok) {
-                window.location.href = 'CheckAnswer';
+                window.location.href = 'CheckAnswerPage?from=QuizMaker';
             } else {
                 // 오류 처리 (필요시)
                 console.error('Failed to send data to the server.');
@@ -177,14 +178,18 @@ function updateAllQuestionData() {
         const selectedAnswerValue = selectedAnswerValues[index] || "선택하지 않음";
         const selectedAnswerText = selectedAnswers[index] || "선택하지 않음";
 
+        const isCorrect = selectedAnswerValue === correctAnswerValue ? "Y" : "N";
+
+
+        const markButton = question.querySelector('.mark-button');
+        const questionFavorite = markButton && markButton.classList.contains('active') ? "Y" : "N";
         // 각 문제의 데이터를 JSON으로 저장
         const questionData = {
             qesIndex: index + 1, // 문제 번호
             qesIdx: questionId, // 문제 식별자
-            corrAnswerVal: correctAnswerValue, // 정답 번호
-            corrAnswerText: correctAnswerText, // 정답 텍스트
-            selAnswerVal: selectedAnswerValue, // 사용자가 선택한 답의 번호
-            selAnswerText: selectedAnswerText, // 사용자가 선택한 답의 텍스트
+            corrAnswerYn : isCorrect,
+            qesFav: questionFavorite
+
         };
 
         allQuestionData.push(questionData); // 데이터 배열에 추가
