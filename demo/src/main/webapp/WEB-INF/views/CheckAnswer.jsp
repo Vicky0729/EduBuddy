@@ -8,10 +8,11 @@
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>CheckAnswer</title>
             <link rel="stylesheet" href="/css/CheckAnswer.css">
+            
         </head>
 
         <body>
-
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
             <c:if test="${not empty errorMessage}">
                 <script>
                     alert("${errorMessage}");

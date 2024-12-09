@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // 정답률 텍스트 업데이트
     const accuracyText = document.getElementById("accuracyText");
-    accuracyText.textContent = `정답률: ${'${accuracy}'}%`;
+    accuracyText.textContent = `정답률: ${accuracy}%`;
 
     // 차트 생성
     const ctx = document.getElementById("resultChart").getContext("2d");

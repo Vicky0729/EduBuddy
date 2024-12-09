@@ -2,10 +2,12 @@ package com.edububby.demo.controller;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -51,7 +53,27 @@ public class AudioRestController {
         return "result";  // result.jsp 페이지로 이동
     }
 
+    @PostMapping("/youtubeLink")
+    public String getTranscript(@RequestBody Map<String, String> payload) {
 
+        System.out.println("youtubeLink도착");
+        String youtubeLink = payload.get("youtubeLink");
+
+        // YouTube URL에서 video_id 추출
+        String videoId = youtubeLink.split("v=")[1];
+        if (videoId.contains("&")) {
+            videoId = videoId.split("&")[0];
+        }
+
+        String text = audioService.youtubeLink(videoId);
+
+        System.out.println(text);
+
+        // 파이썬 서비스 호출
+        return "result";
+
+
+    }
 
 
 

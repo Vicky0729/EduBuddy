@@ -1,6 +1,20 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-    <!DOCTYPE html>
-    <html lang="ko">
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edubuddy</title>
+    <link rel="stylesheet" href="/css/login.css" />
+</head>
+<body>
+    
+    <div class="login-container">
+        <h1 class="title">
+            <span>EDU</span>
+            <br>
+            <span>BUDDY</span>
+        </h1>
 
         <img src="http://edubuddy.dothome.co.kr/pic/logoWithCap.png" class="character-img">
         <button class="button kakao" onclick="window.location.href='카카오로그인URL'">

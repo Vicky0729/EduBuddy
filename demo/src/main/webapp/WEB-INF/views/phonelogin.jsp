@@ -1,23 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
-</head>
-<body>
-    
-    <form action="login" method="post">
-        <h3>이메일</h3>
-        <input type="text" placeholder="이메일을 입력해주세요" name="user_id">
-
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Edubuddy</title>
         <link rel="stylesheet" href="/css/phonelogin.css">
     </head>
+<body>
+    
+ 
+
+    
 
     <body>
 
@@ -30,7 +24,7 @@
 
             <img src="http://edubuddy.dothome.co.kr/pic/logoWithCap.png" class="Login-img">
 
-            <form action="Home" method="post">
+            <form action="login" method="post">
                 <div class="E-mail">
                     <label>이메일</label>
                     <input type="text" name="E-mail" value="이메일을 입력하세요" onfocus="clearText(this)"

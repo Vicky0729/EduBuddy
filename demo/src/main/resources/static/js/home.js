@@ -126,4 +126,31 @@
                         fileNameDisplay.style.display = "none";
                     }
                 }
+
+                function uploadLink() {
+                    const youtubeLink = $("#Link").val().trim(); // jQuery로 값 가져오기
+                
+                    if (youtubeLink === '' || youtubeLink === '여기에 링크 주소를 넣어줘') {
+                        alert("링크를 입력해주세요.");
+                        return;
+                    }
+                
+                    // jQuery AJAX 요청
+                    $.ajax({
+                        url: 'youtubeLink', // 서버 엔드포인트
+                        type: 'POST',
+                        contentType: 'application/json', // JSON 형식으로 전송
+                        data: JSON.stringify({ youtubeLink: youtubeLink }), // 데이터 전송
+                        success: function (response) {
+                            // 성공 시 처리
+                           
+                            alert("변환성공");
+                        },
+                        error: function (xhr, status, error) {
+                            // 실패 시 처리
+                            console.error("Error:", error);
+                            alert("문제가 발생했습니다. 다시 시도해주세요.");
+                        }
+                    });
+                }
        
