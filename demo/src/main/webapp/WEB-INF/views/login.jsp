@@ -38,5 +38,17 @@
             </span>
         </button>
     </div>
+
+    <script>
+        function navigateToPhoneLogin(loginError) {
+            // loginError가 있다면 알림 표시 후 페이지 이동
+            if (loginError) {
+                alert(loginError);
+            }
+    
+            // 페이지 이동
+            window.location.href = 'PhoneloginPage';
+        }
+    </script>
 </body>
 </html>
