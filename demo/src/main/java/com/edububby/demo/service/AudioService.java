@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 @Service
@@ -51,6 +52,30 @@ public class AudioService {
         return (String) responseBody.get("transcription");
     }
 
+
+     public String youtubeLink(String videoId) {
+        System.out.println("audioService 도착");
+        String pythonApiUrl = "http://localhost:5000/youtubeLink";
+
+        RestTemplate restTemplate = new RestTemplate();
+        Map<String, String> requestPayload = new HashMap<>();
+        requestPayload.put("video_id", videoId);
+
+        ResponseEntity<Map> response = restTemplate.postForEntity(pythonApiUrl, requestPayload, Map.class);
+
+        if (response.getStatusCode().is2xxSuccessful()) {
+            Map<String, Object> responseBody = response.getBody();
+
+            if (responseBody != null && responseBody.containsKey("transcript")) {
+                return responseBody.get("transcript").toString(); // "text" 키의 값을 반환
+
+            } else {
+                throw new RuntimeException("Unexpected response format: Missing 'text' key");
+            }
+        } else {
+            throw new RuntimeException("Failed to fetch transcript: " + response.getStatusCode());
+        }
+    }
    
 
 

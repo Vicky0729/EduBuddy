@@ -14,19 +14,6 @@ body {
     background-color: white;
 }
 
-.StudentInfo-container {
-    width: 400px;
-    height: 93vh;
-    background-color: white;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    padding: 22px 10px;
-    border: 2px solid #2c3e50;
-    border-radius: 20px;
-    position: relative;
-    overflow: hidden;
-    margin-top: 2px;
-}
 
 .buddy {
     width: 140px;
@@ -66,6 +53,22 @@ body {
     ;
 }
 
+.StudentInfo-container {
+    width: 400px;
+    height: 93vh;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    padding: 22px 10px;
+    border: 2px solid #2c3e50;
+    border-radius: 20px;
+    position: relative;
+    overflow: hidden;
+    overflow-y: auto;
+    scrollbar-width: none;
+    margin-top: 2px;
+}
+
 .grade {
     margin-top: 250px;
     text-align: left;
@@ -79,7 +82,7 @@ body {
     width: 100%;
     text-align: left;
     font-weight: bold;
-    font-size: 22px;
+    font-size: 18px;
     font-family: 'NoonnuBasicGothicRegular';
 }
 
@@ -108,7 +111,7 @@ input[type="radio"]:checked+.radio-button {
     ;
     border-color: #2c3e50;
     ;
-    color: black;
+    border: none;
 }
 
 .school label {
@@ -117,13 +120,13 @@ input[type="radio"]:checked+.radio-button {
     width: 100%;
     text-align: left;
     font-weight: bold;
-    font-size: 22px;
+    font-size: 18px;
     font-family: 'NoonnuBasicGothicRegular';
 }
 
 .school input {
     width: calc(100% - 55px);
-    padding: 25px;
+    padding: 20px;
     margin-top: 25px;
     border-radius: 7px;
     border: 1px solid #ccc;
@@ -133,17 +136,17 @@ input[type="radio"]:checked+.radio-button {
 
 .Name label {
     display: block;
-    margin-top: 50px;
+    margin-top: 25px;
     width: 100%;
     text-align: left;
     font-weight: bold;
-    font-size: 22px;
+    font-size: 18px;
     font-family: 'NoonnuBasicGothicRegular';
 }
 
 .Name input {
     width: calc(100% - 55px);
-    padding: 25px;
+    padding: 20px;
     margin-top: 25px;
     border-radius: 7px;
     border: 1px solid #ccc;
@@ -157,9 +160,9 @@ input[type="radio"]:checked+.radio-button {
 }
 
 .submit-button {
-    margin-top: 45px;
-    width: 100%;
-    padding: 25px;
+    margin-top: 40px;
+    width: 97%;
+    padding: 20px;
     font-size: 16px;
     background-color: #2c3e50;
     color: white;

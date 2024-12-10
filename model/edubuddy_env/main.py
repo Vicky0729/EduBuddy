@@ -1,6 +1,11 @@
-from fastapi import FastAPI, File, UploadFile
+from fastapi import FastAPI, File, UploadFile,HTTPException
+from pydantic import BaseModel
+from youtube_transcript_api import YouTubeTranscriptApi
 import requests
 import json
+
+
+
 
 app = FastAPI()
 
@@ -65,3 +70,18 @@ async def transcribe(file: UploadFile = File(...)):
 
     # 최종 텍스트 변환 결과 반환
     return {"transcription": transcription_text}
+
+
+
+# 요청 모델 정의
+class VideoLinkRequest(BaseModel):
+    video_id: str
+
+@app.post("/youtubeLink")
+async def get_transcript(request: VideoLinkRequest):
+    try:
+        transcript = YouTubeTranscriptApi.get_transcript(request.video_id, languages=['ko'])
+        texts = [entry['text'] for entry in transcript]
+        return {"video_id": request.video_id, "transcript": texts}
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))

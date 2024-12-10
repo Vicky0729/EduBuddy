@@ -6,10 +6,14 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name="tb_academic")
 public class Academic {
 
@@ -24,6 +28,11 @@ public class Academic {
     @Column(name="user_id")
     private String userId;
 
-
+    // 모든 필드를 포함하는 생성자
+    public Academic(String academicType, String schoolName, String userId) {
+        this.academicType = academicType;
+        this.schoolName = schoolName;
+        this.userId = userId;
+    }
 
 }

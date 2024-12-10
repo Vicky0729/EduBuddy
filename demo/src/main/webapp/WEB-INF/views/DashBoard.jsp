@@ -409,17 +409,17 @@
                 <p><strong>이름:</strong>
                     <span id="name-display">노지성</span>
                     <input type="text" id="name-input" class="edit-input" style="display: none;" value="노지성">
-                    <button class="edit-button" onclick="editField('name')">수정하기</button>
+                    <button class="edit-button" onclick="editField('userName')">수정하기</button>
                 </p>
                 <p><strong>학년:</strong>
                     <span id="grade-display">중2</span>
                     <input type="text" id="grade-input" class="edit-input" style="display: none;" value="중2">
-                    <button class="edit-button" onclick="editField('grade')">수정하기</button>
+                    <button class="edit-button" onclick="editField('academicType')">수정하기</button>
                 </p>
                 <p><strong>학교:</strong>
                     <span id="school-display">하계중학교</span>
                     <input type="text" id="school-input" class="edit-input" style="display: none;" value="하계중학교">
-                    <button class="edit-button" onclick="editField('school')">수정하기</button>
+                    <button class="edit-button" onclick="editField('schoolName')">수정하기</button>
                 </p>
             </div>
             <button id="closePopupButton" class="closePopupButton">닫기</button>

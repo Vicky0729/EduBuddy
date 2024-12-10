@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="ko">
+<<<<<<< HEAD
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +9,21 @@
     <link rel="stylesheet" href="/css/phonelogin.css" />
 </head>
 <body>
+=======
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Edubuddy</title>
+        <link rel="stylesheet" href="/css/phonelogin.css">
+    </head>
+<body>
+    
+ 
+
+    
+
+    <body>
+>>>>>>> 646ae4118a5fa31584e7aee9e997d07bc84912ec
 
         <div class="login-container">
             <h1 class="title">
@@ -34,7 +50,7 @@
                 <input type="submit" class="submit-button" value="로그인">
                 <br>
                 <br>
-                <a href="join" type="button">회원가입</a>
+                <a href="IdinfoPage" type="button">회원가입</a>
 
             </form>
 

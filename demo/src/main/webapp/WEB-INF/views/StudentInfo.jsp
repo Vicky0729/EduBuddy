@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -9,6 +10,7 @@
 </head>
 
 <body>
+<form action="/UserInfo" method="post">
 
     <div class="StudentInfo-container">
         <h2 class="buddyChat">
@@ -23,31 +25,34 @@
         </div>
         <div class="radio-group">
             <label>
-                <input type="radio" name="grade" value="중1">
+                <input type="radio" name="academicType" value="중1">
                 <span class="radio-button">중 1</span>
             </label>
             <label>
-                <input type="radio" name="grade" value="중2">
+                <input type="radio" name="academicType" value="중2">
                 <span class="radio-button">중 2</span>
             </label>
             <label>
-                <input type="radio" name="grade" value="중3">
+                <input type="radio" name="academicType" value="중3">
                 <span class="radio-button">중 3</span>
             </label>
         </div>
 
         <div class="school">
             <label>너의 학교를 알려줘</label>
-            <input type="text" name="school" value="너의 학교를 적어줘" onfocus="clearText(this)" onblur="resetText(this, '너의 학교를 적어줘')">
+            <input type="text" name="schoolName" value="너의 학교를 적어줘" onfocus="clearText(this)" onblur="resetText(this, '너의 학교를 적어줘')">
         </div>
 
-        <div class="name">
+        <div class="Name">
             <label>너의 이름이 뭐야?</label>
-            <input type="text" name="name" value="너의 이름을 적어줘" onfocus="clearText(this)" onblur="resetText(this, '너의 이름을 적어줘')">
+            <input type="text" value="너의 이름을 적어줘" onfocus="clearText(this)" onblur="resetText(this, '너의 이름을 적어줘')">
         </div>
 
-            <button type="submit" class="submit-button" onclick="window.location.href='Home'">다음</button>
+        <input type="hidden" name="userId" value="${userId}">
+
+        <button type="submit" class="submit-button">다음</button>
     </div>
+</form>
 
     <script src="/js/studentinfo.js"></script>
 
