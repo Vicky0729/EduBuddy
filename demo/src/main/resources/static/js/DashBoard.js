@@ -29,11 +29,6 @@ function editField(field) {
         inputElement.style.display = "inline-block";
         button.textContent = "저장하기"; // 버튼 텍스트 변경
     } else {
-        // 저장: 입력값을 텍스트로 전환
-        displayElement.textContent = inputElement.value;
-        displayElement.style.display = "inline";
-        inputElement.style.display = "none";
-        button.textContent = "수정하기"; // 버튼 텍스트 복원
     }
 }
 

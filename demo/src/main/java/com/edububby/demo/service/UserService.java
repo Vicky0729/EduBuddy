@@ -12,14 +12,16 @@ public class UserService {
     @Autowired
     UserRepository repo;
 
-
+    // 회원가입
     public void insertUser(User user){
 
 
         repo.save(user);
     }
 
-
+    public boolean IdExist (String userId){
+        return repo.existsByUserId(userId);
+    }
 
 
 }

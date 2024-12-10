@@ -42,9 +42,9 @@
                 <div class="upload-section">
                     <div class="link-input">
                         <label>링크 업로드</label>
-                        <input type="text" value="여기에 링크 주소를 넣어줘" onfocus="clearText(this)"
+                        <input id="Link" type="text" value="여기에 링크 주소를 넣어줘" onfocus="clearText(this)"
                             onblur="resetText(this, '여기에 링크 주소를 넣어줘')">
-                        <button>음성파일 업로드</button>
+                        <button onclick="uploadLink()">음성파일 업로드</button>
                     </div>
 
                     <div class="file-upload">
@@ -72,6 +72,7 @@
             </div>
 
             <script src="/js/home.js"></script>
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         </body>
 
         </html>
