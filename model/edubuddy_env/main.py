@@ -81,7 +81,7 @@ class VideoLinkRequest(BaseModel):
 async def get_transcript(request: VideoLinkRequest):
     try:
         transcript = YouTubeTranscriptApi.get_transcript(request.video_id, languages=['ko'])
-        texts = [entry['text'] for entry in transcript]
+        texts = [entry['text'] forgit  entry in transcript]
         return {"video_id": request.video_id, "transcript": texts}
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
