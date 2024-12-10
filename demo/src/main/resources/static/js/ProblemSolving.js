@@ -86,7 +86,7 @@
                     const correctAnswerValue = currentQuestion.querySelector('input[type="hidden"]').value;
 
                     // 정답 텍스트 가져오기 (qesAnswer 값에 해당하는 텍스트)
-                    const correctAnswerText = currentQuestion.querySelector(`.choice-item[name="${'${correctAnswerValue}'}"]`).textContent.trim();
+                    const correctAnswerText = currentQuestion.querySelector(`.choice-item[name="${correctAnswerValue}"]`).textContent.trim();
 
                     const explanation = currentQuestion.querySelector('input[name="explanation"]').value || "해설 없음";
 
@@ -94,11 +94,11 @@
                     const selectedAnswer = selectedAnswers[currentQuestionIndex] || "선택하지 않음";
                     // 팝업에 데이터 표시
                     document.querySelector(".popup-content").innerHTML = `
-                        <p><strong>내가 고른 답:</strong> ${'${selectedAnswer}'}</p>
-                        <p><strong>정답:</strong>${'${correctAnswerText}'}</p>
+                        <p><strong>내가 고른 답:</strong> ${selectedAnswer}</p>
+                        <p><strong>정답:</strong>${correctAnswerText}</p>
                         <hr>
                         <p><strong>해설:</strong></p>
-                        <p>${'${explanation}'}</p>
+                        <p>${explanation}</p>
                          `;
 
                     document.getElementById("popup").style.display = "block";
@@ -173,7 +173,7 @@
                         const correctAnswerValue = question.querySelector('input[type="hidden"]').value;
 
                         // 정답 텍스트 가져오기
-                        const correctAnswerText = question.querySelector(`.choice-item[name="${'${correctAnswerValue}'}"]`).textContent.trim();
+                        const correctAnswerText = question.querySelector(`.choice-item[name="${correctAnswerValue}"]`).textContent.trim();
 
                         // 사용자가 선택한 답의 값과 텍스트
                         const selectedAnswerValue = selectedAnswerValues[index] || "선택하지 않음";

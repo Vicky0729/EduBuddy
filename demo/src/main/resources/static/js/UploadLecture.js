@@ -173,7 +173,7 @@
                             <input type="radio" name="difficulty" value="3"> 심화
                         </label>
                     </div>
-                    <input type="hidden" name="idx" value="${'${idx}'}">
+                    <input type="hidden" name="idx" value="${idx}">
                     <div class="difficulty-popup-buttons">
                         <button type="submit" id="enterButton">확인</button>
                         <button type="button" id="cancelButton">취소</button>
