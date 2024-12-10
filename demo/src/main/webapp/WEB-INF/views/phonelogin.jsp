@@ -1,17 +1,16 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html lang="ko">
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+    <!DOCTYPE html>
+    <html lang="ko">
+
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Edubuddy</title>
         <link rel="stylesheet" href="/css/phonelogin.css">
     </head>
-<body>
-    
- 
 
-    
+
+
 
     <body>
 
@@ -23,6 +22,7 @@
             </h1>
 
             <img src="http://edubuddy.dothome.co.kr/pic/logoWithCap.png" class="Login-img">
+
 
             <form action="auth/login" method="post">
                 <div class="E-mail">
@@ -45,6 +45,25 @@
             </form>
 
         </div>
+        <!-- 오류 메시지가 있을 경우 alert로 표시
+        <c:if test="${not empty loginError}">
+            <script type="text/javascript">
+                alert("${loginError}");
+            </script>
+        </c:if> -->
+
+        <input type="hidden" id="loginError" value="${loginError}" />
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                const loginError = document.getElementById("loginError").value;
+                if (loginError) {
+                    alert(loginError); // 경고창 표시
+                }
+                // 팝업 대신 원하는 동작을 버튼 클릭으로 제한
+                console.log("loginError 값: ", loginError);
+            });
+        </script>
         <script src="/js/phonelogin.js"></script>
     </body>
 

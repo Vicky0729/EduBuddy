@@ -18,5 +18,13 @@ public class AuthService {
         return repo.findByUserIdAndUserPw(user.getUserId(), user.getUserPw());
     }
 
+    // log_cnt 증가 쿼리 호출
+    public void updateLogCount(String userId) {
+       repo.incrementLogCount(userId); // Repository에 정의된 쿼리 호출
+    }
+
+    public int getLogCount(String userId) {
+        return repo.findLogCountByUserId(userId);
+    }
 
 }

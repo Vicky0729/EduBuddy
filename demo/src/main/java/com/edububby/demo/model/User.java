@@ -30,7 +30,7 @@ public class User {
     private String userPhone;
     @Column(name = "user_birthdate")
     private String userBirthdate;
-    @Column(name = "user_src")
+    @Column(name = "login_src")
     private String loginSrc;
     @Column(name = "join_dt")
     @CreationTimestamp

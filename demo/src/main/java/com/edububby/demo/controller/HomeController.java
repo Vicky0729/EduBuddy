@@ -42,15 +42,7 @@ public class HomeController {
     
 
     // 로그인 기능 구현
-    @PostMapping("/login")
-    public String login(HttpSession session) {
-
-        
-        String user = "user_id 0001";
-        System.out.println(user);
-        session.setAttribute("user", user);
-        return "redirect:/HomePage";
-    }
+    
 
     @GetMapping("/HomePage")
     public String HomePage(){
