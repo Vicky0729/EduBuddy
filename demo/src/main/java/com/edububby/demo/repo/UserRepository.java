@@ -9,7 +9,7 @@ import com.edububby.demo.model.User;
 @Repository
 public interface UserRepository extends JpaRepository<User,String>{
 
-    
+    public User findByIdAndPassword(String userId, String userPw);
 
     
 

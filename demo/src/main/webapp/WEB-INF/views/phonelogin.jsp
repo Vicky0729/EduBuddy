@@ -30,7 +30,7 @@
 
             <img src="http://edubuddy.dothome.co.kr/pic/logoWithCap.png" class="Login-img">
 
-            <form action="Home" method="post">
+            <form action="/auth/login" method="post">
                 <div class="E-mail">
                     <label>이메일</label>
                     <input type="text" name="E-mail" value="이메일을 입력하세요" onfocus="clearText(this)"
