@@ -15,7 +15,7 @@ public class AuthService {
     // 로그인
     public User login(User user){
         
-        return repo.findByIdAndPassword(user.getUserId(), user.getUserPw());
+        return repo.findByUserIdAndUserPw(user.getUserId(), user.getUserPw());
     }
 
 

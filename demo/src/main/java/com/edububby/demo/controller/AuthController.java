@@ -28,7 +28,7 @@ public class AuthController {
             session.setAttribute("user", loginUser.getUserId());
         }
         
-        return "redirect:/";
+        return "redirect:/PhoneloginPage";
     }
     
 }

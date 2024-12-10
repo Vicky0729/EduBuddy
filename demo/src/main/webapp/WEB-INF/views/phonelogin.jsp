@@ -30,16 +30,16 @@
 
             <img src="http://edubuddy.dothome.co.kr/pic/logoWithCap.png" class="Login-img">
 
-            <form action="/auth/login" method="post">
+            <form action="auth/login" method="post">
                 <div class="E-mail">
                     <label>이메일</label>
-                    <input type="text" name="E-mail" value="이메일을 입력하세요" onfocus="clearText(this)"
+                    <input type="text" name="userId" value="이메일을 입력하세요" onfocus="clearText(this)"
                         onblur="resetText(this, '이메일을 입력하세요')">
                 </div>
 
                 <div class="Password">
                     <label>비밀번호</label>
-                    <input type="text" name="Password" value="비밀번호를 입력하세요" onfocus="clearText(this)"
+                    <input type="text" name="userPw" value="비밀번호를 입력하세요" onfocus="clearText(this)"
                         onblur="resetText(this, '비밀번호를 입력하세요')">
                 </div>
                 <br>
