@@ -44,6 +44,11 @@ public class UploadService {
         }
 
 
+        public Upload AlluploadList(Long uploadIdx){
+
+            return repo.findByUploadIdx(uploadIdx);
+        }
+
 
 
 

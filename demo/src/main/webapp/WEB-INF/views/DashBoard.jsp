@@ -407,17 +407,17 @@
             </div>
             <div class="user-info">
                 <p><strong>이름:</strong>
-                    <span id="name-display">노지성</span>
+                    <span id="name-display">${userName}</span>
                     <input type="text" id="name-input" class="edit-input" style="display: none;" value="노지성">
                     <button class="edit-button" onclick="editField('userName')">수정하기</button>
                 </p>
                 <p><strong>학년:</strong>
-                    <span id="grade-display">중2</span>
+                    <span id="grade-display">${userAcademic.academicType}</span>
                     <input type="text" id="grade-input" class="edit-input" style="display: none;" value="중2">
                     <button class="edit-button" onclick="editField('academicType')">수정하기</button>
                 </p>
                 <p><strong>학교:</strong>
-                    <span id="school-display">하계중학교</span>
+                    <span id="school-display">${userAcademic.schoolName}</span>
                     <input type="text" id="school-input" class="edit-input" style="display: none;" value="하계중학교">
                     <button class="edit-button" onclick="editField('schoolName')">수정하기</button>
                 </p>
@@ -440,7 +440,7 @@
             <div class="catelog-container">
                 <div class="catelog">
                     <h2>몇 일 공부했지?</h2>
-                    <p><strong>35</strong> 일</p>
+                    <p><strong>${loginCnt}</strong>일</p>
                     <div class="keywords">
                         <span>여태까지</span>
                     </div>

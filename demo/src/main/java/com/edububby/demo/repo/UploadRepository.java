@@ -15,5 +15,5 @@ public interface UploadRepository extends JpaRepository<Upload,Long>{
 
     public List<Upload> findByUserId(String userId);
 
-
+    public Upload findByUploadIdx(Long uploadIdx);
 }

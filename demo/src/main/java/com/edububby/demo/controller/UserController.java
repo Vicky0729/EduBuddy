@@ -51,5 +51,6 @@ public String UserInfo(Academic academic){
     return "redirect:/PhoneloginPage";
 }
 
+
 }
 

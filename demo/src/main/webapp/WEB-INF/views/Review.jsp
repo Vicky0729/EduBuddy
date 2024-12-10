@@ -272,6 +272,17 @@
         .menu-item:hover img {
             filter: invert(20%) sepia(100%) saturate(500%) hue-rotate(200deg) brightness(100%) contrast(150%);
         }
+        .before-problem{
+            border: 1px solid transparent;
+            cursor: pointer;
+            padding: 15px 20px;
+            background-color: #2c3e50;
+            color: white;
+            border-radius: 5px;
+            font-family: 'NoonnuBasicGothicRegular';
+            font-size: 15px;
+        }
+
     </style>
 </head>
 
@@ -293,7 +304,7 @@
             
             <c:if test="${not empty sessionScope.questions}">
                 <form action="ProblemSolved" method="get">  
-                    <input type="submit" value="방금 푼 문제">
+                    <input type="submit" class =before-problem value="방금 푼 문제">
                 </form>
             </c:if>
            

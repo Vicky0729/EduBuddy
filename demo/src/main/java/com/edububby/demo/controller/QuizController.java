@@ -17,7 +17,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.edububby.demo.dto.ProblemSolvedDTO;
 
 import com.edububby.demo.model.QuestionBank;
+import com.edububby.demo.model.Upload;
 import com.edububby.demo.service.QuestionService;
+import com.edububby.demo.service.UploadService;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -30,7 +32,8 @@ public class QuizController {
     @Autowired
     QuestionService questionService;
 
-    
+    @Autowired
+    UploadService uploadService;
 
     //업로드별 문제 출제
     @PostMapping("/QuizMaker")
@@ -46,8 +49,9 @@ public class QuizController {
 
         List<QuestionBank> questionList = questionService.QuestionSubmit(uploadIdx, difficulty);
 
-        
+        Upload uploadList = uploadService.AlluploadList(uploadIdx);
 
+        redirectAttributes.addFlashAttribute("uploadList", uploadList);
         redirectAttributes.addFlashAttribute("questionList", questionList);
         redirectAttributes.addFlashAttribute("difficulty", difficulty);
 

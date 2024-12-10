@@ -419,7 +419,7 @@
                             </div>
 
                             <div class="top-section">
-                                <div class="main-title">과학: 묽은 염산의 대표 문제</div>
+                                <div class="main-title">과학:${question.qesType}</div>
                                 <img class="main-image" src="example-image1.png" alt="문제 이미지">
                             </div>
 

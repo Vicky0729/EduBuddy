@@ -13,7 +13,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.edububby.demo.dto.QuestionCountDTO;
+import com.edububby.demo.model.Academic;
 import com.edububby.demo.model.Upload;
+import com.edububby.demo.model.User;
+import com.edububby.demo.service.AcademicService;
 import com.edububby.demo.service.QuestionService;
 import com.edububby.demo.service.SolvingService;
 import com.edububby.demo.service.UploadService;
@@ -40,6 +43,8 @@ public class HomeController {
     @Autowired
     SolvingService solvingService;
 
+    @Autowired
+    AcademicService academicService;
     
 
     // 로그인 기능 구현
@@ -96,8 +101,16 @@ public class HomeController {
         
         int correctNumber  = solvingService.correctNumber(userId);
 
-        model.addAttribute("correctNumber", correctNumber);
+        Academic userAcademic = academicService.finAcademic(userId);
 
+        User user = userservice.findUserName(userId);
+
+
+
+        model.addAttribute("userName", user.getUserName());
+        model.addAttribute("loginCnt", user.getLoginCnt());
+        model.addAttribute("correctNumber", correctNumber);
+        model.addAttribute("userAcademic", userAcademic);
 
 
         return "DashBoard";

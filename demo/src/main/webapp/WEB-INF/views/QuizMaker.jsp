@@ -21,7 +21,7 @@
                             <div class="question-header">
                                 <div class="left-section">문제 ${status.count}</div>
                                 <div class="right-section">
-                                    <span class="difficulty-label">난이도 : </span>
+                                    <span class="difficulty-label">난이도 :  </span>
                                     <button id="current-difficulty" class="dropdown-button">
                                         <c:choose>
                                             <c:when test="${difficulty == 1}">
@@ -46,13 +46,17 @@
 
                             <!-- 키워드 표시 영역 -->
                             <div class="keyword-box">
-                                <div class="keyword-item">묽은 염산</div>
-                                <div class="keyword-item">반응 속도</div>
-                                <div class="keyword-item">화학</div>
+                               
+                                    <div class="keyword-item">${uploadList.keyword1}</div>   
+                                    <div class="keyword-item">${uploadList.keyword2}</div> 
+                                    <div class="keyword-item">${uploadList.keyword3}</div> 
+                                    <div class="keyword-item">${uploadList.keyword4}</div> 
+                                    <div class="keyword-item">${uploadList.keyword5}</div> 
+                              
                             </div>
 
                             <div class="top-section">
-                                <div class="main-title">과학: 묽은 염산의 대표 문제</div>
+                                <div class="main-title">과학: ${question.qesType} </div>
                                 <img class="main-image" src="example-image1.png" alt="문제 이미지">
                             </div>
 

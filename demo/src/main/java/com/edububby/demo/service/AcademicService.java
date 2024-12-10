@@ -12,8 +12,19 @@ public class AcademicService {
     @Autowired
     AcademicRepository repo;
 
-public void insertAcademic(Academic academic){
+    public void insertAcademic(Academic academic){
 
     repo.save(academic);
-}
+    }
+
+    public Academic finAcademic(String UserId){
+
+       return repo.findByUserId(UserId);
+    }
+
+    
+
+
+
+
 }
