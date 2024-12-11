@@ -38,8 +38,10 @@ public class QuestionBank {
     private String qesSel5;
     @Column(name="qes_exp")
     private String qesExp;
-    @Column(name="qes_img")
-    private String qesImg;
+    @Column(name="qes_img1")
+    private String qesImg1;
+    @Column(name="qes_img2")
+    private String qesImg2;
 
 
 

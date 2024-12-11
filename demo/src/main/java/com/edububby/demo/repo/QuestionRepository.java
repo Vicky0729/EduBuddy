@@ -42,7 +42,7 @@ public interface QuestionRepository extends JpaRepository<QuestionBank, Long> {
 
     @Query("SELECT new com.edububby.demo.dto.ProblemSolvedDTO(" +
            "qb.qesIdx, qb.qesType, qb.qesContent, qb.qesAnswer, qb.qesDt, qb.qesLevel, " +
-           "qb.qesSel1, qb.qesSel2, qb.qesSel3, qb.qesSel4, qb.qesSel5, qb.qesExp, " +
+           "qb.qesSel1, qb.qesSel2, qb.qesSel3, qb.qesSel4, qb.qesSel5, qb.qesExp,qb.qesImg1,qb.qesImg2, " +
            "s.wrongCnt) " +
            "FROM QuestionBank qb " +
            "LEFT JOIN Solving s ON qb.qesIdx = s.qesIdx AND s.userId = :userId " +
@@ -54,7 +54,7 @@ public interface QuestionRepository extends JpaRepository<QuestionBank, Long> {
     @Query("""
             SELECT new com.edububby.demo.dto.ProblemSolvedDTO(
                 qb.qesIdx, qb.qesType, qb.qesContent, qb.qesAnswer, qb.qesDt, qb.qesLevel,
-                qb.qesSel1, qb.qesSel2, qb.qesSel3, qb.qesSel4, qb.qesSel5, qb.qesExp,
+                qb.qesSel1, qb.qesSel2, qb.qesSel3, qb.qesSel4, qb.qesSel5, qb.qesExp,qb.qesImg1,qb.qesImg2,
                 s.wrongCnt
             )
             FROM QuestionBank qb

@@ -47,7 +47,7 @@
             justify-content: space-around;
             align-items: center;
             width: 100%;
-            height: 75px;
+            height: 65px;
             background-color: #ffffff;
             border-top: 1px solid black;
             border-bottom-left-radius: 18px;
@@ -80,7 +80,7 @@
         .menu-item:hover img {
             filter: invert(40%) sepia(100%) saturate(500%) hue-rotate(200deg) brightness(130%) contrast(150%);
         }
-    </style>
+        </style>
 </head>
 
 <body>

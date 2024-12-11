@@ -22,7 +22,10 @@ public class ProblemSolvedDTO {
     private String qesSel4;      // 선택지 4
     private String qesSel5;      // 선택지 5
     private String qesExp;       // 해설
+    private String qesImg1;
+    private String qesImg2;
     private Integer wrongCnt;    // 틀린 횟수
+   
 
 
   

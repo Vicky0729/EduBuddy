@@ -403,23 +403,23 @@
         <div id="popupMenu" class="popup-menu">
             <img src="http://edubuddy.dothome.co.kr/pic/ailogo.png" class="popup-buddy" alt="캐릭터 이미지">
             <div class="popup-title">
-                <p>[사용자 이름]의 정보야<br>바꿀 부분이 있으면 수정도 가능해!</p>
+                <p>${sessionScope.userName}의 정보야<br>바꿀 부분이 있으면 수정도 가능해!</p>
             </div>
             <div class="user-info">
                 <p><strong>이름:</strong>
                     <span id="name-display">${userName}</span>
-                    <input type="text" id="name-input" class="edit-input" style="display: none;" value="노지성">
-                    <button class="edit-button" onclick="editField('userName')">수정하기</button>
+                    <input type="text" id="name-input" class="edit-input" style="display: none;" value="${userName}">
+                    <button class="edit-button" onclick="editField('name')">수정하기</button>
                 </p>
                 <p><strong>학년:</strong>
                     <span id="grade-display">${userAcademic.academicType}</span>
-                    <input type="text" id="grade-input" class="edit-input" style="display: none;" value="중2">
-                    <button class="edit-button" onclick="editField('academicType')">수정하기</button>
+                    <input type="text" id="grade-input" class="edit-input" style="display: none;" value="${userAcademic.academicType}">
+                    <button class="edit-button" onclick="editField('grade')">수정하기</button>
                 </p>
                 <p><strong>학교:</strong>
                     <span id="school-display">${userAcademic.schoolName}</span>
-                    <input type="text" id="school-input" class="edit-input" style="display: none;" value="하계중학교">
-                    <button class="edit-button" onclick="editField('schoolName')">수정하기</button>
+                    <input type="text" id="school-input" class="edit-input" style="display: none;" value="${userAcademic.schoolName}">
+                    <button class="edit-button" onclick="editField('school')">수정하기</button>
                 </p>
             </div>
             <button id="closePopupButton" class="closePopupButton">닫기</button>
@@ -430,7 +430,7 @@
                 <img src="http://edubuddy.dothome.co.kr/pic/ailogo.png" class="buddy">
 
                 <div class="buddyChat">
-                    <p>여기서는 {사용자 이름}이</p>
+                    <p>여기서는 ${sessionScope.userName}이</p>
                     <p>얼마나 공부했는지,</p>
                     <p>어느 부분을 더 공부해야 하는지</p>
                     <p>알려주는 곳이야</p>
@@ -508,5 +508,6 @@
     </div>
     
     <script src="/js/DashBoard.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </body>
 </html>

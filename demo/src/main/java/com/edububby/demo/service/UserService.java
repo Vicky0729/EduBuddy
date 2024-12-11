@@ -31,5 +31,13 @@ public class UserService {
         return repo.findByUserId(userId);
     }
 
+    public void updateUserName(String userId, String userName){
+
+        repo.findByUserId(userId);
+
+        
+
+
+    }
 
 }

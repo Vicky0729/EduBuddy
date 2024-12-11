@@ -4,9 +4,6 @@ from youtube_transcript_api import YouTubeTranscriptApi
 import requests
 import json
 
-
-
-
 app = FastAPI()
 
 # Vito API를 사용하여 음성 파일을 텍스트로 변환하는 엔드포인트
@@ -81,7 +78,7 @@ class VideoLinkRequest(BaseModel):
 async def get_transcript(request: VideoLinkRequest):
     try:
         transcript = YouTubeTranscriptApi.get_transcript(request.video_id, languages=['ko'])
-        texts = [entry['text'] forgit  entry in transcript]
+        texts = [entry['text']for entry in transcript]
         return {"video_id": request.video_id, "transcript": texts}
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))

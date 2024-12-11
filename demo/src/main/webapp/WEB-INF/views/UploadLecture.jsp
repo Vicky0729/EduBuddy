@@ -27,7 +27,7 @@
                     <img src="http://edubuddy.dothome.co.kr/pic/ailogo.png" class="buddy">
 
                     <div class="buddyChat">
-                        <p><span id="userName">{사용자이름}</span>이 학습한 내용이야</span></p>
+                        <p><span id="userName"> ${sessionScope.userName}</span>이 학습한 내용이야</span></p>
                         <p>이번엔 너가 녹음한 강의에서 중요한 내용을 뽑아서 문제를 만들어 줄게. 준비됐지?</p>
                         <p>문제 풀기를 시작하려면 학습하기 버튼을 눌러봐!</p>
                     </div>

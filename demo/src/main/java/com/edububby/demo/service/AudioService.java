@@ -21,10 +21,6 @@ import java.util.Map;
 @Service
 public class AudioService {
 
-    
-
-
-
      public String transcribeAudio(MultipartFile file) throws IOException {
         // 1. Python 서버의 엔드포인트 URL 설정
         String url = "http://localhost:5000/transcribe";  // Python 서버 주소
