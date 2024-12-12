@@ -23,8 +23,6 @@ public class Solving {
     private String userId;
     @Column(name="qes_idx")
     private Long qesIdx;
-    @Column(name="upload_idx")
-    private Long uploadIdx;
     @Column(name="corr_answer_yn", nullable = false)
     private char corrAnswerYn;
     @Column(name="solving_dt")

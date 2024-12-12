@@ -24,7 +24,7 @@ public class SolvingRestController {
     SolvingService solvingService;
 
 
-
+    // 푼 문제 저장 기능 
     @PostMapping("/userQuizData")
     public ResponseEntity<?> userQuizData(@RequestBody Map<String, Object> payload,HttpSession session,HttpServletRequest request) {
 
@@ -39,14 +39,14 @@ public class SolvingRestController {
 
         System.out.println(questions);
         
-        solvingService.insertSolving(uploadIdx,userId,questions);
+        solvingService.insertSolving(userId,questions);
         
         
         session.setAttribute("questions", questions);
        
         return ResponseEntity.ok("Success");
     }
-   
+    // 목차별 푼 문제 저장 기능 
     @PostMapping("/TypeQuizData")
     public ResponseEntity<?> TypeQuizData(@RequestBody Map<String, Object> payload,HttpSession session){
 

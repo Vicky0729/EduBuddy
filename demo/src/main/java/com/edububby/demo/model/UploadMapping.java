@@ -1,7 +1,5 @@
 package com.edububby.demo.model;
 
-
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -14,14 +12,16 @@ import lombok.Data;
 @Entity
 @Table(name="tb_upload_mapping")
 public class UploadMapping {
-
-
+    
     @Id
     @Column(name="upmap_idx")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long upmapIdx;
+    private Long upMapIdx;
     @Column(name="upload_idx")
     private Long uploadIdx;
-    @Column(name="upload_mapping")
-    private Long uploadMapping;
+    @Column(name="qes_idx")
+    private Long qesIdx;
+
+
+
 }

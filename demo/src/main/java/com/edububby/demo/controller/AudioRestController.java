@@ -35,8 +35,9 @@ public class AudioRestController {
 
 
 
+    // vito stt 기능 
     @PostMapping("/upload-audio")
-public ResponseEntity<Map<String, Object>> uploadAudio(@RequestParam("file") MultipartFile file,HttpSession session) throws IOException {
+    public ResponseEntity<Map<String, Object>> uploadAudio(@RequestParam("file") MultipartFile file,HttpSession session) throws IOException {
     
     Map<String, Object> response = new HashMap<>();
     
@@ -74,7 +75,7 @@ public ResponseEntity<Map<String, Object>> uploadAudio(@RequestParam("file") Mul
     }
 }
 
-
+    // 유튜브 링크 자막 추출
     @PostMapping("/youtubeLink")
     public String getTranscript(@RequestBody Map<String, String> payload) {
 

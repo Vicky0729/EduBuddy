@@ -13,10 +13,7 @@ import com.edububby.demo.model.QuestionBank;
 @Repository
 public interface QuestionRepository extends JpaRepository<QuestionBank, Long> {
 
-    @Query("SELECT q FROM QuestionBank q " +
-            "JOIN UploadMapping u ON q.qesIdx = u.uploadMapping " +
-            "WHERE u.uploadIdx = :uploadIdx AND q.qesLevel = :qesLevel")
-    public List<QuestionBank> findQuestionsByUploadIdxAndLevel(Long uploadIdx, int qesLevel);
+  
 
     @Query(value = """
             SELECT
@@ -49,6 +46,9 @@ public interface QuestionRepository extends JpaRepository<QuestionBank, Long> {
            "WHERE qb.qesIdx IN :qesIdxList")
     public List<ProblemSolvedDTO> ProblemSolved(@Param("qesIdxList") List<Long> qesIdxList,@Param("userId") String userId);
 
+
+
+
     
     
     @Query("""
@@ -64,5 +64,7 @@ public interface QuestionRepository extends JpaRepository<QuestionBank, Long> {
             """)
     List<ProblemSolvedDTO> findProblemsByUserId(@Param("userId") String userId);
     
-   
+    List<QuestionBank> findByQesIdxIn(List<Long> qesIdx);
+
+
 }

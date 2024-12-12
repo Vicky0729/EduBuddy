@@ -33,10 +33,11 @@ public class UserService {
 
     public void updateUserName(String userId, String userName){
 
-        repo.findByUserId(userId);
+        User user = repo.findByUserId(userId);
 
-        
+        user.setUserName(userName);
 
+        repo.save(user);
 
     }
 

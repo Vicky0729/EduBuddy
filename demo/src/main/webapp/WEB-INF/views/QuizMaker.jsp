@@ -75,8 +75,9 @@
                                     <div class="choice-item" name="3">${question.qesSel3}</div>
                                     <div class="choice-item" name="4">${question.qesSel4}</div>
                                     <div class="choice-item" name="5">${question.qesSel5}</div>
-                                    <input type="hidden" value="${question.qesAnswer}" data-id="${question.qesIdx}">
+                                    <input type="hidden" value="${question.qesAnswer}" data-id="${question.qesIdx}" name="correctAnswerValue">
                                     <input type="hidden" value="${question.qesExp}" name="explanation">
+                                    <input type="hidden" value="${uploadList.uploadIdx}" name="uploadIdx">
                                 </div>
                             </div>
                         </div>

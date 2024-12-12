@@ -169,14 +169,13 @@ function updateAllQuestionData() {
         const questionId = question.querySelector('input[type="hidden"]').dataset.id;
 
         // 정답 값 (1~5)
-        const correctAnswerValue = question.querySelector('input[type="hidden"]').value;
+        
+        const correctAnswerValue = question.querySelector('input[name="correctAnswerValue"]').value;
 
-        // 정답 텍스트 가져오기
-        const correctAnswerText = question.querySelector(`.choice-item[name="${correctAnswerValue}"]`).textContent.trim();
-
+       
         // 사용자가 선택한 답의 값과 텍스트
         const selectedAnswerValue = selectedAnswerValues[index] || "선택하지 않음";
-        const selectedAnswerText = selectedAnswers[index] || "선택하지 않음";
+      
 
         const isCorrect = selectedAnswerValue === correctAnswerValue ? "Y" : "N";
 

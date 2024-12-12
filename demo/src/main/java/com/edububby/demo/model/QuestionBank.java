@@ -15,6 +15,7 @@ public class QuestionBank {
 
     @Id
     @Column(name="qes_idx")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long qesIdx;
     @Column(name="qes_type")
     private String qesType;

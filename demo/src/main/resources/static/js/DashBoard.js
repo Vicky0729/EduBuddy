@@ -5,6 +5,7 @@ const popupMenu = document.getElementById("popupMenu");
 menuButton.addEventListener("click", (e) => {
     e.stopPropagation(); // 이벤트 전파 방지
     popupMenu.style.display = popupMenu.style.display === "block" ? "none" : "block";
+    
 });
 
 // 팝업 내부 클릭 시 닫히지 않게 설정
@@ -52,12 +53,13 @@ const closePopupButton = document.getElementById("closePopupButton");
 // 닫기 버튼 클릭 시 팝업 닫기
 closePopupButton.addEventListener("click", () => {
     popupMenu.style.display = "none";
+    location.reload(true);
 });
 
 function updateUserName(userName){
 
     $.ajax({
-        url:"updataUserName",
+        url:"updateUserName",
         type:"post",
         data:{"userName":userName},
         success:function(){
@@ -93,7 +95,7 @@ function updateAcademicType(academicType){
 function updateSchoolName(SchoolName){
 
     $.ajax({
-        url:"updataSchoolName",
+        url:"updateSchoolName",
         type:"post",
         data:{"SchoolName":SchoolName},
         success:function(){

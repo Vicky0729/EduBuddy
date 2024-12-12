@@ -451,7 +451,7 @@
 
                 <div class="catelog">
                     <h2>몇 문제 풀었지?</h2>
-                    <p><strong>${correctNumber}</strong> 문제</p>
+                    <p><strong>${ProblemSolvedCnt}</strong> 문제</p>
                     <div class="keywords">
                         <span>여태까지</span>
                     </div>
@@ -491,7 +491,7 @@
                     <div class="coments">
                         <h4>과학</h4>
                         <span class="tag advanced">심화</span>
-                        <p>최근 많이 틀린 오답의 키워드 입력</p>
+                        <p>${topUpload.keyword1},${topUpload.keyword2},${topUpload.keyword3},${topUpload.keyword4},${topUpload.keyword5}</p>
                     </div>
 
                     <div class="coments">

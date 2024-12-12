@@ -16,7 +16,7 @@ public class SolvingService {
     @Autowired
     SolvingRepository repo;
 
-    public void insertSolving(Long uploadIdx, String userId, List<Map<String, Object>> questions) {
+    public void insertSolving(String userId, List<Map<String, Object>> questions) {
 
        
         for (Map<String, Object> question : questions) {
@@ -26,7 +26,7 @@ public class SolvingService {
             char corrAnswerYn = question.get("corrAnswerYn").toString().charAt(0);
 
             // SolvingEntity 생성 또는 업데이트
-            Solving solving = repo.findByUserIdAndQesIdxAndUploadIdx(userId, questionId, uploadIdx)
+            Solving solving = repo.findByUserIdAndQesIdx(userId, questionId)
                     .orElse(new Solving()); // 존재하지 않으면 새로운 엔티티 생성
 
             int wrongCnt = solving.getWrongCnt();
@@ -36,7 +36,6 @@ public class SolvingService {
             }
 
             // 기존 값이 없으면 새로 설정
-            solving.setUploadIdx(uploadIdx);
             solving.setUserId(userId);
             solving.setQesIdx(questionId);
             solving.setCorrAnswerYn(corrAnswerYn);
@@ -83,10 +82,10 @@ public class SolvingService {
 
     }
 
-    public int correctNumber(String userId){
+    public int ProblemSolvedCnt(String userId){
 
 
-        return repo.countCorrectAnswersByUserId(userId);
+        return repo.countByUserId(userId);
     }
     
 

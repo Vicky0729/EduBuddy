@@ -18,6 +18,7 @@ public class HomeRestController {
     UploadService uploadService;
 
 
+    // 업로드 파일 수정 기능 
     @PostMapping("/uploadEdit")
     public void uploadEdit(@RequestBody Map<String, Object> requestData) {
         
@@ -27,6 +28,7 @@ public class HomeRestController {
         uploadService.editUploadFile(uploadIdx,uploadFile);
     }
 
+    // 업로드 파일 삭제 기능 
     @PostMapping("/uploadDelete")
     public void uploadDelete(@RequestBody Map<String, Object> requestData) {
         
