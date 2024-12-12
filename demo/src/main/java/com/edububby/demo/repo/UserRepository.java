@@ -11,6 +11,8 @@ import com.edububby.demo.model.User;
 import jakarta.transaction.Transactional;
 
 
+
+
 @Repository
 public interface UserRepository extends JpaRepository<User,String>{
 
@@ -18,6 +20,8 @@ public interface UserRepository extends JpaRepository<User,String>{
 
     boolean existsByUserId(String userId);   
 
+    User findByUserId(String userId);
+    
     @Modifying
     @Transactional
     @Query("UPDATE User u SET u.loginCnt = u.loginCnt + 1 WHERE u.userId = :userId")

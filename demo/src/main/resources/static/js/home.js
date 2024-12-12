@@ -1,156 +1,267 @@
+let mediaRecorder;
+let recordedChunks = [];
+let timer;
+let seconds = 0;
+let isPaused = false;
 
-                let mediaRecorder;
-                let recordedChunks = [];
-                let timer;
-                let seconds = 0;
-                let isPaused = false;
+// 타이머 업데이트
+function updateTimer() {
+    const recordingTime = document.getElementById('recordingTime');
+    if (!recordingTime) return; // 요소가 없을 경우 안전하게 종료
+    seconds++;
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+    recordingTime.textContent = `${String(minutes).padStart(2, '0')}:${String(remainingSeconds).padStart(2, '0')}`;
+}
 
-                async function startRecording() {
-                    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-                    mediaRecorder = new MediaRecorder(stream);
+// 타이머 시작
+function startTimer() {
+    if (!timer) {
+        timer = setInterval(updateTimer, 1000); // 1초마다 updateTimer 호출
+    }
+}
 
-                    mediaRecorder.ondataavailable = (event) => {
-                        if (event.data.size > 0) {
-                            recordedChunks.push(event.data);
-                        }
-                    };
+// 타이머 정지
+function stopTimer() {
+    clearInterval(timer);
+    timer = null;
+    seconds = 0; // 시간 초기화
+    const recordingTime = document.getElementById('recordingTime');
+    if (recordingTime) {
+        recordingTime.textContent = '00:00'; // 초기 시간 표시
+    }
+}
 
-                    mediaRecorder.start();
-                    console.log("녹음 시작");
-                    startTimer();
-                    updateButtonStates("recording");
-                }
+// 타이머 일시 정지
+function pauseTimer() {
+    clearInterval(timer);
+    timer = null;
+}
 
-                function togglePause() {
-                    if (mediaRecorder) {
-                        if (isPaused) {
-                            mediaRecorder.resume();
-                            startTimer();
-                            console.log("녹음 재개");
-                            updateButtonStates("recording");
-                        } else {
-                            mediaRecorder.pause();
-                            clearInterval(timer);
-                            console.log("녹음 일시 정지");
-                            updateButtonStates("paused");
-                        }
-                        isPaused = !isPaused;
-                    }
-                }
+// 버튼 상태 변경
+function toggleEffect(button) {
+    const img = button.querySelector('img');
+    const buttonId = button.id;
 
-                function stopRecording() {
-                    if (mediaRecorder) {
-                        mediaRecorder.stop();
-                        clearInterval(timer);
-                        seconds = 0;
-                        console.log("녹음 중지");
+    if (buttonId === "stop") {
+        stopTimer(); // 타이머 정지
+        resetButtonColors(); // 모든 버튼과 이미지 초기화
+        stopRecording(); // 녹음 중지 및 업로드
+        return; // 초기화 후 함수 종료
+    }
 
-                        mediaRecorder.onstop = () => {
-                            const recording = new Blob(recordedChunks, { type: 'audio/webm' });
-                            recordedChunks = [];
-                            uploadAudioSync(recording);
-                        };
+    resetButtonColors();
 
-                        updateButtonStates("stopped");
-                        document.getElementById('recordingTime').textContent = "00:00";
-                    }
-                }
+    if (buttonId === "start") {
+        startRecording(); // 녹음 시작
+        button.classList.add('active');
+    } else if (buttonId === "pause") {
+        if (isPaused) {
+            mediaRecorder.resume(); // 녹음 재개
+            startTimer(); // 타이머 재개
+            img.src = "http://edubuddy.dothome.co.kr/pic/btnPause_1.png"; // 원래 이미지
+        } else {
+            mediaRecorder.pause(); // 녹음 일시 정지
+            pauseTimer(); // 타이머 멈춤
+            img.src = "http://edubuddy.dothome.co.kr/pic/play.png"; // 변경된 이미지
+        }
+        isPaused = !isPaused; // 일시정지 상태 토글
+        button.classList.add('active');
+    }
 
-                function uploadAudioSync(recording) {
-                    const xhr = new XMLHttpRequest();
-                    xhr.open("POST", "upload-audio", false);
-                    const formData = new FormData();
-                    formData.append("file", recording, "recording.webm");
+    if (img) img.classList.add('active'); // 클릭된 버튼 이미지 활성화
+}
 
-                    xhr.onload = function () {
-                        if (xhr.status === 200) {
-                            console.log("업로드 성공");
-                        } else {
-                            console.log("업로드 실패");
-                        }
-                    };
+// 녹음 시작
+async function startRecording() {
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    mediaRecorder = new MediaRecorder(stream);
 
-                    xhr.onerror = function () {
-                        console.log("연결 실패");
-                    };
+    mediaRecorder.ondataavailable = (event) => {
+        if (event.data.size > 0) {
+            recordedChunks.push(event.data);
+        }
+    };
 
-                    xhr.send(formData);
-                }
+    mediaRecorder.start();
+    console.log("녹음 시작");
+    startTimer(); // 타이머 시작
+    resetButtonColors(); // 버튼 상태 초기화
+    document.getElementById("start").classList.add("active");
+}
 
-                function updateButtonStates(state) {
-                    document.getElementById("start").disabled = (state === "recording");
-                    document.getElementById("pause").disabled = (state === "stopped");
-                    document.getElementById("stop").disabled = (state === "stopped");
-                }
+// 녹음 정지
+function stopRecording() {
+    if (mediaRecorder) {
+        mediaRecorder.stop();
+        mediaRecorder.onstop = () => {
+            const audioBlob = new Blob(recordedChunks, { type: 'audio/webm' });
+            recordedChunks = []; // 버퍼 초기화
+            recordAudioAjax(audioBlob); // 음성파일 업로드
+        };
+    }
+    resetButtonColors();
+    stopTimer();
+    console.log("녹음 정지");
+}
 
-                function startTimer() {
-                    timer = setInterval(() => {
-                        seconds++;
-                        const minutes = Math.floor(seconds / 60);
-                        const remainingSeconds = seconds % 60;
-                        document.getElementById('recordingTime').textContent =
-                            `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
-                    }, 1000);
-                }
+// AJAX를 통해 음성 파일 업로드
+function recordAudioAjax(audioBlob) {
 
-                function clearText(input) {
-                    if (input.value === input.defaultValue) input.value = "";
-                }
+    
+    const formData = new FormData();
+    formData.append("file", audioBlob, "recording.webm");
 
-                function resetText(input, defaultText) {
-                    if (input.value === "") input.value = defaultText;
-                }
-                function triggerFileUpload() {
-                    const fileInput = document.getElementById('fileInput');
-                    if (fileInput) {
-                        fileInput.click();
-                    }
-                }
-                function handleFileSelect(event) {
-                    const fileInput = event.target;
-                    const fileNameDisplay = document.getElementById("fileNameDisplay");
-                    const uploadContainer = document.getElementById("uploadContainer");
-                    const uploadIcon = document.getElementById("uploadIcon");
+    $.ajax({
+        url: 'upload-audio', // 서버 엔드포인트
+        type: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function (response) {
+            console.log("업로드 성공:", response);
+            alert("녹음 파일이 성공적으로 업로드되었습니다.");
+        },
+        error: function (xhr, status, error) {
+            console.error("업로드 실패:", error);
+            alert("녹음 파일 업로드 중 문제가 발생했습니다.");
+        }
+    });
+}
 
-                    if (fileInput.files.length > 0) {
-                        const fileName = fileInput.files[0].name; // 선택된 파일의 이름 가져오기
+// 모든 버튼의 활성화 효과 초기화
+function resetButtonColors() {
+    document.querySelectorAll('.buttons-item img').forEach(image => {
+        image.classList.remove('active');
+        if (image.alt === "녹음 시작") {
+            image.src = "http://edubuddy.dothome.co.kr/pic/btnrcod_1.png";
+        } else if (image.alt === "일시 정지") {
+            image.src = "http://edubuddy.dothome.co.kr/pic/btnPause_1.png";
+        } else if (image.alt === "녹음 정지") {
+            image.src = "http://edubuddy.dothome.co.kr/pic/btnstop_1.png";
+        }
+    });
 
-                        // 이미지 숨기고 파일 이름 표시
-                        uploadIcon.style.display = "none";
-                        fileNameDisplay.textContent = fileName; // 파일명을 표시
-                        fileNameDisplay.style.display = "block"; // 파일명 표시
-                    } else {
-                        // 이미지 다시 표시하고 파일명 초기화
-                        uploadIcon.style.display = "block";
-                        fileNameDisplay.textContent = "";
-                        fileNameDisplay.style.display = "none";
-                    }
-                }
+    document.querySelectorAll('.buttons-item').forEach(button => {
+        button.classList.remove('active');
+    });
+}
 
-                function uploadLink() {
-                    const youtubeLink = $("#Link").val().trim(); // jQuery로 값 가져오기
-                
-                    if (youtubeLink === '' || youtubeLink === '여기에 링크 주소를 넣어줘') {
-                        alert("링크를 입력해주세요.");
-                        return;
-                    }
-                
-                    // jQuery AJAX 요청
-                    $.ajax({
-                        url: 'youtubeLink', // 서버 엔드포인트
-                        type: 'POST',
-                        contentType: 'application/json', // JSON 형식으로 전송
-                        data: JSON.stringify({ youtubeLink: youtubeLink }), // 데이터 전송
-                        success: function (response) {
-                            // 성공 시 처리
-                           
-                            alert("변환성공");
-                        },
-                        error: function (xhr, status, error) {
-                            // 실패 시 처리
-                            console.error("Error:", error);
-                            alert("문제가 발생했습니다. 다시 시도해주세요.");
-                        }
-                    });
-                }
-       
+
+function updateButtonStates(state) {
+    document.getElementById("start").disabled = (state === "recording");
+    document.getElementById("pause").disabled = (state === "stopped");
+    document.getElementById("stop").disabled = (state === "stopped");
+}
+
+function resetButtonColors() {
+    document.querySelectorAll('.buttons-item img').forEach(image => {
+        image.classList.remove('active'); // 이미지 활성화 클래스 제거
+        // 이미지의 src를 초기값으로 설정 (필요 시 추가)
+        if (image.alt === "녹음 시작") {
+            image.src = "http://edubuddy.dothome.co.kr/pic/btnrcod_1.png";
+        } else if (image.alt === "일시 정지") {
+            image.src = "http://edubuddy.dothome.co.kr/pic/btnPause_1.png";
+        } else if (image.alt === "녹음 정지") {
+            image.src = "http://edubuddy.dothome.co.kr/pic/btnstop_1.png";
+        }
+    });
+
+    document.querySelectorAll('.buttons-item').forEach(button => {
+        button.classList.remove('active'); // 버튼 활성화 클래스 제거
+    });
+}
+
+function clearText(input) {
+    if (input.value === input.defaultValue) input.value = "";
+}
+
+function resetText(input, defaultText) {
+    if (input.value === "") input.value = defaultText;
+}
+function triggerFileUpload() {
+    const fileInput = document.getElementById('fileInput');
+    if (fileInput) {
+        fileInput.click();
+    }
+}
+function handleFileSelect(event) {
+    const fileInput = event.target;
+    const fileNameDisplay = document.getElementById("fileNameDisplay");
+    const uploadContainer = document.getElementById("uploadContainer");
+    const uploadIcon = document.getElementById("uploadIcon");
+
+    if (fileInput.files.length > 0) {
+        const fileName = fileInput.files[0].name; // 선택된 파일의 이름 가져오기
+
+        // 이미지 숨기고 파일 이름 표시
+        uploadIcon.style.display = "none";
+        fileNameDisplay.textContent = fileName; // 파일명을 표시
+        fileNameDisplay.style.display = "block"; // 파일명 표시
+    } else {
+        // 이미지 다시 표시하고 파일명 초기화
+        uploadIcon.style.display = "block";
+        fileNameDisplay.textContent = "";
+        fileNameDisplay.style.display = "none";
+    }
+}
+
+function uploadLink() {
+    const youtubeLink = $("#Link").val().trim(); // jQuery로 값 가져오기
+
+    if (youtubeLink === '' || youtubeLink === '여기에 링크 주소를 넣어줘') {
+        alert("링크를 입력해주세요.");
+        return;
+    }
+
+    // jQuery AJAX 요청
+    $.ajax({
+        url: 'youtubeLink', // 서버 엔드포인트
+        type: 'POST',
+        contentType: 'application/json', // JSON 형식으로 전송
+        data: JSON.stringify({ youtubeLink: youtubeLink }), // 데이터 전송
+        success: function (response) {
+            // 성공 시 처리
+
+            alert("변환성공");
+        },
+        error: function (xhr, status, error) {
+            // 실패 시 처리
+            console.error("Error:", error);
+            alert("문제가 발생했습니다. 다시 시도해주세요.");
+        }
+    });
+}
+
+function uploadAudioAjax() {
+    const fileInput = document.getElementById('fileInput');
+
+    if (fileInput.files.length === 0) {
+        alert("파일을 선택해주세요.");
+        return;
+    }
+
+    const file = fileInput.files[0];
+    const formData = new FormData();
+    formData.append("file", file);
+
+    $.ajax({
+        url: '/upload-audio', // 서버 엔드포인트
+        type: 'POST',
+        processData: false,
+        contentType: false,
+        data: formData,
+        success: function (response) {
+            if (response.success) {
+                alert(response.message);
+                console.log("서버 응답:", response.transcriptionText);
+            } else {
+                alert(response.message);
+            }
+        },
+        error: function (xhr, status, error) {
+            console.error("Error:", error);
+            alert("파일 업로드 중 오류가 발생했습니다.");
+        }
+    });
+}

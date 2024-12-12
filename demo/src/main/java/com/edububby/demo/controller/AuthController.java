@@ -19,6 +19,7 @@ public class AuthController {
     @Autowired
     AuthService service;
 
+    //로그인 기능 
     @PostMapping("/auth/login")
     public String login(User user, HttpSession session, RedirectAttributes redirectAttributes) {
         System.out.println("로그인 시도: 사용자 ID = " + user.getUserId());
@@ -29,7 +30,7 @@ public class AuthController {
         if (loginUser != null) {
             System.out.println("로그인 성공: 로그인한 사용자 ID = " + loginUser.getUserId());
             session.setAttribute("user", loginUser.getUserId());
-
+            session.setAttribute("userName", loginUser.getUserName());
            // log_cnt 증가
             service.updateLogCount(loginUser.getUserId());
 

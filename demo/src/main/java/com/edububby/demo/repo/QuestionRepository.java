@@ -13,10 +13,7 @@ import com.edububby.demo.model.QuestionBank;
 @Repository
 public interface QuestionRepository extends JpaRepository<QuestionBank, Long> {
 
-    @Query("SELECT q FROM QuestionBank q " +
-            "JOIN UploadMapping u ON q.qesIdx = u.uploadMapping " +
-            "WHERE u.uploadIdx = :uploadIdx AND q.qesLevel = :qesLevel")
-    public List<QuestionBank> findQuestionsByUploadIdxAndLevel(Long uploadIdx, int qesLevel);
+  
 
     @Query(value = """
             SELECT
@@ -42,19 +39,22 @@ public interface QuestionRepository extends JpaRepository<QuestionBank, Long> {
 
     @Query("SELECT new com.edububby.demo.dto.ProblemSolvedDTO(" +
            "qb.qesIdx, qb.qesType, qb.qesContent, qb.qesAnswer, qb.qesDt, qb.qesLevel, " +
-           "qb.qesSel1, qb.qesSel2, qb.qesSel3, qb.qesSel4, qb.qesSel5, qb.qesExp, " +
+           "qb.qesSel1, qb.qesSel2, qb.qesSel3, qb.qesSel4, qb.qesSel5, qb.qesExp,qb.qesImg1,qb.qesImg2, " +
            "s.wrongCnt) " +
            "FROM QuestionBank qb " +
            "LEFT JOIN Solving s ON qb.qesIdx = s.qesIdx AND s.userId = :userId " +
            "WHERE qb.qesIdx IN :qesIdxList")
     public List<ProblemSolvedDTO> ProblemSolved(@Param("qesIdxList") List<Long> qesIdxList,@Param("userId") String userId);
 
+
+
+
     
     
     @Query("""
             SELECT new com.edububby.demo.dto.ProblemSolvedDTO(
                 qb.qesIdx, qb.qesType, qb.qesContent, qb.qesAnswer, qb.qesDt, qb.qesLevel,
-                qb.qesSel1, qb.qesSel2, qb.qesSel3, qb.qesSel4, qb.qesSel5, qb.qesExp,
+                qb.qesSel1, qb.qesSel2, qb.qesSel3, qb.qesSel4, qb.qesSel5, qb.qesExp,qb.qesImg1,qb.qesImg2,
                 s.wrongCnt
             )
             FROM QuestionBank qb
@@ -64,5 +64,7 @@ public interface QuestionRepository extends JpaRepository<QuestionBank, Long> {
             """)
     List<ProblemSolvedDTO> findProblemsByUserId(@Param("userId") String userId);
     
-   
+    List<QuestionBank> findByQesIdxIn(List<Long> qesIdx);
+
+
 }

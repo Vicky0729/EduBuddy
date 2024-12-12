@@ -18,13 +18,7 @@ public class QuestionService {
     @Autowired
     QuestionRepository repo;
 
-    public List<QuestionBank> QuestionSubmit(Long uploadIdx, int qesLevel){
-
-        
-        return repo.findQuestionsByUploadIdxAndLevel(uploadIdx,qesLevel);
-
-        
-    }
+ 
 
 
     public List<QuestionCountDTO> findQuestionCountWithQesIdxByUserId(String userId) {
@@ -40,16 +34,25 @@ public class QuestionService {
     public List<ProblemSolvedDTO> ProblemSolved(List<Long> qesIdxList, String userId){
 
         return repo.ProblemSolved(qesIdxList, userId);
+
     }
+
+ 
 
 
     public  List<ProblemSolvedDTO> AllProblem(String userId){
 
         return repo.findProblemsByUserId(userId);
+
     }
     
+    public List<QuestionBank> UploadProblem(List<Long> qesIdxs){
 
+        return repo.findByQesIdxIn(qesIdxs);
 
+    }
+
+    
 
 
 

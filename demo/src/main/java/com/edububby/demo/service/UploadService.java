@@ -17,9 +17,6 @@ public class UploadService {
 
         public List<Upload> allUploadByUserId(String userId){
 
-            
-
-
             return repo.findByUserId(userId);
         }
 
@@ -44,7 +41,25 @@ public class UploadService {
         }
 
 
+        public String KeywordInput(Long uploadIdx){
 
+            Upload upload = repo.findByUploadIdx(uploadIdx);
+            String keyword1 = upload.getKeyword1();
+            String keyword2 = upload.getKeyword2();
+            String keyword3 = upload.getKeyword3();
+            String keyword4 = upload.getKeyword4();
+            String keyword5 = upload.getKeyword5();
+    
+            String KeywordInput = keyword1 + " " + keyword2 + " " + keyword3 + " " + keyword4 + " " + keyword5;
 
+            return KeywordInput;
+        }
+
+       
+
+        public Upload findByUploadIdx(Long uploadIdx){
+
+            return repo.findByUploadIdx(uploadIdx);
+        }
 
 }

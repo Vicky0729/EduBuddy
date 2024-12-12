@@ -17,7 +17,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.edububby.demo.dto.ProblemSolvedDTO;
 
 import com.edububby.demo.model.QuestionBank;
+import com.edububby.demo.model.Upload;
+import com.edububby.demo.service.PythonModelService;
 import com.edububby.demo.service.QuestionService;
+import com.edububby.demo.service.UploadMappingService;
+import com.edububby.demo.service.UploadService;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -30,7 +34,14 @@ public class QuizController {
     @Autowired
     QuestionService questionService;
 
-    
+    @Autowired
+    UploadService uploadService;
+
+    @Autowired
+    PythonModelService pythonModelService;
+
+    @Autowired
+    UploadMappingService uploadMappingService;
 
     //업로드별 문제 출제
     @PostMapping("/QuizMaker")
@@ -44,10 +55,20 @@ public class QuizController {
         session.setAttribute("uploadIdx", uploadIdx);
         session.setAttribute("difficulty", difficulty);
 
-        List<QuestionBank> questionList = questionService.QuestionSubmit(uploadIdx, difficulty);
-
+        String KeywordInput = uploadService.KeywordInput(uploadIdx);
+        Upload uploadList = uploadService.findByUploadIdx(uploadIdx);
+      
         
 
+        List<Long> ModelQesIdxs = pythonModelService.getRecommendations(KeywordInput,difficulty);
+
+        System.out.println(ModelQesIdxs);
+        // uploadMapping 값 저장
+        uploadMappingService.insertUploadMapping(ModelQesIdxs,uploadIdx);
+
+        List<QuestionBank> questionList = questionService.UploadProblem(ModelQesIdxs);
+        
+        redirectAttributes.addFlashAttribute("uploadList", uploadList);
         redirectAttributes.addFlashAttribute("questionList", questionList);
         redirectAttributes.addFlashAttribute("difficulty", difficulty);
 
@@ -62,10 +83,12 @@ public class QuizController {
         System.out.println("NextLevel도착");
         int difficulty = (int)session.getAttribute("difficulty");
         Long uploadIdx = (Long)session.getAttribute("uploadIdx");
-        
+
         System.out.println("가지고온 식별자:"+uploadIdx);
         System.out.println("가지고온 난이도:"+difficulty);
         
+
+
 
         if(difficulty>=3){
            
@@ -76,7 +99,16 @@ public class QuizController {
         }else{
             ++difficulty;
             session.setAttribute("difficulty", difficulty);
-            List<QuestionBank> questionList = questionService.QuestionSubmit(uploadIdx, difficulty);
+
+            String KeywordInput = uploadService.KeywordInput(uploadIdx);
+            Upload uploadList = uploadService.findByUploadIdx(uploadIdx);
+            
+
+            List<Long> ModelQesIdxs = pythonModelService.getRecommendations(KeywordInput,difficulty);
+            List<QuestionBank> questionList = questionService.UploadProblem(ModelQesIdxs);
+
+
+            redirectAttributes.addFlashAttribute("uploadList",uploadList);
             redirectAttributes.addFlashAttribute("questionList",questionList);
             redirectAttributes.addFlashAttribute("difficulty",difficulty);
             return "redirect:/QuizMakerPage";
@@ -102,12 +134,14 @@ public class QuizController {
        
 
         String userId = (String) session.getAttribute("user");
+
+        
     
         List<ProblemSolvedDTO> questionList = questionService.ProblemSolved(qesIdxList, userId);
    
         redirectAttributes.addFlashAttribute("questionList", questionList);
     
-
+        session.removeAttribute("questions");
         return "redirect:/ProblemSolvingPage";
     }
 
@@ -144,6 +178,7 @@ public class QuizController {
         return "redirect:/ProblemSolvingPage";
     }
     
+    //모든 문제
     @GetMapping("/AllProblem")
     public String AllProblem(HttpSession session,RedirectAttributes redirectAttributes) {
 

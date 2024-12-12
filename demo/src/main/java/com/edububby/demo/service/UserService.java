@@ -17,11 +17,28 @@ public class UserService {
 
 
         repo.save(user);
+
+        
     }
 
     public boolean IdExist (String userId){
         return repo.existsByUserId(userId);
     }
 
+
+    public User findUserName(String userId){
+
+        return repo.findByUserId(userId);
+    }
+
+    public void updateUserName(String userId, String userName){
+
+        User user = repo.findByUserId(userId);
+
+        user.setUserName(userName);
+
+        repo.save(user);
+
+    }
 
 }

@@ -12,7 +12,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.edububby.demo.dto.QuestionCountDTO;
+import com.edububby.demo.model.Academic;
 import com.edububby.demo.model.Upload;
+import com.edububby.demo.model.User;
+import com.edububby.demo.service.AcademicService;
 import com.edububby.demo.service.QuestionService;
 import com.edububby.demo.service.SolvingService;
 import com.edububby.demo.service.UploadService;
@@ -39,11 +42,49 @@ public class HomeController {
     @Autowired
     SolvingService solvingService;
 
+    @Autowired
+    AcademicService academicService;
     
 
-    // 로그인 기능 구현
-    
+     // 첫페이지
+     @GetMapping("/")
+     public String Main() {
+ 
+ 
+     
+         return "login";
+     }
+     // 기존 회원 로그인 페이지
+     @GetMapping("/PhoneloginPage")
+     public String phoneLoginPage(){
+ 
+         
+ 
+ 
+         return "phonelogin";
+     }
 
+   
+
+
+    //회원가입 페이지(회원정보)
+    @GetMapping("/IdinfoPage")
+    public String joinUser(){
+        
+
+    
+        return "Idinfo";
+    }
+
+    //회원가입 페이지(학력 정보 )
+    @GetMapping("/StudentInfoPage")
+    public String StudentInfoPage() {
+
+
+        return "StudentInfo";
+    }
+    
+    // 홈페이지 이동
     @GetMapping("/HomePage")
     public String HomePage(){
         
@@ -66,6 +107,7 @@ public class HomeController {
         return "UploadLecture";
     }
 
+    //오답노트 페이지 
     @GetMapping("/ReviewPage")
     public String Review(HttpSession session,Model model) {
 
@@ -79,21 +121,30 @@ public class HomeController {
         return "Review";
     }
 
-
+    // 학습여정 페이지
     @GetMapping("/DashBoardPage")
     public String DashBoard(HttpSession session,Model model) {
 
         String userId = (String)session.getAttribute("user");
         
-        int correctNumber  = solvingService.correctNumber(userId);
+        int ProblemSolvedCnt  = solvingService.ProblemSolvedCnt(userId);
 
-        model.addAttribute("correctNumber", correctNumber);
+        Academic userAcademic = academicService.finAcademic(userId);
 
+        User user = userservice.findUserName(userId);
 
+        
+
+        model.addAttribute("userName", user.getUserName());
+        model.addAttribute("loginCnt", user.getLoginCnt());
+        model.addAttribute("ProblemSolvedCnt", ProblemSolvedCnt);
+        model.addAttribute("userAcademic", userAcademic);
+     
 
         return "DashBoard";
     }
 
+    // 문제 탐험대 페이지 
     @GetMapping("/QuizMakerPage")
     public String QuizMakerPage() {
 
@@ -103,10 +154,13 @@ public class HomeController {
 
         return "QuizMaker";
     }
+
+    // 문제 결과 페이지
     @GetMapping("/CheckAnswerPage")
     public String CheckAnswerPage(@RequestParam(value = "from", required = false) String from,HttpSession session, Model model){
 
         List<Map<String, Object>> questions = (List<Map<String, Object>>) session.getAttribute("questions");
+        System.out.println(questions);
         model.addAttribute("from", from);
         model.addAttribute("questions", questions);
        
@@ -115,48 +169,7 @@ public class HomeController {
         return "CheckAnswer";
     }
     
-    @GetMapping("/")
-    public String Main() {
-
-
-    
-        return "login";
-    }
-    @GetMapping("/PhoneloginPage")
-    public String phoneLoginPage(){
-
-        
-
-
-        return "phonelogin";
-    }
-
-    @GetMapping("/joinPage")
-    public String joinPage() {
-
-
-
-        return "join";
-    }
-
-
-    //회원가입 기능 구현
-    @GetMapping("/IdinfoPage")
-    public String joinUser(){
-        
-
-    
-        return "Idinfo";
-    }
-
-    //회원가입 기능 구현
-    @GetMapping("/StudentInfoPage")
-    public String StudentInfoPage() {
-
-
-        return "StudentInfo";
-    }
-
+    // 방금푼 문제, 목차별 문제 , 모든 문제 페이지
     @GetMapping("/ProblemSolvingPage")
     public String ProblemSolvingPage() {
 

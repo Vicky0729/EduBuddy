@@ -21,7 +21,7 @@
                             <div class="question-header">
                                 <div class="left-section">문제 ${status.count}</div>
                                 <div class="right-section">
-                                    <span class="difficulty-label">난이도 : </span>
+                                    <span class="difficulty-label">난이도 :  </span>
                                     <button id="current-difficulty" class="dropdown-button">
                                         <c:choose>
                                             <c:when test="${difficulty == 1}">
@@ -46,17 +46,28 @@
 
                             <!-- 키워드 표시 영역 -->
                             <div class="keyword-box">
-                                <div class="keyword-item">묽은 염산</div>
-                                <div class="keyword-item">반응 속도</div>
-                                <div class="keyword-item">화학</div>
+                               
+                                    <div class="keyword-item">${uploadList.keyword1}</div>   
+                                    <div class="keyword-item">${uploadList.keyword2}</div> 
+                                    <div class="keyword-item">${uploadList.keyword3}</div> 
+                                    <div class="keyword-item">${uploadList.keyword4}</div> 
+                                    <div class="keyword-item">${uploadList.keyword5}</div> 
+                              
                             </div>
 
                             <div class="top-section">
-                                <div class="main-title">과학: 묽은 염산의 대표 문제</div>
+                                <div class="main-title">과학: ${question.qesType}</div>
+                               
+                                
                             </div>
                             
                             <div class="bottom-section">
-                                <img class="main-image" src="example-image1.png" alt="문제 이미지">
+                                <c:if test="${not empty question.qesImg1}">
+                                    <img class="main-image" src="${question.qesImg1}" alt="문제 이미지">
+                                </c:if>
+                                <c:if test="${not empty question.qesImg2}">
+                                    <img class="main-image" src="${question.qesImg2}" alt="문제 이미지">
+                                </c:if>
                                 <div class="sub-title">${question.qesContent}</div>
                                 <div class="choices">
                                     <div class="choice-item" name="1">${question.qesSel1}</div>
@@ -64,8 +75,9 @@
                                     <div class="choice-item" name="3">${question.qesSel3}</div>
                                     <div class="choice-item" name="4">${question.qesSel4}</div>
                                     <div class="choice-item" name="5">${question.qesSel5}</div>
-                                    <input type="hidden" value="${question.qesAnswer}" data-id="${question.qesIdx}">
+                                    <input type="hidden" value="${question.qesAnswer}" data-id="${question.qesIdx}" name="correctAnswerValue">
                                     <input type="hidden" value="${question.qesExp}" name="explanation">
+                                    <input type="hidden" value="${uploadList.uploadIdx}" name="uploadIdx">
                                 </div>
                             </div>
                         </div>

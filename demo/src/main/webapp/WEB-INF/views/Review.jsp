@@ -27,7 +27,7 @@
             
             <c:if test="${not empty sessionScope.questions}">
                 <form action="ProblemSolved" method="get">  
-                    <input type="submit" class =before-problem value="방금 푼 문제">
+                    <input type="submit" class=before-problem value="방금 푼 문제">
                 </form>
             </c:if>
            

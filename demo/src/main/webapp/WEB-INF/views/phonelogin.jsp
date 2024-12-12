@@ -65,6 +65,6 @@
             });
         </script>
         <script src="/js/phonelogin.js"></script>
-    </body>
 
-    </html>
+    </body>
+</html>

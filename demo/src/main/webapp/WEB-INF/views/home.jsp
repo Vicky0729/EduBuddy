@@ -2,11 +2,12 @@
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
         <!DOCTYPE html>
         <html lang="ko">
+
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>Edubuddy</title>
-            <link rel="stylesheet" href="/css/home.css"/>
+            <link rel="stylesheet" href="/css/home.css" />
         </head>
 
         <body>
@@ -24,17 +25,17 @@
 
                 <div class="recording-time" id="recordingTime">00:00</div>
                 <div class="recording-buttons">
-                    <button id="start" class="buttons-item" onclick="startRecording()">
+                    <button id="start" class="buttons-item" onclick="toggleEffect(this)">
                         <img src="http://edubuddy.dothome.co.kr/pic/btnrcod_1.png" alt="녹음 시작">
                         <span>녹음 시작</span>
                     </button>
-                    <button id="pause" class="buttons-item" onclick="togglePause()" disabled>
+                    <button id="pause" class="buttons-item" onclick="toggleEffect(this)">
                         <img src="http://edubuddy.dothome.co.kr/pic/btnPause_1.png" alt="일시 정지">
                         <span>일시 정지</span>
                     </button>
-                    <button id="stop" class="buttons-item" onclick="stopRecording()" disabled>
-                        <img src="http://edubuddy.dothome.co.kr/pic/btnstop_1.png" alt="녹음 중지">
-                        <span>녹음 중지</span>
+                    <button id="stop" class="buttons-item" onclick="toggleEffect(this)">
+                        <img src="http://edubuddy.dothome.co.kr/pic/btnstop_1.png" alt="녹음 정지">
+                        <span>녹음 정지</span>
                     </button>
                 </div>
 
@@ -48,22 +49,20 @@
                     </div>
 
                     <div class="file-upload">
-                        <form action="${pageContext.request.contextPath}/upload-audio" method="post"
-                            enctype="multipart/form-data">
-                            <label class="file-upload-label">파일 업로드</label>
-                            <div class="uploadContainer" id="uploadContainer" onclick="triggerFileUpload()">
-                                <img src="http://edubuddy.dothome.co.kr/pic/file_add.svg" alt="파일 업로드 이미지"
-                                    class="upload-icon" id="uploadIcon">
-                                <span id="fileNameDisplay" class="file-name-display"></span>
-                            </div>
-                            <div class="upload-button">
-                                <button class="upload-button" type="submit">파일 업로드</button>
-                            </div>
-                            <!-- 숨겨진 파일 입력 필드 -->
-                            <input type="file" id="fileInput" name="file" onchange="handleFileSelect(event)"
-                                style="display: none;">
-                        </form>
+                        <label class="file-upload-label">파일 업로드</label>
+                        <div class="uploadContainer" id="uploadContainer" onclick="triggerFileUpload()">
+                            <img src="http://edubuddy.dothome.co.kr/pic/file_add.svg" alt="파일 업로드 이미지"
+                                class="upload-icon" id="uploadIcon">
+                            <span id="fileNameDisplay" class="file-name-display"></span>
+                        </div>
+                        <div class="upload-button">
+                            <button class="upload-button" type="button" onclick="uploadAudioAjax()">파일 업로드</button>
+                        </div>
+                        <!-- 숨겨진 파일 입력 필드 -->
+                        <input type="file" id="fileInput" name="file" onchange="handleFileSelect(event)"
+                            style="display: none;">
                     </div>
+
 
 
                 </div>

@@ -15,6 +15,7 @@ public class QuestionBank {
 
     @Id
     @Column(name="qes_idx")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long qesIdx;
     @Column(name="qes_type")
     private String qesType;
@@ -38,7 +39,10 @@ public class QuestionBank {
     private String qesSel5;
     @Column(name="qes_exp")
     private String qesExp;
-
+    @Column(name="qes_img1")
+    private String qesImg1;
+    @Column(name="qes_img2")
+    private String qesImg2;
 
 
 
