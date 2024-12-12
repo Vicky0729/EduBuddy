@@ -10,9 +10,8 @@ body {
     justify-content: center;
     align-items: center;
     height: 100%;
-    margin: 0;
     background-color: white;
-    font-family: 'NoonnuBasicGothicRegular';
+    margin: 0;
 }
 
 .Quiz-container {
@@ -197,7 +196,7 @@ body {
     flex: 1;
     overflow-y: scroll;
     scrollbar-width: none;
-    height: 35vh;
+    height: 30vh;
 }
 
 .sub-title {
@@ -289,9 +288,23 @@ body {
     background-color: #1a252f;
 }
 
+.incorrect {
+    width: 20%;
+    border : 1px solid transparent;
+    border-radius: 5px;
+    padding: 5px 8px;
+    background-color: #2c3e50;
+    font-size: 15px;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+    padding-left: 10px;
+    margin-left: 20px;
+}
+
 .navigation-buttons {
     position: absolute;
-    bottom: 90px;
+    bottom: 75px;
     left: 0;
     width: 100%;
     display: flex;
@@ -299,7 +312,7 @@ body {
     padding: 10px 0;
     background-color: transparent;
     border-top: none;
-    z-index: 10;
+    /* z-index: 10; */
 }
 
 .nav-button {
@@ -332,7 +345,7 @@ body {
     cursor: not-allowed;
 }
 
-.bottom-menu {
+.botton-menu {
     display: flex;
     justify-content: space-around;
     align-items: center;

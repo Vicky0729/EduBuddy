@@ -53,10 +53,10 @@
 
                             <div class="top-section">
                                 <div class="main-title">과학: 묽은 염산의 대표 문제</div>
-                                <img class="main-image" src="example-image1.png" alt="문제 이미지">
                             </div>
-
+                            
                             <div class="bottom-section">
+                                <img class="main-image" src="example-image1.png" alt="문제 이미지">
                                 <div class="sub-title">${question.qesContent}</div>
                                 <div class="choices">
                                     <div class="choice-item" name="1">${question.qesSel1}</div>

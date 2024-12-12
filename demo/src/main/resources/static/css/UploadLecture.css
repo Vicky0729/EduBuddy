@@ -129,6 +129,8 @@ body {
     background-color: #f9f9f9;
     border-top: 1px solid #ddd;
     scrollbar-width: none;
+    padding-bottom: 150px;
+    box-sizing: border-box;
 }
 
 .recording-item {

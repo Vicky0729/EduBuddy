@@ -32,9 +32,9 @@ body {
 .content {
     flex-grow: 1;
     overflow-y: auto;
-    height: calc(100% - 110px);
+    height: calc(100% - 120px);
     /* 높이 계산 추가 */
-    padding-bottom: 80px;
+    padding-bottom: 150px;
     scrollbar-width: none;
 }
 
@@ -114,14 +114,14 @@ canvas {
 }
 
 #accuracyText {
-    margin-top: 10px;
+    margin-top: 30px;
     font-size: 18px;
     font-weight: bold;
     color: #2c3e50;
 }
 
 .result-table {
-    width: 75%;
+    width: 100%;
     margin: 0 auto;
     border-collapse: collapse;
     font-size: 14px;
