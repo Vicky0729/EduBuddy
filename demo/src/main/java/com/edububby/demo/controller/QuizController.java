@@ -63,10 +63,11 @@ public class QuizController {
         List<Long> ModelQesIdxs = pythonModelService.getRecommendations(KeywordInput,difficulty);
 
         System.out.println(ModelQesIdxs);
+        
         // uploadMapping 값 저장
         uploadMappingService.insertUploadMapping(ModelQesIdxs,uploadIdx);
 
-        List<QuestionBank> questionList = questionService.UploadProblem(ModelQesIdxs);
+        List<ProblemSolvedDTO> questionList = questionService.findQuestionSolvingByQesIdxIn(ModelQesIdxs);
         
         redirectAttributes.addFlashAttribute("uploadList", uploadList);
         redirectAttributes.addFlashAttribute("questionList", questionList);
@@ -107,6 +108,7 @@ public class QuizController {
             List<Long> ModelQesIdxs = pythonModelService.getRecommendations(KeywordInput,difficulty);
             List<QuestionBank> questionList = questionService.UploadProblem(ModelQesIdxs);
 
+            uploadMappingService.insertUploadMapping(ModelQesIdxs,uploadIdx);
 
             redirectAttributes.addFlashAttribute("uploadList",uploadList);
             redirectAttributes.addFlashAttribute("questionList",questionList);

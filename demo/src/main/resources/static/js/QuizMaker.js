@@ -1,3 +1,4 @@
+
 function togglemark(button) {
     // 버튼의 이미지 요소 가져오기
     const img = button.querySelector("img");
@@ -182,6 +183,7 @@ function updateAllQuestionData() {
 
         const markButton = question.querySelector('.mark-button');
         const questionFavorite = markButton && markButton.classList.contains('active') ? "Y" : "N";
+        
         // 각 문제의 데이터를 JSON으로 저장
         const questionData = {
             qesIndex: index + 1, // 문제 번호

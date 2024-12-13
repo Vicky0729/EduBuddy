@@ -64,6 +64,7 @@ public class AudioRestController {
         response.put("success", true);
         response.put("message", "업로드가 성공적으로 완료되었습니다!");
         response.put("transcriptionText", transcriptionText);
+        
         return ResponseEntity.ok(response);
     } catch (Exception e) {
         e.printStackTrace();

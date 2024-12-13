@@ -18,6 +18,7 @@ public class UploadMappingService {
        
 
         for (Object qesIdx : qesIdxs) {
+            
             Long longValue = ((Number) qesIdx).longValue(); // Integer 또는 Long 처리
             
     

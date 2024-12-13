@@ -53,7 +53,11 @@ public class QuestionService {
     }
 
     
+    public List<ProblemSolvedDTO> findQuestionSolvingByQesIdxIn(List<Long> qesIdxs){
 
+
+        return repo.findQuestionSolvingByQesIdxIn(qesIdxs);
+    }
 
 
 }

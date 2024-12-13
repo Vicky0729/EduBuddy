@@ -39,9 +39,11 @@
                                         </c:choose>
                                     </button>
                                 </div>
+                            <c:if>
                                 <button class="mark-button" onclick="togglemark(this)">
                                     <img src="http://edubuddy.dothome.co.kr/pic/saveB.svg" alt="찜버튼">
                                 </button>
+                            </c:if>
                             </div>
 
                             <!-- 키워드 표시 영역 -->

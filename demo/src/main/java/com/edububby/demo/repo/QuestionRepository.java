@@ -64,7 +64,18 @@ public interface QuestionRepository extends JpaRepository<QuestionBank, Long> {
             """)
     List<ProblemSolvedDTO> findProblemsByUserId(@Param("userId") String userId);
     
+    
+
     List<QuestionBank> findByQesIdxIn(List<Long> qesIdx);
+
+    @Query("SELECT new com.edububby.demo.dto.ProblemSolvedDTO(" + 
+    "qb.qesIdx, qb.qesType, qb.qesContent, qb.qesAnswer, qb.qesDt, qb.qesLevel, "+
+    "qb.qesSel1, qb.qesSel2, qb.qesSel3, qb.qesSel4, qb.qesSel5, qb.qesExp,qb.qesImg1,qb.qesImg2, " +
+       "COALESCE(s.solvingFav, 'N')) " +
+       "FROM QuestionBank qb " +
+       "LEFT JOIN Solving s ON qb.qesIdx = s.qesIdx " +
+       "WHERE qb.qesIdx IN :qesIdx")
+    List<ProblemSolvedDTO> findQuestionSolvingByQesIdxIn(List<Long> qesIdx);
 
 
 }
