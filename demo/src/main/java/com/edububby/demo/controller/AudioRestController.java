@@ -8,7 +8,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -45,7 +45,7 @@ public class AudioRestController {
         System.out.println("오디오 서비스 도착");
 
         // 파이썬에서 텍스트화된 데이터 받아오기
-        String transcriptionText = audioService.transcribeAudio(file);
+        Map<String, Object> transcriptionText = audioService.transcribeAudio(file);
         System.out.println("텍스트화 결과: " + transcriptionText);
 
         // 세션에서 사용자 정보 가져오기
@@ -53,18 +53,18 @@ public class AudioRestController {
         String fileName = file.getOriginalFilename();
 
         // 업로드 정보 저장
-        Upload upload = new Upload();
+        /* Upload upload = new Upload();
         upload.setUserId(user);
         upload.setUploadFile(fileName);
         upload.setUploadDt(LocalDateTime.now());
         upload.setUploadText(transcriptionText);
-        uploadService.insertUpload(upload);
+        uploadService.insertUpload(upload); */
 
         // 성공 응답 구성
         response.put("success", true);
         response.put("message", "업로드가 성공적으로 완료되었습니다!");
         response.put("transcriptionText", transcriptionText);
-        
+
         return ResponseEntity.ok(response);
     } catch (Exception e) {
         e.printStackTrace();
@@ -89,7 +89,7 @@ public class AudioRestController {
             videoId = videoId.split("&")[0];
         }
 
-        String text = audioService.youtubeLink(videoId);
+        Map<String, Object> text = audioService.youtubeLink(videoId);
 
         System.out.println(text);
 

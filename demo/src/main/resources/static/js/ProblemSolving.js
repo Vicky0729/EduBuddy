@@ -1,21 +1,33 @@
 
-                function togglemark(button) {
-                    // 버튼의 이미지 요소 가져오기
-                    const img = button.querySelector("img");
+function togglemark(button) {
+    // 버튼의 이미지 요소 가져오기
+    const img = button.querySelector("img");
 
-                    // "active" 클래스를 토글
-                    button.classList.toggle("active");
+    console.log(img);
 
-                    // 이미지 소스를 변경
-                    if (button.classList.contains("active")) {
-                        // 활성화 상태 (찜 추가 상태)
-                        img.src = "http://edubuddy.dothome.co.kr/pic/saveA.svg"; // 활성화된 이미지 경로
-                    } else {
-                        // 비활성화 상태 (찜 해제 상태)
-                        img.src = "http://edubuddy.dothome.co.kr/pic/saveB.svg"; // 기본 이미지 경로
-                    }
-                }
 
+     // 초기 상태 판단: 현재 이미지 src가 활성화된 이미지인지 확인
+     if (img.src.includes("saveA.svg")) {
+        // 활성화된 이미지가 로드된 상태라면, 버튼에 "active" 클래스를 추가
+        button.classList.add("active");
+    } else {
+        // 비활성화된 이미지가 로드된 상태라면, 버튼에 "active" 클래스를 제거
+        button.classList.remove("active");
+    }
+
+    // "active" 클래스를 토글
+    button.classList.toggle("active");
+
+    // 이미지 소스를 변경
+    if (button.classList.contains("active")) {
+        // 활성화 상태 (찜 추가 상태)
+        img.src = "http://edubuddy.dothome.co.kr/pic/saveA.svg"; // 활성화된 이미지 경로
+    } else {
+        // 비활성화 상태 (찜 해제 상태)
+        img.src = "http://edubuddy.dothome.co.kr/pic/saveB.svg"; // 기본 이미지 경로
+    }
+
+}
                 let currentQuestionIndex = 0;
                 let selectedAnswers = {}; // 사용자가 선택한 답안을 저장
                 let selectedAnswerValues = {};
@@ -163,39 +175,54 @@
 
 
                 function updateAllQuestionData() {
-                    allQuestionData.length = 0; // 기존 데이터를 초기화하여 중복 방지
 
+                    console.log("updateAllQuestionData 도착")
+                    allQuestionData.length = 0; // 기존 데이터를 초기화하여 중복 방지
+                
                     questions.forEach((question, index) => {
                         // 문제 식별자 가져오기
                         const questionId = question.querySelector('input[type="hidden"]').dataset.id;
-
+                       
+                    
                         // 정답 값 (1~5)
-                        const correctAnswerValue = question.querySelector('input[type="hidden"]').value;
-
-                        // 정답 텍스트 가져오기
-                        const correctAnswerText = question.querySelector(`.choice-item[name="${correctAnswerValue}"]`).textContent.trim();
-
+                        const correctAnswerValue = question.querySelector('input[name="correctAnswerValue"]').value;
+                
+                        
                         // 사용자가 선택한 답의 값과 텍스트
                         const selectedAnswerValue = selectedAnswerValues[index] || "선택하지 않음";
-                        const selectedAnswerText = selectedAnswers[index] || "선택하지 않음";
-
+                      
+                 
                         const isCorrect = selectedAnswerValue === correctAnswerValue ? "Y" : "N";
-
-
+                
+                     
                         const markButton = question.querySelector('.mark-button');
-                        const questionFavorite = markButton && markButton.classList.contains('active') ? "Y" : "N";
+                        let questionFavorite = "N"; // 기본값
+                
+                        if (markButton) {
+                            const img = markButton.querySelector("img");
+                            if (img.src.includes("saveA.svg")) {
+                                // 초기 상태가 찜된 상태라면
+                                markButton.classList.add("active"); // active 클래스 동기화
+                                questionFavorite = "Y";
+                            } else {
+                                markButton.classList.remove("active"); // active 클래스 동기화
+                                questionFavorite = "N";
+                            }
+                        }
+                
+                        console.log(questionFavorite)
                         // 각 문제의 데이터를 JSON으로 저장
                         const questionData = {
                             qesIndex: index + 1, // 문제 번호
                             qesIdx: questionId, // 문제 식별자
                             corrAnswerYn : isCorrect,
                             qesFav: questionFavorite
-
+                
                         };
-
+                
                         allQuestionData.push(questionData); // 데이터 배열에 추가
                     });
-
+                
                     console.log("업데이트된 문제 데이터:", allQuestionData);
                 }
 

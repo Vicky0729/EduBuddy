@@ -68,6 +68,8 @@ public class QuizController {
         uploadMappingService.insertUploadMapping(ModelQesIdxs,uploadIdx);
 
         List<ProblemSolvedDTO> questionList = questionService.findQuestionSolvingByQesIdxIn(ModelQesIdxs);
+
+        System.out.println(questionList);
         
         redirectAttributes.addFlashAttribute("uploadList", uploadList);
         redirectAttributes.addFlashAttribute("questionList", questionList);
@@ -106,7 +108,7 @@ public class QuizController {
             
 
             List<Long> ModelQesIdxs = pythonModelService.getRecommendations(KeywordInput,difficulty);
-            List<QuestionBank> questionList = questionService.UploadProblem(ModelQesIdxs);
+            List<ProblemSolvedDTO> questionList = questionService.findQuestionSolvingByQesIdxIn(ModelQesIdxs);
 
             uploadMappingService.insertUploadMapping(ModelQesIdxs,uploadIdx);
 

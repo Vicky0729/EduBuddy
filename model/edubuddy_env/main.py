@@ -1,84 +1,166 @@
-from fastapi import FastAPI, File, UploadFile,HTTPException
+from fastapi import FastAPI, File, UploadFile, HTTPException
 from pydantic import BaseModel
+from typing import List
+from kiwipiepy import Kiwi
+from keybert import KeyBERT
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sentence_transformers import SentenceTransformer, util
+from pykospacing import Spacing
 from youtube_transcript_api import YouTubeTranscriptApi
 import requests
 import json
+import time
 
+# FastAPI 초기화
 app = FastAPI()
 
-# Vito API를 사용하여 음성 파일을 텍스트로 변환하는 엔드포인트
-config = {
+# 모델 초기화
+kiwi = Kiwi()
+kw_model = KeyBERT()
+spacing = Spacing()
+
+# Vito API 설정
+vito_config = {
     "use_diarization": True,
-    "diarization": {
-        "spk_count": 2
-    },
+    "diarization": {"spk_count": 2},
     "use_itn": True,
     "use_disfluency_filter": True,
     "use_profanity_filter": False,
     "use_paragraph_splitter": True,
-    "paragraph_splitter": {
-        "max": 50
-    }
+    "paragraph_splitter": {"max": 50}
 }
 
+# 공통 키워드 추출 함수
+def extract_keywords(text: str, top_n: int = 5, similarity_threshold: float = 0.2):
+    """
+    텍스트에서 키워드를 추출하는 함수.
+    
+    :param text: 입력 텍스트
+    :param top_n: 추출할 키워드 개수 (기본값: 5)
+    :param similarity_threshold: 필터링된 문장 유사도 기준 (기본값: 0.2)
+    :return: 키워드 리스트
+    """
+    try:
+        # Step 1: 띄어쓰기 교정
+        corrected_text = spacing(text)
+
+        # Step 2: 문장 분리
+        sentences = [sent.text for sent in kiwi.split_into_sents(corrected_text)]
+
+        # Step 3: Sentence-BERT와 키워드 비교 (선택적 유사도 기반 필터링)
+        keywords_for_similarity = ["과학", "물질", "원소", "우주", "연구", "에너지"]
+        model = SentenceTransformer('sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2')
+        keyword_embedding = model.encode(keywords_for_similarity)
+        sentence_embeddings = model.encode(sentences)
+
+        # 유사도 계산 및 필터링된 문장 선택
+        filtered_sentences = []
+        for i, sent_emb in enumerate(sentence_embeddings):
+            similarity_scores = util.cos_sim(sent_emb, keyword_embedding).mean()
+            if similarity_scores > similarity_threshold:
+                filtered_sentences.append(sentences[i])
+
+        # Step 4: 명사 추출
+        nouns = []
+        for sentence in filtered_sentences:
+            tokens = kiwi.tokenize(sentence, normalize_coda=True)
+            sentence_nouns = [token.form for token in tokens if token.tag in ['NNG', 'NNP', 'NNB']]
+            sentence_nouns = [noun for noun in sentence_nouns if noun not in custom_stopwords]
+            sentence_nouns = [noun for noun in sentence_nouns if (noun, None) not in stopwords]
+            nouns.append(" ".join(sentence_nouns))
+
+        # Step 5: 명사 텍스트 결합 및 TF-IDF 계산
+        noun_text = " ".join(nouns)
+        if not noun_text.strip():
+            return []  # 키워드가 없으면 빈 리스트 반환
+
+        vectorizer = TfidfVectorizer()
+        tfidf_matrix = vectorizer.fit_transform([noun_text])
+
+        # Step 6: KeyBERT 키워드 추출
+        extracted_keywords = kw_model.extract_keywords(
+            noun_text, top_n=top_n, vectorizer=vectorizer
+        )
+
+        # 키워드 리스트 생성
+        keywords_list = [keyword[0] for keyword in extracted_keywords]
+
+        return keywords_list
+
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Keyword extraction failed: {str(e)}")
+
+
+
+# 음성 파일 텍스트화 엔드포인트
 @app.post("/transcribe")
 async def transcribe(file: UploadFile = File(...)):
-    # Vito API 인증
-    vito_auth_resp = requests.post(
-        'https://openapi.vito.ai/v1/authenticate',
-        data={'client_id': '5ZlST7B9EFdDV5YESXzI', 'client_secret': '36dsqoQPfrxIAdsj8YHePnR3BDxdfKa4Bt_frAsY'}
-    )
-    vito_auth_resp.raise_for_status()
-    jwt_token = vito_auth_resp.json().get("access_token")
-
-    # Vito API로 음성 파일 전송 및 작업 ID 수신
-    vito_transcribe_resp = requests.post(
-        'https://openapi.vito.ai/v1/transcribe',
-        headers={'Authorization': f'bearer {jwt_token}'},
-        data={'config': json.dumps(config)},
-        files={'file': (file.filename, await file.read())}
-    )
-    vito_transcribe_resp.raise_for_status()
-    job_id = vito_transcribe_resp.json().get("id")
-
-    # 작업 완료까지 대기 및 결과 조회
-    transcription_result = None
-    while True:
-        # 작업 상태 확인
-        status_resp = requests.get(
-            f'https://openapi.vito.ai/v1/transcribe/{job_id}',
-            headers={'Authorization': f'bearer {jwt_token}'}
+    try:
+        # Vito API 인증
+        vito_auth_resp = requests.post(
+            'https://openapi.vito.ai/v1/authenticate',
+            data={'client_id': 'YOUR_CLIENT_ID', 'client_secret': 'YOUR_CLIENT_SECRET'}
         )
-        status_resp.raise_for_status()
-        status_data = status_resp.json()
+        vito_auth_resp.raise_for_status()
+        jwt_token = vito_auth_resp.json().get("access_token")
 
-        # 작업이 완료되었는지 확인
-        if status_data.get("status") == "completed":
-            utterances = status_data["results"]["utterances"]
-            # 메시지들을 하나의 문자열로 결합
-            transcription_text = " ".join([utterance["msg"] for utterance in utterances])
-            break
-        elif status_data.get("status") == "failed":
-            return {"error": "Transcription failed", "details": status_data}
+        # Vito API로 음성 파일 전송
+        vito_transcribe_resp = requests.post(
+            'https://openapi.vito.ai/v1/transcribe',
+            headers={'Authorization': f'bearer {jwt_token}'},
+            data={'config': json.dumps(vito_config)},
+            files={'file': (file.filename, await file.read())}
+        )
+        vito_transcribe_resp.raise_for_status()
+        job_id = vito_transcribe_resp.json().get("id")
 
-        # 일정 시간 대기
-        import time
-        time.sleep(5)
+        # 작업 완료 대기 및 결과 조회
+        transcription_text = None
+        while True:
+            status_resp = requests.get(
+                f'https://openapi.vito.ai/v1/transcribe/{job_id}',
+                headers={'Authorization': f'bearer {jwt_token}'}
+            )
+            status_resp.raise_for_status()
+            status_data = status_resp.json()
 
-    # 최종 텍스트 변환 결과 반환
-    return {"transcription": transcription_text}
+            if status_data.get("status") == "completed":
+                utterances = status_data["results"]["utterances"]
+                transcription_text = " ".join([utterance["msg"] for utterance in utterances])
+                break
+            elif status_data.get("status") == "failed":
+                raise HTTPException(status_code=500, detail="Transcription failed.")
+            
+            # 대기 시간
+            time.sleep(5)
 
+        # 키워드 추출
+        keywords = extract_keywords(transcription_text)
 
+        # 결과 반환
+        return {"transcription": transcription_text, "keywords": keywords}
 
-# 요청 모델 정의
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+# 유튜브 자막 추출 엔드포인트
 class VideoLinkRequest(BaseModel):
     video_id: str
 
 @app.post("/youtubeLink")
 async def get_transcript(request: VideoLinkRequest):
     try:
+        # 유튜브 자막 추출
         transcript = YouTubeTranscriptApi.get_transcript(request.video_id, languages=['ko'])
-        texts = [entry['text']for entry in transcript]
-        return {"video_id": request.video_id, "transcript": texts}
+        texts = " ".join([entry['text'] for entry in transcript])
+
+        # 키워드 추출
+        keywords = extract_keywords(texts)
+
+        print(keywords)
+
+
+        # 결과 반환
+        return {"transcription": texts, "keywords": keywords}
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))

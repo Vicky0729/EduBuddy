@@ -39,11 +39,17 @@
                                         </c:choose>
                                     </button>
                                 </div>
-                            <c:if>
                                 <button class="mark-button" onclick="togglemark(this)">
-                                    <img src="http://edubuddy.dothome.co.kr/pic/saveB.svg" alt="찜버튼">
+                                    <c:if test="${String.valueOf(question.solvingFav) == 'Y'}">
+                                        <img src="http://edubuddy.dothome.co.kr/pic/saveA.svg" alt="찜버튼">
+                                    </c:if>
+                                    <c:if test="${String.valueOf(question.solvingFav) == 'N'}">
+                                        <img src="http://edubuddy.dothome.co.kr/pic/saveB.svg" alt="찜버튼">
+                                    </c:if>
+                                    
                                 </button>
-                            </c:if>
+                                
+                                
                             </div>
 
                             <!-- 키워드 표시 영역 -->

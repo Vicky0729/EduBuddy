@@ -46,11 +46,7 @@ public class QuestionService {
 
     }
     
-    public List<QuestionBank> UploadProblem(List<Long> qesIdxs){
-
-        return repo.findByQesIdxIn(qesIdxs);
-
-    }
+   
 
     
     public List<ProblemSolvedDTO> findQuestionSolvingByQesIdxIn(List<Long> qesIdxs){

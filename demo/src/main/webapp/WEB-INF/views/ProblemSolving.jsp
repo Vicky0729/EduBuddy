@@ -36,13 +36,19 @@
                                                 심화
                                             </c:when>
                                             <c:otherwise>
-                                                알 수 없음
+                                               알수 없음
                                             </c:otherwise>
                                         </c:choose>
                                     </button>
                                 </div>
                                 <button class="mark-button" onclick="togglemark(this)">
-                                    <img src="http://edubuddy.dothome.co.kr/pic/saveB.svg" alt="찜버튼">
+                                    <c:if test="${String.valueOf(question.solvingFav) == 'Y'}">
+                                        <img src="http://edubuddy.dothome.co.kr/pic/saveA.svg" alt="찜버튼">
+                                    </c:if>
+                                    <c:if test="${String.valueOf(question.solvingFav) == 'N'}">
+                                        <img src="http://edubuddy.dothome.co.kr/pic/saveB.svg" alt="찜버튼">
+                                    </c:if>
+                                    
                                 </button>
                             </div>
 
@@ -71,8 +77,9 @@
                                     <div class="choice-item" name="3">${question.qesSel3}</div>
                                     <div class="choice-item" name="4">${question.qesSel4}</div>
                                     <div class="choice-item" name="5">${question.qesSel5}</div>
-                                    <input type="hidden" value="${question.qesAnswer}" data-id="${question.qesIdx}">
+                                    <input type="hidden" value="${question.qesAnswer}" data-id="${question.qesIdx}" name="correctAnswerValue">
                                     <input type="hidden" value="${question.qesExp}" name="explanation">
+                                    <input type="hidden" value="${uploadList.uploadIdx}" name="uploadIdx">
                                 </div>
                                 
                             </div>
