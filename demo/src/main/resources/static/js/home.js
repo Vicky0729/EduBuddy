@@ -208,7 +208,8 @@ function handleFileSelect(event) {
     }
 }
 
-function uploadLink() {
+function uploadLink(){
+    console.log("uploadLink 도착")
     const youtubeLink = $("#Link").val().trim(); // jQuery로 값 가져오기
 
     if (youtubeLink === '' || youtubeLink === '여기에 링크 주소를 넣어줘') {

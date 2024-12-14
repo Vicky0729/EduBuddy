@@ -30,7 +30,7 @@
 
                 <div class="Password">
                     <label>너의 비밀번호를 적어줘</label>
-                    <input type="text" name="userPw" value="너의 비밀번호를 적어줘" onfocus="clearText(this)"
+                    <input type="password" name="userPw" value="너의 비밀번호를 적어줘" onfocus="clearText(this)"
                         onblur="resetText(this, '너의 비밀번호를 적어줘')">
                 </div>
 

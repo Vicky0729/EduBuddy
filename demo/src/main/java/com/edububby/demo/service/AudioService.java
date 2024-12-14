@@ -21,7 +21,7 @@ public class AudioService {
     // 음성 파일 텍스트화 및 키워드 추출
     public Map<String, Object> transcribeAudio(MultipartFile file) throws IOException {
         // 1. Python 서버의 엔드포인트 URL 설정
-        String url = "http://localhost:8000/transcribe";  // Python FastAPI 서버 주소
+        String url = "http://localhost:5000/transcribe";  // Python FastAPI 서버 주소
 
         // 2. HTTP 요청 헤더 및 바디 설정
         RestTemplate restTemplate = new RestTemplate();
@@ -55,7 +55,7 @@ public class AudioService {
 
         System.out.println("youtubeLink 도착");
         // 1. Python 서버의 엔드포인트 URL 설정
-        String pythonApiUrl = "http://localhost:8000/youtubeLink"; // Python FastAPI 서버 주소
+        String pythonApiUrl = "http://localhost:5000/youtubeLink"; // Python FastAPI 서버 주소
 
         // 2. 요청 데이터 생성
         RestTemplate restTemplate = new RestTemplate();
