@@ -23,51 +23,72 @@
                     </div>
                 </div>
 
-                <div class="recording-time" id="recordingTime">00:00</div>
-                <div class="recording-buttons">
-                    <button id="start" class="buttons-item" onclick="toggleEffect(this)">
-                        <img src="http://edubuddy.dothome.co.kr/pic/btnrcod_1.png" alt="녹음 시작">
-                        <span>녹음 시작</span>
-                    </button>
-                    <button id="pause" class="buttons-item" onclick="toggleEffect(this)">
-                        <img src="http://edubuddy.dothome.co.kr/pic/btnPause_1.png" alt="일시 정지">
-                        <span>일시 정지</span>
-                    </button>
-                    <button id="stop" class="buttons-item" onclick="toggleEffect(this)">
-                        <img src="http://edubuddy.dothome.co.kr/pic/btnstop_1.png" alt="녹음 정지">
-                        <span>녹음 정지</span>
-                    </button>
-                </div>
-
-
                 <div class="upload-section">
                     <div class="link-input">
                         <label>링크 업로드</label>
-                        <input id="Link" type="text" value="여기에 링크 주소를 넣어줘" onfocus="clearText(this)"
+                        <input type="text" value="여기에 링크 주소를 넣어줘" onfocus="clearText(this)"
                             onblur="resetText(this, '여기에 링크 주소를 넣어줘')">
-                        <button onclick="uploadLink()">음성파일 업로드</button>
+                        <button>음성파일 업로드</button>
                     </div>
 
                     <div class="file-upload">
                         <label class="file-upload-label">파일 업로드</label>
                         <div class="uploadContainer" id="uploadContainer" onclick="triggerFileUpload()">
                             <img src="http://edubuddy.dothome.co.kr/pic/file_add.svg" alt="파일 업로드 이미지"
-                                class="upload-icon" id="uploadIcon">
-                            <span id="fileNameDisplay" class="file-name-display"></span>
+                                class="upload-icon">
                         </div>
                         <div class="upload-button">
-                            <button class="upload-button" type="button" onclick="uploadAudioAjax()">파일 업로드</button>
+                            <button>파일 업로드</button>
                         </div>
                         <!-- 숨겨진 파일 입력 필드 -->
-                        <input type="file" id="fileInput" name="file" onchange="handleFileSelect(event)"
-                            style="display: none;">
+                        <input type="file" id="fileInput" onchange="handleFileSelect(event)" style="display: none;">
                     </div>
-
-
-
                 </div>
 
-                <jsp:include page="Menubar.jsp" />
+                <div class="bottom-menu">
+                    <button class="menu-item" onclick="location.href='QuizMaker.html'">
+                        <img src="http://edubuddy.dothome.co.kr/pic/book.svg" alt="문제 탐험대">
+                        <span>문제 탐험대</span>
+                    </button>
+                    <button class="menu-item" onclick="location.href='Home.html'">
+                        <img src="http://edubuddy.dothome.co.kr/pic/ai1.svg" alt="AI 학습관">
+                        <span>AI 학습관</span>
+                    </button>
+                    <!-- 팝업 버튼 -->
+                    <button class="menu-item popup-button" onclick="showPopup()"></button>
+                    <button class="menu-item" onclick="location.href='Review.html'">
+                        <img src="http://edubuddy.dothome.co.kr/pic/ox.svg" alt="다시도전">
+                        <span>오답노트</span>
+                    </button>
+                    <button class="menu-item" onclick="location.href='#learning'">
+                        <img src="http://edubuddy.dothome.co.kr/pic/status.svg" alt="학습여정">
+                        <span>학습여정</span>
+                    </button>
+                </div>
+
+                <!-- 팝업 -->
+                <div id="popup">
+                    <h2>녹음하기</h2>
+                    <div class="recording-time" id="recordingTime">00:00</div>
+                    <div class="popup-buttons">
+                        <button id="start" class="popup-buttons-item" onclick="toggleEffect(this)">
+                            <img src="http://edubuddy.dothome.co.kr/pic/btnrcod_1.png" alt="녹음 시작">
+                            <span>녹음 시작</span>
+                        </button>
+                        <button id="pause" class="popup-buttons-item" onclick="toggleEffect(this)">
+                            <img src="http://edubuddy.dothome.co.kr/pic/btnPause_1.png" alt="일시 정지">
+                            <span>일시 정지</span>
+                        </button>
+                        <button id="stop" class="popup-buttons-item" onclick="toggleEffect(this)">
+                            <img src="http://edubuddy.dothome.co.kr/pic/btnstop_1.png" alt="녹음 정지">
+                            <span>녹음 정지</span>
+                        </button>
+                    </div>
+                    <button class="close" onclick="hidePopup()">닫기</button>
+                </div>
+            </div>
+
+            <!-- <jsp:include page="Menubar.jsp" /> -->
             </div>
 
             <script src="/js/home.js"></script>

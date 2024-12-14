@@ -3,6 +3,8 @@ let recordedChunks = [];
 let timer;
 let seconds = 0;
 let isPaused = false;
+let isRecording = false;
+
 
 // 타이머 업데이트
 function updateTimer() {
@@ -43,6 +45,10 @@ function toggleEffect(button) {
     const img = button.querySelector('img');
     const buttonId = button.id;
 
+    // 모든 버튼의 active 클래스 제거 (초기화)
+    resetButtonColors();
+
+    // 녹음 정지 버튼 클릭 시 모든 버튼과 이미지를 초기화
     if (buttonId === "stop") {
         stopTimer(); // 타이머 정지
         resetButtonColors(); // 모든 버튼과 이미지 초기화
@@ -50,12 +56,15 @@ function toggleEffect(button) {
         return; // 초기화 후 함수 종료
     }
 
-    resetButtonColors();
-
     if (buttonId === "start") {
         startRecording(); // 녹음 시작
         button.classList.add('active');
     } else if (buttonId === "pause") {
+        // 일시정지 시 녹음 시작 버튼 초기화
+        const startButton = document.getElementById("start");
+        if (startButton) {
+            startButton.classList.remove("active"); // 녹음 시작 버튼 색 초기화
+        }
         if (isPaused) {
             mediaRecorder.resume(); // 녹음 재개
             startTimer(); // 타이머 재개
@@ -72,6 +81,7 @@ function toggleEffect(button) {
     if (img) img.classList.add('active'); // 클릭된 버튼 이미지 활성화
 }
 
+
 // 녹음 시작
 async function startRecording() {
     const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
@@ -86,7 +96,6 @@ async function startRecording() {
     mediaRecorder.start();
     console.log("녹음 시작");
     startTimer(); // 타이머 시작
-    resetButtonColors(); // 버튼 상태 초기화
     document.getElementById("start").classList.add("active");
 }
 
@@ -102,13 +111,14 @@ function stopRecording() {
     }
     resetButtonColors();
     stopTimer();
+    isPaused = false; // 일시정지 상태 초기화
     console.log("녹음 정지");
 }
 
 // AJAX를 통해 음성 파일 업로드
 function recordAudioAjax(audioBlob) {
 
-    
+
     const formData = new FormData();
     formData.append("file", audioBlob, "recording.webm");
 
@@ -129,25 +139,6 @@ function recordAudioAjax(audioBlob) {
     });
 }
 
-// 모든 버튼의 활성화 효과 초기화
-function resetButtonColors() {
-    document.querySelectorAll('.buttons-item img').forEach(image => {
-        image.classList.remove('active');
-        if (image.alt === "녹음 시작") {
-            image.src = "http://edubuddy.dothome.co.kr/pic/btnrcod_1.png";
-        } else if (image.alt === "일시 정지") {
-            image.src = "http://edubuddy.dothome.co.kr/pic/btnPause_1.png";
-        } else if (image.alt === "녹음 정지") {
-            image.src = "http://edubuddy.dothome.co.kr/pic/btnstop_1.png";
-        }
-    });
-
-    document.querySelectorAll('.buttons-item').forEach(button => {
-        button.classList.remove('active');
-    });
-}
-
-
 function updateButtonStates(state) {
     document.getElementById("start").disabled = (state === "recording");
     document.getElementById("pause").disabled = (state === "stopped");
@@ -155,7 +146,7 @@ function updateButtonStates(state) {
 }
 
 function resetButtonColors() {
-    document.querySelectorAll('.buttons-item img').forEach(image => {
+    document.querySelectorAll('.popup-buttons-item img').forEach(image => {
         image.classList.remove('active'); // 이미지 활성화 클래스 제거
         // 이미지의 src를 초기값으로 설정 (필요 시 추가)
         if (image.alt === "녹음 시작") {
@@ -167,42 +158,53 @@ function resetButtonColors() {
         }
     });
 
-    document.querySelectorAll('.buttons-item').forEach(button => {
+    document.querySelectorAll('.popup-buttons-item').forEach(button => {
         button.classList.remove('active'); // 버튼 활성화 클래스 제거
     });
 }
 
+// 녹음 팝업 열기
+function showPopup() {
+    document.getElementById('popup').style.display = 'block';
+}
+function hidePopup() {
+    document.getElementById('popup').style.display = 'none';
+}
+
+// 입력 창 초기화 함수
 function clearText(input) {
-    if (input.value === input.defaultValue) input.value = "";
+    if (input.value === input.defaultValue) {
+        input.value = "";
+    }
 }
 
 function resetText(input, defaultText) {
-    if (input.value === "") input.value = defaultText;
+    if (input.value === "") {
+        input.value = defaultText;
+    }
 }
+
+// 파일 등록 함수
 function triggerFileUpload() {
     const fileInput = document.getElementById('fileInput');
     if (fileInput) {
         fileInput.click();
     }
 }
+
 function handleFileSelect(event) {
     const fileInput = event.target;
     const fileNameDisplay = document.getElementById("fileNameDisplay");
-    const uploadContainer = document.getElementById("uploadContainer");
-    const uploadIcon = document.getElementById("uploadIcon");
 
     if (fileInput.files.length > 0) {
         const fileName = fileInput.files[0].name; // 선택된 파일의 이름 가져오기
-
-        // 이미지 숨기고 파일 이름 표시
-        uploadIcon.style.display = "none";
-        fileNameDisplay.textContent = fileName; // 파일명을 표시
-        fileNameDisplay.style.display = "block"; // 파일명 표시
+        if (fileNameDisplay) {
+            fileNameDisplay.textContent = fileName; // 파일명을 표시
+        }
     } else {
-        // 이미지 다시 표시하고 파일명 초기화
-        uploadIcon.style.display = "block";
-        fileNameDisplay.textContent = "";
-        fileNameDisplay.style.display = "none";
+        if (fileNameDisplay) {
+            fileNameDisplay.textContent = ""; // 파일이 없을 경우 파일명 표시 내용 초기화
+        }
     }
 }
 
