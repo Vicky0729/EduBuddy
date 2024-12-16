@@ -13,11 +13,11 @@
     <div class="DashBoard-container">
         <div class="header">EDU BUDDY
             <button id="menuButton" class="menu-button">
-                <img src="../pic/myinfo.png" alt="내정보수정">
+                <img src="http://edubuddy.dothome.co.kr/pic/myinfo.png" alt="내정보수정">
             </button>
             <form action="logOut" method="get">
             <button type="submit" id="LogoutButton" class="logout-button">
-                <img src="../pic/Logout.png" alt="로그아웃">
+                <img src="http://edubuddy.dothome.co.kr/pic/Logout.png" alt="로그아웃">
             </button>
             </form>
         </div>

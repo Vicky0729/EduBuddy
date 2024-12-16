@@ -28,7 +28,7 @@
                         <label>링크 업로드</label>
                         <input type="text" value="여기에 링크 주소를 넣어줘" onfocus="clearText(this)"
                             onblur="resetText(this, '여기에 링크 주소를 넣어줘')">
-                        <button>음성파일 업로드</button>
+                        <button onclick="uploadLink()">음성파일 업로드</button>
                     </div>
 
                     <div class="file-upload">
@@ -38,7 +38,7 @@
                                 class="upload-icon">
                         </div>
                         <div class="upload-button">
-                            <button>파일 업로드</button>
+                            <button onclick="location.href='uploadAudioAjax()'">파일 업로드</button>
                         </div>
                         <!-- 숨겨진 파일 입력 필드 -->
                         <input type="file" id="fileInput" onchange="handleFileSelect(event)" style="display: none;">
@@ -46,21 +46,21 @@
                 </div>
 
                 <div class="bottom-menu">
-                    <button class="menu-item" onclick="location.href='QuizMaker.html'">
+                    <button class="menu-item" onclick="location.href='UploadLecturePage'">
                         <img src="http://edubuddy.dothome.co.kr/pic/book.svg" alt="문제 탐험대">
                         <span>문제 탐험대</span>
                     </button>
-                    <button class="menu-item" onclick="location.href='Home.html'">
+                    <button class="menu-item" onclick="location.href='HomePage'">
                         <img src="http://edubuddy.dothome.co.kr/pic/ai1.svg" alt="AI 학습관">
                         <span>AI 학습관</span>
                     </button>
                     <!-- 팝업 버튼 -->
                     <button class="menu-item popup-button" onclick="showPopup()"></button>
-                    <button class="menu-item" onclick="location.href='Review.html'">
-                        <img src="http://edubuddy.dothome.co.kr/pic/ox.svg" alt="다시도전">
+                    <button class="menu-item" onclick="location.href='ReviewPage'">
+                        <img src="http://edubuddy.dothome.co.kr/pic/ox.svg" alt="오답 노트">
                         <span>오답노트</span>
                     </button>
-                    <button class="menu-item" onclick="location.href='#learning'">
+                    <button class="menu-item" onclick="location.href='DashBoardPage'">
                         <img src="http://edubuddy.dothome.co.kr/pic/status.svg" alt="학습여정">
                         <span>학습여정</span>
                     </button>
@@ -88,7 +88,6 @@
                 </div>
             </div>
 
-            <!-- <jsp:include page="Menubar.jsp" /> -->
             </div>
 
             <script src="/js/home.js"></script>
