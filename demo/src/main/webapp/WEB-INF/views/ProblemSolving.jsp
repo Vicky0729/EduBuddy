@@ -53,11 +53,7 @@
                             </div>
 
                             <!-- 키워드 표시 영역 -->
-                            <div class="keyword-box">
-                                <div class="keyword-item">묽은 염산</div>
-                                <div class="keyword-item">반응 속도</div>
-                                <div class="keyword-item">화학</div>
-                            </div>
+                   
 
                             <div class="top-section">
                                 <div class="main-title">과학: ${question.qesType}</div>

@@ -133,8 +133,9 @@ public class HomeController {
 
         User user = userservice.findUserName(userId);
 
+        Upload Keywords = uploadService.DashBoardKeywords(userId);
         
-
+        model.addAttribute("Keywords", Keywords);
         model.addAttribute("userName", user.getUserName());
         model.addAttribute("loginCnt", user.getLoginCnt());
         model.addAttribute("ProblemSolvedCnt", ProblemSolvedCnt);

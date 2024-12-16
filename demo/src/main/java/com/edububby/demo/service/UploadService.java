@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.edububby.demo.model.Upload;
+import com.edububby.demo.repo.SolvingRepository;
+import com.edububby.demo.repo.UploadMappingRepository;
 import com.edububby.demo.repo.UploadRepository;
 
 @Service
@@ -14,6 +16,12 @@ public class UploadService {
 
         @Autowired
         UploadRepository repo;
+
+        @Autowired
+        SolvingRepository solvingRepo;
+
+        @Autowired
+        UploadMappingRepository uploadMappingRepo;
 
         public List<Upload> allUploadByUserId(String userId){
 
@@ -60,6 +68,27 @@ public class UploadService {
         public Upload findByUploadIdx(Long uploadIdx){
 
             return repo.findByUploadIdx(uploadIdx);
+        }
+
+
+        public Upload DashBoardKeywords(String userId){
+
+
+            List<Long> idx = solvingRepo.findMaxWrongCntQesIdxByUserId(userId);
+
+            Long qesIdx =idx.get(0);
+
+
+            List<Long> uploadIdxList = uploadMappingRepo.findUploadIdxByQesIdx(qesIdx);
+
+            if (uploadIdxList.isEmpty()) {
+                throw new RuntimeException("No uploadIdx found for qesIdx: " + qesIdx);
+            }
+            Long uploadIdx = uploadIdxList.get(0); // 첫 번째 값 선택 (중복 고려)
+
+            
+            return repo.findByUploadIdx(uploadIdx);
+
         }
 
 
