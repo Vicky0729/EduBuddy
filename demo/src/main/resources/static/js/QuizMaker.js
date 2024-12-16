@@ -177,7 +177,7 @@ showCurrentQuestion();
 
 function updateAllQuestionData() {
 
-    console.log("updateAllQuestionData 도착")
+    
     allQuestionData.length = 0; // 기존 데이터를 초기화하여 중복 방지
 
     questions.forEach((question, index) => {

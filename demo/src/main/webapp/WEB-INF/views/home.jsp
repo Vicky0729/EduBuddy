@@ -26,7 +26,7 @@
                 <div class="upload-section">
                     <div class="link-input">
                         <label>링크 업로드</label>
-                        <input type="text" value="여기에 링크 주소를 넣어줘" onfocus="clearText(this)"
+                        <input id="Link" type="text" value="여기에 링크 주소를 넣어줘" onfocus="clearText(this)"
                             onblur="resetText(this, '여기에 링크 주소를 넣어줘')">
                         <button onclick="uploadLink()">음성파일 업로드</button>
                     </div>
@@ -35,14 +35,19 @@
                         <label class="file-upload-label">파일 업로드</label>
                         <div class="uploadContainer" id="uploadContainer" onclick="triggerFileUpload()">
                             <img src="http://edubuddy.dothome.co.kr/pic/file_add.svg" alt="파일 업로드 이미지"
-                                class="upload-icon">
+                                class="upload-icon" id="uploadIcon">
+                            <span id="fileNameDisplay" class="file-name-display"></span>
                         </div>
                         <div class="upload-button">
                             <button onclick="location.href='uploadAudioAjax()'">파일 업로드</button>
                         </div>
                         <!-- 숨겨진 파일 입력 필드 -->
-                        <input type="file" id="fileInput" onchange="handleFileSelect(event)" style="display: none;">
+                        <input type="file" id="fileInput" name="file" onchange="handleFileSelect(event)"
+                            style="display: none;">
                     </div>
+
+
+
                 </div>
 
                 <div class="bottom-menu">

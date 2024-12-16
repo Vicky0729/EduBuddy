@@ -10,15 +10,22 @@ from youtube_transcript_api import YouTubeTranscriptApi
 import requests
 import json
 import time
+from collections import Counter
 
 # FastAPI 초기화
 app = FastAPI()
 
-# 모델 초기화
+# 사용자 정의 불용어 리스트
+
+
+# Kiwi 초기화
 kiwi = Kiwi()
 kw_model = KeyBERT()
 spacing = Spacing()
 
+keyword= ["과학", "물질", "원소", "우주", "연구", "에너지"]
+
+custom_stopwords = ['안녕하세요', '감사', '이야기', '질문']
 # Vito API 설정
 vito_config = {
     "use_diarization": True,
@@ -30,19 +37,23 @@ vito_config = {
     "paragraph_splitter": {"max": 50}
 }
 
-# 공통 키워드 추출 함수
-def extract_keywords(text: str, top_n: int = 5, similarity_threshold: float = 0.2):
+# 사용자 정의 불용어 리스트
+custom_stopwords = ["이", "그", "저", "것", "수", "등", "때문", "그리고", "그러나", "하지만", "및"]
+
+# Kiwi 초기화
+kiwi = Kiwi()
+
+def extract_keywords(text: str, top_n: int = 5, similarity_threshold: float = 0.2) -> List[str]:
     """
     텍스트에서 키워드를 추출하는 함수.
-    
     :param text: 입력 텍스트
     :param top_n: 추출할 키워드 개수 (기본값: 5)
     :param similarity_threshold: 필터링된 문장 유사도 기준 (기본값: 0.2)
     :return: 키워드 리스트
     """
     try:
-        # Step 1: 띄어쓰기 교정
-        corrected_text = spacing(text)
+        # Step 1: 띄어쓰기 교정 (옵션 - 필요한 경우 추가적인 라이브러리 활용)
+        corrected_text = text  # 기본적으로는 텍스트 그대로 사용
 
         # Step 2: 문장 분리
         sentences = [sent.text for sent in kiwi.split_into_sents(corrected_text)]
@@ -66,21 +77,16 @@ def extract_keywords(text: str, top_n: int = 5, similarity_threshold: float = 0.
             tokens = kiwi.tokenize(sentence, normalize_coda=True)
             sentence_nouns = [token.form for token in tokens if token.tag in ['NNG', 'NNP', 'NNB']]
             sentence_nouns = [noun for noun in sentence_nouns if noun not in custom_stopwords]
-            sentence_nouns = [noun for noun in sentence_nouns if (noun, None) not in stopwords]
-            nouns.append(" ".join(sentence_nouns))
+            nouns.extend(sentence_nouns)  # 명사 리스트에 추가
 
         # Step 5: 명사 텍스트 결합 및 TF-IDF 계산
         noun_text = " ".join(nouns)
         if not noun_text.strip():
             return []  # 키워드가 없으면 빈 리스트 반환
 
-        vectorizer = TfidfVectorizer()
-        tfidf_matrix = vectorizer.fit_transform([noun_text])
-
-        # Step 6: KeyBERT 키워드 추출
-        extracted_keywords = kw_model.extract_keywords(
-            noun_text, top_n=top_n, vectorizer=vectorizer
-        )
+        # Step 6: 단어 빈도를 기반으로 Top N 키워드 추출
+        word_counts = Counter(noun_text.split())
+        extracted_keywords = word_counts.most_common(top_n)
 
         # 키워드 리스트 생성
         keywords_list = [keyword[0] for keyword in extracted_keywords]
@@ -99,7 +105,7 @@ async def transcribe(file: UploadFile = File(...)):
         # Vito API 인증
         vito_auth_resp = requests.post(
             'https://openapi.vito.ai/v1/authenticate',
-            data={'client_id': 'YOUR_CLIENT_ID', 'client_secret': 'YOUR_CLIENT_SECRET'}
+           data={'client_id': '5ZlST7B9EFdDV5YESXzI', 'client_secret': '36dsqoQPfrxIAdsj8YHePnR3BDxdfKa4Bt_frAsY'}
         )
         vito_auth_resp.raise_for_status()
         jwt_token = vito_auth_resp.json().get("access_token")

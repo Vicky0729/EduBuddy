@@ -62,4 +62,7 @@ public class UploadService {
             return repo.findByUploadIdx(uploadIdx);
         }
 
+
+       
+
 }
