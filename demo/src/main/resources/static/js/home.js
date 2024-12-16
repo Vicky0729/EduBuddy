@@ -236,7 +236,7 @@ function uploadLink(){
     });
 }
 
-function uploadAudioAjax() {
+function uploadAudioAjax(){
     const fileInput = document.getElementById('fileInput');
 
     if (fileInput.files.length === 0) {
