@@ -71,9 +71,17 @@ function showCurrentQuestion() {
 // 다음 문제로 이동
 function nextQuestion() {
 
+    const selectedAnswerValue = selectedAnswerValues[currentQuestionIndex] || "선택하지 않음";
+
+    // 사용자가 답을 선택하지 않았다면 경고창 띄우기
+    if (selectedAnswerValue === "선택하지 않음") {
+        alert("정답을 체크해주세여.");
+        return; // 함수 종료
+    }
+
     updateAllQuestionData()
 
-
+ 
     console.log("모든 문제 데이터:", allQuestionData);
 
 
@@ -122,6 +130,14 @@ function closePopup() {
     document.getElementById("popup").style.display = "none";
 }
 function goToResult() {
+
+    const selectedAnswerValue = selectedAnswerValues[currentQuestionIndex] || "선택하지 않음";
+
+    // 사용자가 답을 선택하지 않았다면 경고창 띄우기
+    if (selectedAnswerValue === "선택하지 않음") {
+        alert("정답을 체크해주세여.");
+        return; // 함수 종료
+    }
 
     updateAllQuestionData()
 
@@ -192,7 +208,7 @@ function updateAllQuestionData() {
         // 사용자가 선택한 답의 값과 텍스트
         const selectedAnswerValue = selectedAnswerValues[index] || "선택하지 않음";
       
-
+        
         const isCorrect = selectedAnswerValue === correctAnswerValue ? "Y" : "N";
 
 
@@ -221,8 +237,14 @@ function updateAllQuestionData() {
 
         };
 
+       
+
+
+
         allQuestionData.push(questionData); // 데이터 배열에 추가
     });
 
+  
+    
     console.log("업데이트된 문제 데이터:", allQuestionData);
 }
