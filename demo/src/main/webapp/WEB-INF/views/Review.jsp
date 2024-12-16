@@ -59,7 +59,7 @@
                             </div>
                             <span class="table-problems">[ ${qesCountList.questionCount} ]문제</span>
                             <button class="table-button">
-                                <img src="../pic/Click.png" alt="문제이동">
+                                <img src="http://edubuddy.dothome.co.kr/pic/next2.png" alt="문제이동">
                             </button>
                           <input type="hidden" name="qesIdxList" value="${qesCountList.qesIdxList}">
                         </div>

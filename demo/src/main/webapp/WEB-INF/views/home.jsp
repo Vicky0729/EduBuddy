@@ -39,7 +39,7 @@
                             <span id="fileNameDisplay" class="file-name-display"></span>
                         </div>
                         <div class="upload-button">
-                            <button class="upload-button" type="button" onclick="uploadAudioAjax()">파일 업로드</button>
+                            <button onclick="location.href='uploadAudioAjax()'">파일 업로드</button>
                         </div>
                         <!-- 숨겨진 파일 입력 필드 -->
                         <input type="file" id="fileInput" name="file" onchange="handleFileSelect(event)"
@@ -62,7 +62,7 @@
                     <!-- 팝업 버튼 -->
                     <button class="menu-item popup-button" onclick="showPopup()"></button>
                     <button class="menu-item" onclick="location.href='ReviewPage'">
-                        <img src="http://edubuddy.dothome.co.kr/pic/ox.svg" alt="다시도전">
+                        <img src="http://edubuddy.dothome.co.kr/pic/ox.svg" alt="오답 노트">
                         <span>오답노트</span>
                     </button>
                     <button class="menu-item" onclick="location.href='DashBoardPage'">
@@ -93,7 +93,6 @@
                 </div>
             </div>
 
-            <!-- <jsp:include page="Menubar.jsp" /> -->
             </div>
 
             <script src="/js/home.js"></script>

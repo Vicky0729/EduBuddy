@@ -20,7 +20,7 @@
                 <span>AI 학습관</span>
             </button>
             <button class="menu-item" onclick="location.href='ReviewPage'">
-                <img src="http://edubuddy.dothome.co.kr/pic/ox.svg" alt="다시도전">
+                <img src="http://edubuddy.dothome.co.kr/pic/ox.svg" alt="오답노트">
                 <span>오답노트</span>
             </button>
             <button class="menu-item" onclick="location.href='DashBoardPage'">
