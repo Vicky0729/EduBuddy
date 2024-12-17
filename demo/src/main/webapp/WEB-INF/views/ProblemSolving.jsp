@@ -53,7 +53,24 @@
                             </div>
 
                             <!-- 키워드 표시 영역 -->
-                   
+                            <div class="keyword-box">
+                                <c:if test="${not empty question.keyword1}">
+                                    <div class="keyword-item">${question.keyword1}</div>
+                                </c:if>
+                                <c:if test="${not empty question.keyword2}">
+                                    <div class="keyword-item">${question.keyword2}</div>
+                                </c:if>
+                                <c:if test="${not empty question.keyword3}">
+                                    <div class="keyword-item">${question.keyword3}</div>
+                                </c:if>
+                                <c:if test="${not empty question.keyword4}">
+                                    <div class="keyword-item">${question.keyword4}</div>
+                                </c:if>
+                                <c:if test="${not empty question.keyword5}">
+                                    <div class="keyword-item">${question.keyword5}</div>
+                                </c:if>
+                            </div>
+                            
 
                             <div class="top-section">
                                 <div class="main-title">과학: ${question.qesType}</div>

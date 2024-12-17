@@ -46,6 +46,8 @@ public class SolvingRestController {
        
         return ResponseEntity.ok("Success");
     }
+
+    
     // 목차별 푼 문제 저장 기능 
     @PostMapping("/TypeQuizData")
     public ResponseEntity<?> TypeQuizData(@RequestBody Map<String, Object> payload,HttpSession session){

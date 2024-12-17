@@ -14,3 +14,15 @@
              content.innerHTML = `<p>현재 선택된 카테고리: <strong>${tab.textContent}</strong></p>`;
          });
      });
+
+     function filterCategory(category) {
+        const items = document.querySelectorAll('.table-row');
+        items.forEach(item => {
+            if (category === 'all' || item.getAttribute('data-category') === category) {
+                item.style.display = 'flex';
+                
+            } else {
+                item.style.display = 'none';
+            }
+        });
+    }   

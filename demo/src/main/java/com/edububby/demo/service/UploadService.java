@@ -71,25 +71,7 @@ public class UploadService {
         }
 
 
-        public Upload DashBoardKeywords(String userId){
-
-
-            List<Long> idx = solvingRepo.findMaxWrongCntQesIdxByUserId(userId);
-
-            Long qesIdx =idx.get(0);
-
-
-            List<Long> uploadIdxList = uploadMappingRepo.findUploadIdxByQesIdx(qesIdx);
-
-            if (uploadIdxList.isEmpty()) {
-                throw new RuntimeException("No uploadIdx found for qesIdx: " + qesIdx);
-            }
-            Long uploadIdx = uploadIdxList.get(0); // 첫 번째 값 선택 (중복 고려)
-
-            
-            return repo.findByUploadIdx(uploadIdx);
-
-        }
+      
 
 
        

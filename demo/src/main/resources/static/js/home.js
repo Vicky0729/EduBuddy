@@ -117,11 +117,11 @@ function stopRecording() {
 
 // AJAX를 통해 음성 파일 업로드
 function recordAudioAjax(audioBlob) {
-
-
+    
+    
     const formData = new FormData();
     formData.append("file", audioBlob, "recording.webm");
-
+    showLoadingOverlay()
     $.ajax({
         url: 'upload-audio', // 서버 엔드포인트
         type: 'POST',
@@ -129,8 +129,8 @@ function recordAudioAjax(audioBlob) {
         processData: false,
         contentType: false,
         success: function (response) {
-            console.log("업로드 성공:", response);
-            alert("녹음 파일이 성공적으로 업로드되었습니다.");
+          hideLoadingOverlay()
+          window.location.reload();// 팝업 닫기
         },
         error: function (xhr, status, error) {
             console.error("업로드 실패:", error);
@@ -190,6 +190,8 @@ function triggerFileUpload() {
     if (fileInput) {
         fileInput.click();
     }
+    
+
 }
 
 function handleFileSelect(event) {
@@ -209,6 +211,7 @@ function handleFileSelect(event) {
 }
 
 function uploadLink(){
+    showLoadingOverlay()
     console.log("uploadLink 도착")
     const youtubeLink = $("#Link").val().trim(); // jQuery로 값 가져오기
 
@@ -224,9 +227,8 @@ function uploadLink(){
         contentType: 'application/json', // JSON 형식으로 전송
         data: JSON.stringify({ youtubeLink: youtubeLink }), // 데이터 전송
         success: function (response) {
-            // 성공 시 처리
-
-            alert("변환성공");
+            hideLoadingOverlay()
+            window.location.reload();// 팝업 닫기
         },
         error: function (xhr, status, error) {
             // 실패 시 처리
@@ -237,6 +239,7 @@ function uploadLink(){
 }
 
 function uploadAudioAjax(){
+    showLoadingOverlay()
     const fileInput = document.getElementById('fileInput');
 
     if (fileInput.files.length === 0) {
@@ -256,8 +259,10 @@ function uploadAudioAjax(){
         data: formData,
         success: function (response) {
             if (response.success) {
-                alert(response.message);
-                console.log("서버 응답:", response.transcriptionText);
+            
+                hideLoadingOverlay()
+                window.location.reload();// 팝업 닫기
+                
             } else {
                 alert(response.message);
             }
@@ -268,3 +273,32 @@ function uploadAudioAjax(){
         }
     });
 }
+
+
+// 로딩 오버레이를 보여주는 함수
+function showLoadingOverlay() {
+    const loadingOverlay = document.getElementById('loading-overlay');
+    if (loadingOverlay) {
+        loadingOverlay.style.display = 'flex';
+    }
+}
+
+// 로딩 오버레이를 숨기는 함수
+function hideLoadingOverlay() {
+    
+    const loadingOverlay = document.getElementById('loading-overlay');
+    if (loadingOverlay) {
+        loadingOverlay.style.display = 'none';
+    }
+}
+
+
+
+// 이벤트 바인딩 또는 함수 호출
+document.addEventListener('DOMContentLoaded', () => {
+    // "학습하기" 버튼 클릭 시 텍스트 변환 작업 시작
+    const learningButtons = document.querySelectorAll('.recording-button');
+    learningButtons.forEach(button => {
+        button.addEventListener('click', convertTextToSpeech);
+    });
+});

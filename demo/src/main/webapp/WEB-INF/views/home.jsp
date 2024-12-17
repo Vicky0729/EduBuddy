@@ -12,6 +12,15 @@
 
         <body>
             <div class="Home-container">
+
+                <div id="loading-overlay" class="loading-overlay" style="display: none">
+                    <div class="loading-content">
+                        <p>텍스트로 변환 중...</p>
+                        <div class="spinner"></div>
+                    </div>
+                </div>
+
+
                 <div class="header">EDU BUDDY</div>
 
                 <div class="chat-container">

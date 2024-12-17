@@ -196,7 +196,7 @@ body {
     flex: 1;
     overflow-y: scroll;
     scrollbar-width: none;
-    height: 30vh;
+    height: 33vh;
 }
 
 .sub-title {

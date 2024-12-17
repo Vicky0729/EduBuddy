@@ -23,9 +23,12 @@ public interface SolvingRepository extends JpaRepository<Solving,Long>{
     int countByUserId(String userId);
 
 
-    @Query("SELECT s.qesIdx FROM Solving s WHERE s.userId = :userId AND s.wrongCnt = " +
-           "(SELECT MAX(s2.wrongCnt) FROM Solving s2 WHERE s2.userId = :userId)")
-    List<Long> findMaxWrongCntQesIdxByUserId(String userId);
+        @Query("SELECT s.qesIdx " +
+        "FROM Solving s " +
+        "WHERE s.userId = :userId " +
+        "ORDER BY s.wrongCnt DESC " +
+        "LIMIT 1")
+        Long findTopQesIdxByHighestWrongCnt(String userId);
     
 
 

@@ -12,10 +12,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.edububby.demo.dto.ProblemSolvedDTO;
-
+import com.edububby.demo.dto.ProblemUploadDTO;
 import com.edububby.demo.model.QuestionBank;
 import com.edububby.demo.model.Upload;
 import com.edububby.demo.service.PythonModelService;
@@ -45,7 +46,7 @@ public class QuizController {
 
     //업로드별 문제 출제
     @PostMapping("/QuizMaker")
-    public String QuizMaker( @RequestParam("idx") Long uploadIdx,@RequestParam("difficulty") int difficulty,HttpSession session,RedirectAttributes redirectAttributes){
+    public String  QuizMaker( @RequestParam("idx") Long uploadIdx,@RequestParam("difficulty") int difficulty,HttpSession session,RedirectAttributes redirectAttributes){
 
        
         System.out.println("가지고온 식별자:"+uploadIdx);
@@ -67,14 +68,17 @@ public class QuizController {
         // uploadMapping 값 저장
         uploadMappingService.insertUploadMapping(ModelQesIdxs,uploadIdx);
 
-        List<ProblemSolvedDTO> questionList = questionService.findQuestionSolvingByQesIdxIn(ModelQesIdxs);
+        List<ProblemUploadDTO> questionList = questionService.findQuestionByQesIdxIn(ModelQesIdxs);
 
         System.out.println(questionList);
-        
-        redirectAttributes.addFlashAttribute("uploadList", uploadList);
-        redirectAttributes.addFlashAttribute("questionList", questionList);
-        redirectAttributes.addFlashAttribute("difficulty", difficulty);
 
+        
+        redirectAttributes.addFlashAttribute("questionList",questionList);
+        redirectAttributes.addFlashAttribute("uploadList",uploadList);
+        redirectAttributes.addFlashAttribute("difficulty",difficulty);
+        
+       
+       
         return "redirect:/QuizMakerPage";
 
 
@@ -108,19 +112,24 @@ public class QuizController {
             
 
             List<Long> ModelQesIdxs = pythonModelService.getRecommendations(KeywordInput,difficulty);
-            List<ProblemSolvedDTO> questionList = questionService.findQuestionSolvingByQesIdxIn(ModelQesIdxs);
+            List<ProblemUploadDTO> questionList = questionService.findQuestionByQesIdxIn(ModelQesIdxs);
 
             uploadMappingService.insertUploadMapping(ModelQesIdxs,uploadIdx);
+
+            
 
             redirectAttributes.addFlashAttribute("uploadList",uploadList);
             redirectAttributes.addFlashAttribute("questionList",questionList);
             redirectAttributes.addFlashAttribute("difficulty",difficulty);
+
+           
             return "redirect:/QuizMakerPage";
         }
 
        
     }
     
+
     //방금 푼 문제
     @GetMapping("/ProblemSolved")
     public String ProblemSolved(HttpSession session,RedirectAttributes redirectAttributes){
@@ -147,6 +156,8 @@ public class QuizController {
     
         session.removeAttribute("questions");
         return "redirect:/ProblemSolvingPage";
+
+
     }
 
     // 목차별 문제 출제

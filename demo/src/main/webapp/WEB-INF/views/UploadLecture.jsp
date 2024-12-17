@@ -34,36 +34,31 @@
                 </div>
 
                 <div class="category-tabs">
-                    <button class="category-tab active">국어</button>
-                    <button class="category-tab">영어</button>
-                    <button class="category-tab">수학</button>
-                    <button class="category-tab">사회</button>
-                    <button class="category-tab">과학</button>
-                    <button class="category-tab">역사</button>
+                    <button class="category-tab " onclick="filterCategory('국어')">국어</button>
+                    <button class="category-tab" onclick="filterCategory('영어')">영어</button>
+                    <button class="category-tab" onclick="filterCategory('수학')">수학</button>
+                    <button class="category-tab" onclick="filterCategory('사회')">사회</button>
+                    <button class="category-tab active" onclick="filterCategory('과학')">과학</button>
+                    <button class="category-tab" onclick="filterCategory('역사')">역사</button>
                 </div>
 
                 <div class="recordings-container">
                     <c:forEach var="upload" items="${uploadList}">
-                        <div class="recording-item">
+                        <div class="recording-item" data-category="과학"> <!-- 과학 데이터로 가정 -->
                             <div class="recording-content">
                                 <p>${upload.uploadFile}</p>
                                 <div class="button-container">
-                                    <button class="edit-button"
-                                        onclick="EditPopup.show('${upload.uploadIdx}')">수정</button>
-
-                                    <button class="delete-button"
-                                        onclick="DeletePopup.show('${upload.uploadIdx}')">삭제</button>
+                                    <button class="edit-button" onclick="EditPopup.show('${upload.uploadIdx}')">수정</button>
+                                    <button class="delete-button" onclick="DeletePopup.show('${upload.uploadIdx}')">삭제</button>
                                 </div>
                             </div>
                             <div class="recording-date">
                                 <p>${upload.uploadDt}</p>
                             </div>
                             <div class="button-container">
-                                <button class="recording-button"
-                                    onclick="LearningPopup.show('${upload.uploadIdx}')">학습하기</button>
+                                <button class="recording-button" onclick="LearningPopup.show('${upload.uploadIdx}')">학습하기</button>
                             </div>
                         </div>
-
                     </c:forEach>
                 </div>
 

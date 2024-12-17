@@ -40,12 +40,7 @@
                                     </button>
                                 </div>
                                 <button class="mark-button" onclick="togglemark(this)">
-                                    <c:if test="${String.valueOf(question.solvingFav) == 'Y'}">
-                                        <img src="http://edubuddy.dothome.co.kr/pic/saveA.svg" alt="찜버튼">
-                                    </c:if>
-                                    <c:if test="${String.valueOf(question.solvingFav) == 'N'}">
                                         <img src="http://edubuddy.dothome.co.kr/pic/saveB.svg" alt="찜버튼">
-                                    </c:if>
                                     
                                 </button>
                                 
@@ -54,14 +49,23 @@
 
                             <!-- 키워드 표시 영역 -->
                             <div class="keyword-box">
-                               
-                                    <div class="keyword-item">${uploadList.keyword1}</div>   
-                                    <div class="keyword-item">${uploadList.keyword2}</div> 
-                                    <div class="keyword-item">${uploadList.keyword3}</div> 
-                                    <div class="keyword-item">${uploadList.keyword4}</div> 
-                                    <div class="keyword-item">${uploadList.keyword5}</div> 
-                              
+                                <c:if test="${not empty question.keyword1}">
+                                    <div class="keyword-item">${question.keyword1}</div>
+                                </c:if>
+                                <c:if test="${not empty question.keyword2}">
+                                    <div class="keyword-item">${question.keyword2}</div>
+                                </c:if>
+                                <c:if test="${not empty question.keyword3}">
+                                    <div class="keyword-item">${question.keyword3}</div>
+                                </c:if>
+                                <c:if test="${not empty question.keyword4}">
+                                    <div class="keyword-item">${question.keyword4}</div>
+                                </c:if>
+                                <c:if test="${not empty question.keyword5}">
+                                    <div class="keyword-item">${question.keyword5}</div>
+                                </c:if>
                             </div>
+                            
 
                             <div class="top-section">
                                 <div class="main-title">과학: ${question.qesType}</div>

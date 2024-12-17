@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -113,7 +113,12 @@
                     <div class="coments">
                         <h4>과학</h4>
                         <span class="tag advanced">심화</span>
-                        <p>${Keywords.keyword1},${Keywords.keyword2},${Keywords.keyword3},${Keywords.keyword4},${Keywords.keyword5}</p>
+                        <p>  ${Qkkeyword.keyword1}
+                            ${empty Qkkeyword.keyword2 ? '' : ','}${Qkkeyword.keyword2}
+                            ${empty Qkkeyword.keyword3 ? '' : ','}${Qkkeyword.keyword3}
+                            ${empty Qkkeyword.keyword4 ? '' : ','}${Qkkeyword.keyword4}
+                            ${empty Qkkeyword.keyword5 ? '' : ','}${Qkkeyword.keyword5}
+                        </p>
                     </div>
 
                     <div class="coments">

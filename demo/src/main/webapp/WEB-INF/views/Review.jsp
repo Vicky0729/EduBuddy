@@ -33,12 +33,12 @@
            
 
             <div class="category-tabs">
-                <button class="category-tab active">국어</button>
-                <button class="category-tab">영어</button>
-                <button class="category-tab">수학</button>
-                <button class="category-tab">사회</button>
-                <button class="category-tab">과학</button>
-                <button class="category-tab">역사</button>
+                <button class="category-tab " onclick="filterCategory('국어')">국어</button>
+                <button class="category-tab" onclick="filterCategory('영어')">영어</button>
+                <button class="category-tab" onclick="filterCategory('수학')">수학</button>
+                <button class="category-tab" onclick="filterCategory('사회')">사회</button>
+                <button class="category-tab active" onclick="filterCategory('과학')">과학</button>
+                <button class="category-tab" onclick="filterCategory('역사')">역사</button>
             </div>
 
             <div class="table-container">
@@ -52,7 +52,7 @@
 
                 <c:forEach var="qesCountList" items="${qesCountList}" varStatus="status">
                     <form action="TypeProblem" method="post">
-                        <div class="table-row">
+                        <div class="table-row" data-category="과학">
                             <div class="table-content">
                                 <span class="table-index">${status.count}</span>
                                 <span>${qesCountList.qesType}</span>

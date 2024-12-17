@@ -28,7 +28,7 @@ url1 = "https://raw.githubusercontent.com/Vicky0729/EduBuddy/refs/heads/Main/key
 response1 = requests.get(url1)
 keyword = response1.text.splitlines()
 
-print(keyword[:10]) 
+
 
 
 # Vito API 설정
@@ -47,7 +47,7 @@ url = "https://raw.githubusercontent.com/Vicky0729/EduBuddy/refs/heads/Main/stop
 response = requests.get(url)
 custom_stopwords = response.text.splitlines()
 
-print(custom_stopwords) 
+
 # 사용자 정의 불용어 리스트
 
 
@@ -177,7 +177,6 @@ async def get_transcript(request: VideoLinkRequest):
         # 키워드 추출
         keywords = extract_keywords(texts)
 
-        print(keywords)
 
 
         # 결과 반환

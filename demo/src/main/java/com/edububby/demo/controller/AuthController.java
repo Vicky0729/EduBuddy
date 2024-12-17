@@ -1,6 +1,7 @@
 package com.edububby.demo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 
 import com.edububby.demo.model.User;
@@ -18,6 +19,8 @@ public class AuthController {
     
     @Autowired
     AuthService service;
+
+   
 
     //로그인 기능 
     @PostMapping("/auth/login")

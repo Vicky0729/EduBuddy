@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.edububby.demo.dto.QuestionCountDTO;
 import com.edububby.demo.model.Academic;
+import com.edububby.demo.model.QuestionKeyword;
 import com.edububby.demo.model.Upload;
 import com.edububby.demo.model.User;
 import com.edububby.demo.service.AcademicService;
+import com.edububby.demo.service.QuestionKeywordService;
 import com.edububby.demo.service.QuestionService;
 import com.edububby.demo.service.SolvingService;
 import com.edububby.demo.service.UploadService;
@@ -45,7 +47,10 @@ public class HomeController {
     @Autowired
     AcademicService academicService;
     
+    @Autowired
+    QuestionKeywordService QKService;
 
+    
      // 첫페이지
      @GetMapping("/")
      public String Main() {
@@ -133,9 +138,11 @@ public class HomeController {
 
         User user = userservice.findUserName(userId);
 
-        Upload Keywords = uploadService.DashBoardKeywords(userId);
+        QuestionKeyword Qkkeyword =  QKService.DashBoardKeyword(userId);
+
+        System.out.println(Qkkeyword);
         
-        model.addAttribute("Keywords", Keywords);
+        model.addAttribute("Qkkeyword", Qkkeyword);
         model.addAttribute("userName", user.getUserName());
         model.addAttribute("loginCnt", user.getLoginCnt());
         model.addAttribute("ProblemSolvedCnt", ProblemSolvedCnt);

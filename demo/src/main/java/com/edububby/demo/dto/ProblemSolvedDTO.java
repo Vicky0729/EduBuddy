@@ -28,7 +28,34 @@ public class ProblemSolvedDTO {
     private String qesImg2;
     private Integer wrongCnt;    // 틀린 횟수
     private char solvingFav;
+    private String keyword1;
+    private String keyword2;
+    private String keyword3;
+    private String keyword4;
+    private String keyword5;
 
+
+    
+    public ProblemSolvedDTO(Long qesIdx, String qesType, String qesContent, String qesAnswer, String qesDt,
+            int qesLevel, String qesSel1, String qesSel2, String qesSel3, String qesSel4, String qesSel5, String qesExp,
+            String qesImg1, String qesImg2, Integer wrongCnt, char solvingFav) {
+        this.qesIdx = qesIdx;
+        this.qesType = qesType;
+        this.qesContent = qesContent;
+        this.qesAnswer = qesAnswer;
+        this.qesDt = qesDt;
+        this.qesLevel = qesLevel;
+        this.qesSel1 = qesSel1;
+        this.qesSel2 = qesSel2;
+        this.qesSel3 = qesSel3;
+        this.qesSel4 = qesSel4;
+        this.qesSel5 = qesSel5;
+        this.qesExp = qesExp;
+        this.qesImg1 = qesImg1;
+        this.qesImg2 = qesImg2;
+        this.wrongCnt = wrongCnt;
+        this.solvingFav = solvingFav;
+    }
 
 
    
