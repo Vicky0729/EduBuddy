@@ -59,6 +59,7 @@ public class QuizController {
         String KeywordInput = uploadService.KeywordInput(uploadIdx);
         Upload uploadList = uploadService.findByUploadIdx(uploadIdx);
       
+        System.out.println(KeywordInput);
         
 
         List<Long> ModelQesIdxs = pythonModelService.getRecommendations(KeywordInput,difficulty);

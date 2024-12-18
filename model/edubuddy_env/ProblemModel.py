@@ -14,7 +14,7 @@ import re
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
-data= pd.read_csv('C:/Users/smhrd/Desktop/EduBuddy/model/edubuddy_env/science_questions_extracted_keyword.csv', encoding='utf-8')
+data= pd.read_csv('C:/Users/smhrd/Desktop/EduBuddy/model/edubuddy_env/science_questions_extracted_keyword (1).csv',encoding="euc-kr")
 
 
 
@@ -136,6 +136,6 @@ async def recommend_problems(request: RequestData):
 
     # 추천 로직 호출
     recommended_problems = recommend_problem_by_difficulty(user_input, difficulty=difficulty_level, n=5)
-
+   
     # 추천된 문제의 ID 리스트 반환
     return {"ids": recommended_problems['id'].tolist()}

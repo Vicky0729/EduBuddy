@@ -16,6 +16,7 @@ public class AcademicService {
     public void insertAcademic(Academic academic){
 
     repo.save(academic);
+    
     }
 
     // 유저의 학력 정보 
