@@ -61,15 +61,15 @@
 
                             <div class="top-section">
                                 <div class="main-title">과학: ${question.qesType}</div>
+                            </div>
+                            
+                            <div class="bottom-section">
                                 <c:if test="${not empty question.qesImg1}">
                                     <img class="main-image" src="${question.qesImg1}" alt="문제 이미지">
                                 </c:if>
                                 <c:if test="${not empty question.qesImg2}">
                                     <img class="main-image" src="${question.qesImg2}" alt="문제 이미지">
                                 </c:if>
-                            </div>
-
-                            <div class="bottom-section">
                                 <div class="sub-title">${question.qesContent}</div>
                                 <div class="choices">
                                     <div class="choice-item" name="1">${question.qesSel1}</div>
