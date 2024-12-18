@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.edububby.demo.model.Upload;
+import com.edububby.demo.repo.SolvingRepository;
+import com.edububby.demo.repo.UploadMappingRepository;
 import com.edububby.demo.repo.UploadRepository;
 
 @Service
@@ -14,6 +16,12 @@ public class UploadService {
 
         @Autowired
         UploadRepository repo;
+
+        @Autowired
+        SolvingRepository solvingRepo;
+
+        @Autowired
+        UploadMappingRepository uploadMappingRepo;
 
         public List<Upload> allUploadByUserId(String userId){
 
@@ -61,6 +69,9 @@ public class UploadService {
 
             return repo.findByUploadIdx(uploadIdx);
         }
+
+
+      
 
 
        

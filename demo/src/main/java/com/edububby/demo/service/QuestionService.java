@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.edububby.demo.dto.ProblemSolvedDTO;
+import com.edububby.demo.dto.ProblemUploadDTO;
 import com.edububby.demo.dto.QuestionCountDTO;
 import com.edububby.demo.model.QuestionBank;
 import com.edububby.demo.repo.QuestionRepository;
@@ -49,10 +50,10 @@ public class QuestionService {
    
 
     
-    public List<ProblemSolvedDTO> findQuestionSolvingByQesIdxIn(List<Long> qesIdxs){
+    public List<ProblemUploadDTO> findQuestionByQesIdxIn(List<Long> qesIdxs){
 
 
-        return repo.findQuestionSolvingByQesIdxIn(qesIdxs);
+        return repo.findQuestionByQesIdxIn(qesIdxs);
     }
 
 

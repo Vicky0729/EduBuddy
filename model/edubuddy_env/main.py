@@ -23,9 +23,14 @@ kiwi = Kiwi()
 kw_model = KeyBERT()
 spacing = Spacing()
 
-keyword= ["과학", "물질", "원소", "우주", "연구", "에너지"]
+url1 = "https://raw.githubusercontent.com/Vicky0729/EduBuddy/refs/heads/Main/keyword.txt"
 
-custom_stopwords = ['안녕하세요', '감사', '이야기', '질문']
+response1 = requests.get(url1)
+keyword = response1.text.splitlines()
+
+
+
+
 # Vito API 설정
 vito_config = {
     "use_diarization": True,
@@ -37,13 +42,20 @@ vito_config = {
     "paragraph_splitter": {"max": 50}
 }
 
+
+url = "https://raw.githubusercontent.com/Vicky0729/EduBuddy/refs/heads/Main/stopwords.txt"
+response = requests.get(url)
+custom_stopwords = response.text.splitlines()
+
+
 # 사용자 정의 불용어 리스트
-custom_stopwords = ["이", "그", "저", "것", "수", "등", "때문", "그리고", "그러나", "하지만", "및"]
+
 
 # Kiwi 초기화
 kiwi = Kiwi()
 
 def extract_keywords(text: str, top_n: int = 5, similarity_threshold: float = 0.2) -> List[str]:
+    
     """
     텍스트에서 키워드를 추출하는 함수.
     :param text: 입력 텍스트
@@ -57,13 +69,13 @@ def extract_keywords(text: str, top_n: int = 5, similarity_threshold: float = 0.
 
         # Step 2: 문장 분리
         sentences = [sent.text for sent in kiwi.split_into_sents(corrected_text)]
-
+        print(sentences)
         # Step 3: Sentence-BERT와 키워드 비교 (선택적 유사도 기반 필터링)
-        keywords_for_similarity = ["과학", "물질", "원소", "우주", "연구", "에너지"]
+        keywords_for_similarity = keyword
         model = SentenceTransformer('sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2')
         keyword_embedding = model.encode(keywords_for_similarity)
         sentence_embeddings = model.encode(sentences)
-
+        print(sentence_embeddings)
         # 유사도 계산 및 필터링된 문장 선택
         filtered_sentences = []
         for i, sent_emb in enumerate(sentence_embeddings):
@@ -91,6 +103,7 @@ def extract_keywords(text: str, top_n: int = 5, similarity_threshold: float = 0.
         # 키워드 리스트 생성
         keywords_list = [keyword[0] for keyword in extracted_keywords]
 
+       
         return keywords_list
 
     except Exception as e:
@@ -103,6 +116,7 @@ def extract_keywords(text: str, top_n: int = 5, similarity_threshold: float = 0.
 async def transcribe(file: UploadFile = File(...)):
     try:
         # Vito API 인증
+        print("transcribe 도착")
         vito_auth_resp = requests.post(
             'https://openapi.vito.ai/v1/authenticate',
            data={'client_id': '5ZlST7B9EFdDV5YESXzI', 'client_secret': '36dsqoQPfrxIAdsj8YHePnR3BDxdfKa4Bt_frAsY'}
@@ -119,7 +133,7 @@ async def transcribe(file: UploadFile = File(...)):
         )
         vito_transcribe_resp.raise_for_status()
         job_id = vito_transcribe_resp.json().get("id")
-
+     
         # 작업 완료 대기 및 결과 조회
         transcription_text = None
         while True:
@@ -163,7 +177,6 @@ async def get_transcript(request: VideoLinkRequest):
         # 키워드 추출
         keywords = extract_keywords(texts)
 
-        print(keywords)
 
 
         # 결과 반환

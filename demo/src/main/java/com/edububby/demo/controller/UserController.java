@@ -26,7 +26,10 @@ public class UserController {
         @PostMapping("/joinUser")
         public String joinUser(User user, RedirectAttributes redirectAttributes){
 
+
+
             userService.insertUser(user);
+            
             String userId = user.getUserId();
             redirectAttributes.addFlashAttribute("userId", userId);
 

@@ -54,10 +54,23 @@
 
                             <!-- 키워드 표시 영역 -->
                             <div class="keyword-box">
-                                <div class="keyword-item">묽은 염산</div>
-                                <div class="keyword-item">반응 속도</div>
-                                <div class="keyword-item">화학</div>
+                                <c:if test="${not empty question.keyword1}">
+                                    <div class="keyword-item">${question.keyword1}</div>
+                                </c:if>
+                                <c:if test="${not empty question.keyword2}">
+                                    <div class="keyword-item">${question.keyword2}</div>
+                                </c:if>
+                                <c:if test="${not empty question.keyword3}">
+                                    <div class="keyword-item">${question.keyword3}</div>
+                                </c:if>
+                                <c:if test="${not empty question.keyword4}">
+                                    <div class="keyword-item">${question.keyword4}</div>
+                                </c:if>
+                                <c:if test="${not empty question.keyword5}">
+                                    <div class="keyword-item">${question.keyword5}</div>
+                                </c:if>
                             </div>
+                            
 
                             <div class="top-section">
                                 <div class="main-title">과학: ${question.qesType}</div>

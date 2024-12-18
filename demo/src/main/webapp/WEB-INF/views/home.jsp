@@ -12,6 +12,15 @@
 
         <body>
             <div class="Home-container">
+
+                <div id="loading-overlay" class="loading-overlay" style="display: none">
+                    <div class="loading-content">
+                        <p>텍스트로 변환 중...</p>
+                        <div class="spinner"></div>
+                    </div>
+                </div>
+
+
                 <div class="header">EDU BUDDY</div>
 
                 <div class="chat-container">
@@ -39,7 +48,7 @@
                             <span id="fileNameDisplay" class="file-name-display"></span>
                         </div>
                         <div class="upload-button">
-                            <button onclick="location.href='uploadAudioAjax()'">파일 업로드</button>
+                            <button onclick="uploadAudioAjax()">파일 업로드</button>
                         </div>
                         <!-- 숨겨진 파일 입력 필드 -->
                         <input type="file" id="fileInput" name="file" onchange="handleFileSelect(event)"

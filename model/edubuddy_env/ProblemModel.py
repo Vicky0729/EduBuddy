@@ -14,9 +14,9 @@ import re
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
-data= pd.read_csv('C:/Users/smhrd/Desktop/EduBuddy/model/edubuddy_env/science_questions_extracted_keyword.csv', encoding='euc-kr')
+data= pd.read_csv('C:/Users/smhrd/Desktop/EduBuddy/model/edubuddy_env/science_questions_extracted_keyword.csv', encoding='utf-8')
 
-print(data)
+
 
 def f(j):  # f() 함수는 제이슨 방식을 파이썬으로 불러오는 양식
     keyword = []

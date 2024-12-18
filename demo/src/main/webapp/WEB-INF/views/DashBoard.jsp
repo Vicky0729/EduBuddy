@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -89,37 +89,42 @@
                     <div class="coments">
                         <h4>국어</h4>
                         <span class="tag basic">개념</span>
-                        <p>최근 많이 틀린 오답의 키워드 입력</p>
+                        <p>조사,문법,기본개념,품사,활용법</p>
                     </div>
 
                     <div class="coments">
                         <h4>영어</h4>
                         <span class="tag intermediate">중급</span>
-                        <p>최근 많이 틀린 오답의 키워드 입력</p>
+                        <p>To부정사,예외용법,문법,동사,구문</p>
                     </div>
 
                     <div class="coments">
                         <h4>수학</h4>
                         <span class="tag advanced">심화</span>
-                        <p>최근 많이 틀린 오답의 키워드 입력</p>
+                        <p>구,부피공식,실생활문제,도형,계산법</p>
                     </div>
 
                     <div class="coments">
                         <h4>사회</h4>
                         <span class="tag basic">개념</span>
-                        <p>최근 많이 틀린 오답의 키워드 입력</p>
+                        <p>기본권,헌법,권리,시민,종류</p>
                     </div>
 
                     <div class="coments">
                         <h4>과학</h4>
                         <span class="tag advanced">심화</span>
-                        <p>${topUpload.keyword1},${topUpload.keyword2},${topUpload.keyword3},${topUpload.keyword4},${topUpload.keyword5}</p>
+                        <p>  ${Qkkeyword.keyword1}
+                            ${empty Qkkeyword.keyword2 ? '' : ','}${Qkkeyword.keyword2}
+                            ${empty Qkkeyword.keyword3 ? '' : ','}${Qkkeyword.keyword3}
+                            ${empty Qkkeyword.keyword4 ? '' : ','}${Qkkeyword.keyword4}
+                            ${empty Qkkeyword.keyword5 ? '' : ','}${Qkkeyword.keyword5}
+                        </p>
                     </div>
 
                     <div class="coments">
                         <h4>역사</h4>
                         <span class="tag intermediate">중급</span>
-                        <p>최근 많이 틀린 오답의 키워드 입력</p>
+                        <p>삼국시대,고구려,백제,신라,성장과정</p>
                     </div>
                 </div>
             </div>

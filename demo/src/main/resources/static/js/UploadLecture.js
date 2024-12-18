@@ -208,3 +208,16 @@ const LearningPopup = {
         }
     }
 };
+
+
+function filterCategory(category) {
+    const items = document.querySelectorAll('.recording-item');
+    items.forEach(item => {
+        if (category === 'all' || item.getAttribute('data-category') === category) {
+            item.style.display = 'flex';
+        } else {
+            item.style.display = 'none';
+           
+        }
+    });
+}   

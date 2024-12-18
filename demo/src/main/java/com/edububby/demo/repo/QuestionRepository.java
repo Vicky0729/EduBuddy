@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.edububby.demo.dto.ProblemSolvedDTO;
+import com.edububby.demo.dto.ProblemUploadDTO;
 import com.edububby.demo.model.QuestionBank;
 
 @Repository
@@ -38,40 +39,44 @@ public interface QuestionRepository extends JpaRepository<QuestionBank, Long> {
 
 
     @Query("SELECT new com.edububby.demo.dto.ProblemSolvedDTO(" +
-           "qb.qesIdx, qb.qesType, qb.qesContent, qb.qesAnswer, qb.qesDt, qb.qesLevel, " +
-           "qb.qesSel1, qb.qesSel2, qb.qesSel3, qb.qesSel4, qb.qesSel5, qb.qesExp,qb.qesImg1,qb.qesImg2, " +
-           "s.wrongCnt, s.solvingFav) " +
-           "FROM QuestionBank qb " +
-           "LEFT JOIN Solving s ON qb.qesIdx = s.qesIdx AND s.userId = :userId " +
-           "WHERE qb.qesIdx IN :qesIdxList")
+    "qb.qesIdx, qb.qesType, qb.qesContent, qb.qesAnswer, qb.qesDt, qb.qesLevel, " +
+    "qb.qesSel1, qb.qesSel2, qb.qesSel3, qb.qesSel4, qb.qesSel5, qb.qesExp, qb.qesImg1, qb.qesImg2, " +
+    "s.wrongCnt, s.solvingFav, " +
+    "qk.keyword1, qk.keyword2, qk.keyword3, qk.keyword4, qk.keyword5) " +
+    "FROM QuestionBank qb " +
+    "LEFT JOIN Solving s ON qb.qesIdx = s.qesIdx AND s.userId = :userId " +
+    "LEFT JOIN QuestionKeyword qk ON qb.qesIdx = qk.qesIdx " +
+    "WHERE qb.qesIdx IN :qesIdxList")
     public List<ProblemSolvedDTO> ProblemSolved(@Param("qesIdxList") List<Long> qesIdxList,@Param("userId") String userId);
     
     
     @Query("""
-            SELECT new com.edububby.demo.dto.ProblemSolvedDTO(
-                qb.qesIdx, qb.qesType, qb.qesContent, qb.qesAnswer, qb.qesDt, qb.qesLevel,
-                qb.qesSel1, qb.qesSel2, qb.qesSel3, qb.qesSel4, qb.qesSel5, qb.qesExp,qb.qesImg1,qb.qesImg2,
-                s.wrongCnt,s.solvingFav
-            )
-            FROM QuestionBank qb
-            JOIN Solving s ON qb.qesIdx = s.qesIdx
-            WHERE s.userId = :userId
-              AND (s.corrAnswerYn = 'N' OR s.solvingFav = 'Y')
-            """)
+        SELECT new com.edububby.demo.dto.ProblemSolvedDTO(
+            qb.qesIdx, qb.qesType, qb.qesContent, qb.qesAnswer, qb.qesDt, qb.qesLevel,
+            qb.qesSel1, qb.qesSel2, qb.qesSel3, qb.qesSel4, qb.qesSel5, qb.qesExp, qb.qesImg1, qb.qesImg2,
+            s.wrongCnt, s.solvingFav,
+            qk.keyword1, qk.keyword2, qk.keyword3, qk.keyword4, qk.keyword5
+        )
+        FROM QuestionBank qb
+        JOIN Solving s ON qb.qesIdx = s.qesIdx
+        LEFT JOIN QuestionKeyword qk ON qb.qesIdx = qk.qesIdx
+        WHERE s.userId = :userId
+          AND (s.corrAnswerYn = 'N' OR s.solvingFav = 'Y')
+        """)
     List<ProblemSolvedDTO> findProblemsByUserId(@Param("userId") String userId);
     
     
 
     
 
-    @Query("SELECT new com.edububby.demo.dto.ProblemSolvedDTO(" + 
-    "qb.qesIdx, qb.qesType, qb.qesContent, qb.qesAnswer, qb.qesDt, qb.qesLevel, "+
-    "qb.qesSel1, qb.qesSel2, qb.qesSel3, qb.qesSel4, qb.qesSel5, qb.qesExp,qb.qesImg1,qb.qesImg2, s.wrongCnt, " +
-       "COALESCE(s.solvingFav, 'N')) " +
-       "FROM QuestionBank qb " +
-       "LEFT JOIN Solving s ON qb.qesIdx = s.qesIdx " +
-       "WHERE qb.qesIdx IN :qesIdx")
-    List<ProblemSolvedDTO> findQuestionSolvingByQesIdxIn(List<Long> qesIdx);
+    @Query("SELECT new com.edububby.demo.dto.ProblemUploadDTO(" + 
+    "qb.qesIdx, qb.qesType, qb.qesContent, qb.qesAnswer, qb.qesDt, qb.qesLevel, " +
+    "qb.qesSel1, qb.qesSel2, qb.qesSel3, qb.qesSel4, qb.qesSel5, qb.qesExp, qb.qesImg1, qb.qesImg2, " +
+    "qk.keyword1, qk.keyword2, qk.keyword3, qk.keyword4, qk.keyword5) " +
+    "FROM QuestionBank qb " +
+    "LEFT JOIN QuestionKeyword qk ON qb.qesIdx = qk.qesIdx " +
+    "WHERE qb.qesIdx IN :qesIdx")
+    List<ProblemUploadDTO> findQuestionByQesIdxIn(List<Long> qesIdx);
 
 
 }
