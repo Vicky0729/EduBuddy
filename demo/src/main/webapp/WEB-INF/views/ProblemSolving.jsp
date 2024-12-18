@@ -21,7 +21,10 @@
                     <c:forEach var="question" items="${questionList}" varStatus="status">
                         <div class="question" style="display: block;">
                             <div class="question-header">
-                                <div class="left-section">문제 ${status.count}</div>
+                                <div class="left-section">
+                                    문제 ${status.count}
+                                    <span class="incorrect">틀린횟수:${question.wrongCnt}</span>
+                                </div>
                                 <div class="right-section">
                                     <span class="difficulty-label">난이도 : </span>
                                     <button id="current-difficulty" class="dropdown-button">
@@ -96,7 +99,7 @@
                                 </div>
                                 
                             </div>
-                            <div class="incorrect">틀린횟수:${question.wrongCnt}</div>
+                            <!-- <div class="incorrect">틀린횟수:${question.wrongCnt}</div> -->
                         </div>
 
 
