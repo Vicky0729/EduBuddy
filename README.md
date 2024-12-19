@@ -45,18 +45,11 @@ EduBuddy는 중위권 학생을 위한 맞춤형 학습 플랫폼으로, 학습 
 
 ## 🎯 기술 스택 및 개발 환경
 
-## 기술 스택과 개발 환경
-
 ### 언어
-- ![Java](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=java&logoColor=white)
-- ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
-- ![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
-- ![HTML](https://img.shields.io/badge/HTML-E34F26?style=for-the-badge&logo=html5&logoColor=white)
-- ![CSS](https://img.shields.io/badge/CSS-1572B6?style=for-the-badge&logo=css3&logoColor=white)
+![Java](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=java&logoColor=white) ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black) ![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white) ![HTML](https://img.shields.io/badge/HTML-E34F26?style=for-the-badge&logo=html5&logoColor=white) ![CSS](https://img.shields.io/badge/CSS-1572B6?style=for-the-badge&logo=css3&logoColor=white)
 
 ### 프레임워크 및 라이브러리
-- ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white)
-- ![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white)
+![Spring Boot](https://img.shields.io/badge/Spring%20Boot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white) ![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white)
 
 ### 서버 및 배포 환경
 - ![Tomcat](https://img.shields.io/badge/Tomcat-F8DC75?style=for-the-badge&logo=apachetomcat&logoColor=black)
@@ -66,9 +59,7 @@ EduBuddy는 중위권 학생을 위한 맞춤형 학습 플랫폼으로, 학습 
 - ![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white)
 
 ### 개발 도구
-- ![Jupyter Notebook](https://img.shields.io/badge/Jupyter-F37626?style=for-the-badge&logo=jupyter&logoColor=white)
-- ![Colab](https://img.shields.io/badge/Colab-F9AB00?style=for-the-badge&logo=googlecolab&logoColor=white)
-- ![Visual Studio Code](https://img.shields.io/badge/Visual%20Studio%20Code-0078D4?style=for-the-badge&logo=visualstudiocode&logoColor=white)
+![Jupyter Notebook](https://img.shields.io/badge/Jupyter-F37626?style=for-the-badge&logo=jupyter&logoColor=white) ![Colab](https://img.shields.io/badge/Colab-F9AB00?style=for-the-badge&logo=googlecolab&logoColor=white) ![Visual Studio Code](https://img.shields.io/badge/Visual%20Studio%20Code-0078D4?style=for-the-badge&logo=visualstudiocode&logoColor=white)
 
 ### 협업 도구
 ![Notion](https://img.shields.io/badge/Notion-000000?style=for-the-badge&logo=notion&logoColor=white) ![SourceTree](https://img.shields.io/badge/SourceTree-0052CC?style=for-the-badge&logo=sourcetree&logoColor=white) ![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)
@@ -89,3 +80,17 @@ EduBuddy는 중위권 학생을 위한 맞춤형 학습 플랫폼으로, 학습 
 4. **동기부여를 위한 학습 현황 제공**
     - 학습 일수와 문제 풀이 수를 숫자로 직관적으로 시각화.
     - 오답 키워드를 중심으로 약점을 분석하고 개선 방향 제시.
+  
+## 주요 기능 화면
+
+## 주요 기능 화면
+
+| 학습 현황 대시보드                | 문제 출제 화면                 | 홈 화면                     |
+|----------------------------------|-------------------------------|-----------------------------|
+| ![학습 현황 대시보드](./imgs/featureDash.png) | ![문제 출제 화면](./imgs/featureExam.png) | ![홈 화면](./imgs/featureHome.png) |
+
+| 오답노트 화면                   | 강의 녹음 화면                | 강의 키워드 추출              |
+|----------------------------------|-------------------------------|-----------------------------|
+| ![오답노트 화면](./imgs/featureOxnote.png) | ![강의 녹음 화면](./imgs/featureRecoder.png) | ![테스트 화면](./imgs/featureTest.png) |
+
+
