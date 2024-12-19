@@ -121,7 +121,7 @@ body {
     flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 20px;
     padding: 20px;
     overflow-y: auto;
     max-height: calc(93vh - 200px);
@@ -152,8 +152,9 @@ body {
     color: rgba(255, 255, 255, 0.792);
     width: 100%;
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
-    align-items: center;
+    gap: 10px;
     font-family: 'NoonnuBasicGothicRegular';
 }
 
@@ -193,6 +194,7 @@ body {
 .recording-content p {
     margin: 5px 0;
     font-size: 16px;
+    text-align: left;
     color: rgba(255, 255, 255, 0.792);
     font-family: 'NoonnuBasicGothicRegular';
 }
@@ -388,4 +390,34 @@ body {
 
 .menu-item:hover img {
     filter: invert(40%) sepia(100%) saturate(500%) hue-rotate(200deg) brightness(130%) contrast(150%);
+}
+
+.keyword-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.keyword-item {
+    background-color: #e3f2fd; /* 키워드 배경색 (밝은 파란색) */
+    color: #1e88e5; /* 텍스트 색 (짙은 파란색) */
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 14px;
+    font-weight: 500;
+    text-align: center;
+    white-space: nowrap; /* 텍스트가 줄 바꿈되지 않도록 설정 */
+}
+
+.title-and-buttons {
+    display: flex; /* 제목과 수정/삭제 버튼을 가로로 정렬 */
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.recording-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0;
 }

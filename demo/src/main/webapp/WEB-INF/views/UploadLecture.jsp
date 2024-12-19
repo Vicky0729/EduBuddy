@@ -43,24 +43,50 @@
                 </div>
 
                 <div class="recordings-container">
-                    <c:forEach var="upload" items="${uploadList}">
-                        <div class="recording-item" data-category="과학"> <!-- 과학 데이터로 가정 -->
-                            <div class="recording-content">
-                                <p>${upload.uploadFile}</p>
-                                <div class="button-container">
+                <c:forEach var="upload" items="${uploadList}">
+                    <div class="recording-item" data-category="과학"> <!-- 과학 데이터로 가정 -->
+                        <div class="recording-content">
+                            <!-- 제목과 수정/삭제 버튼 -->
+                            <div class="title-and-buttons">
+                                <p class="recording-title">${upload.uploadFile}</p>
+                                <div class="action-buttons">
                                     <button class="edit-button" onclick="EditPopup.show('${upload.uploadIdx}')">수정</button>
                                     <button class="delete-button" onclick="DeletePopup.show('${upload.uploadIdx}')">삭제</button>
                                 </div>
                             </div>
+            
+                            <!-- 키워드 표시 영역 -->
+                            <div class="keyword-box">
+                                <c:if test="${not empty upload.keyword1}">
+                                    <div class="keyword-item">${upload.keyword1}</div>
+                                </c:if>
+                                <c:if test="${not empty upload.keyword2}">
+                                    <div class="keyword-item">${upload.keyword2}</div>
+                                </c:if>
+                                <c:if test="${not empty upload.keyword3}">
+                                    <div class="keyword-item">${upload.keyword3}</div>
+                                </c:if>
+                                <c:if test="${not empty upload.keyword4}">
+                                    <div class="keyword-item">${upload.keyword4}</div>
+                                </c:if>
+                                <c:if test="${not empty upload.keyword5}">
+                                    <div class="keyword-item">${upload.keyword5}</div>
+                                </c:if>
+                            </div>
+            
+                            <!-- 레코딩 날짜 -->
                             <div class="recording-date">
                                 <p>${upload.uploadDt}</p>
                             </div>
+            
+                            <!-- 학습하기 버튼 -->
                             <div class="button-container">
                                 <button class="recording-button" onclick="LearningPopup.show('${upload.uploadIdx}')">학습하기</button>
                             </div>
                         </div>
-                    </c:forEach>
-                </div>
+                    </div>
+                </c:forEach>
+            </div>
 
                 <jsp:include page="Menubar.jsp" />
 
