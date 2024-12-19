@@ -37,7 +37,7 @@ public class SolvingRestController {
         String userId = (String)session.getAttribute("user");
 
 
-        System.out.println(questions);
+     
         
         solvingService.insertSolving(userId,questions);
         

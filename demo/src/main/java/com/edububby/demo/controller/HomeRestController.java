@@ -34,7 +34,7 @@ public class HomeRestController {
         
         Long uploadIdx = Long.parseLong(requestData.get("idx").toString());
         
-        System.out.println("jsp에서 가져온 IDX:"+uploadIdx);
+       
 
         uploadService.deleteUploadFile(uploadIdx);
     }

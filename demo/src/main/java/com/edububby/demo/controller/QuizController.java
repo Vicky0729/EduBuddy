@@ -59,19 +59,17 @@ public class QuizController {
         String KeywordInput = uploadService.KeywordInput(uploadIdx);
         Upload uploadList = uploadService.findByUploadIdx(uploadIdx);
       
-        System.out.println(KeywordInput);
         
+
 
         List<Long> ModelQesIdxs = pythonModelService.getRecommendations(KeywordInput,difficulty);
 
-        System.out.println(ModelQesIdxs);
+       
         
         // uploadMapping 값 저장
         uploadMappingService.insertUploadMapping(ModelQesIdxs,uploadIdx);
 
         List<ProblemUploadDTO> questionList = questionService.findQuestionByQesIdxIn(ModelQesIdxs);
-
-        System.out.println(questionList);
 
         
         redirectAttributes.addFlashAttribute("questionList",questionList);
@@ -92,8 +90,7 @@ public class QuizController {
         int difficulty = (int)session.getAttribute("difficulty");
         Long uploadIdx = (Long)session.getAttribute("uploadIdx");
 
-        System.out.println("가지고온 식별자:"+uploadIdx);
-        System.out.println("가지고온 난이도:"+difficulty);
+        
         
 
 

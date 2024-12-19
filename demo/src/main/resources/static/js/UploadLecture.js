@@ -55,7 +55,7 @@ const EditPopup = {
         popup.id = 'edit-popup';
         popup.innerHTML = `
                     <div class="popup-content"> 
-                        <input type="text" id="editTitleInput" value="수정한 파일명을 입력해주세요">
+                        <input type="text" id="editTitleInput"  onfocus="clearText(this)" onblur="resetText(this, '수정한 파일명을 입력해주세요')" value="수정한 파일명을 입력해주세요">
                         <div class="popup-buttons">
                            <button id="saveButton">변경</button>
                             <button id="cancelButton">취소</button>
@@ -221,3 +221,16 @@ function filterCategory(category) {
         }
     });
 }   
+
+function clearText(input){
+    if(input.value == input.defaultValue){
+        input.value = "";
+    }
+}
+
+function resetText(input, defaultText){
+    if(input.value == ""){
+        input.value = defaultText;
+    }
+}
+

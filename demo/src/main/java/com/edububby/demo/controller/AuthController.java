@@ -25,13 +25,13 @@ public class AuthController {
     //로그인 기능 
     @PostMapping("/auth/login")
     public String login(User user, HttpSession session, RedirectAttributes redirectAttributes) {
-        System.out.println("로그인 시도: 사용자 ID = " + user.getUserId());
+     
        
         User loginUser = service.login(user);
         
 
         if (loginUser != null) {
-            System.out.println("로그인 성공: 로그인한 사용자 ID = " + loginUser.getUserId());
+           
             session.setAttribute("user", loginUser.getUserId());
             session.setAttribute("userName", loginUser.getUserName());
             

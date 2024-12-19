@@ -65,7 +65,7 @@ public class AudioService {
         // 3. 요청 전송 및 응답 수신
         ResponseEntity<Map> response = restTemplate.postForEntity(pythonApiUrl, requestPayload, Map.class);
 
-        System.out.println(response);
+      
 
         // 4. 응답 확인 및 반환
         if (response.getStatusCode().is2xxSuccessful()) {

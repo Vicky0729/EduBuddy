@@ -288,6 +288,7 @@ function hideLoadingOverlay() {
     
     const loadingOverlay = document.getElementById('loading-overlay');
     if (loadingOverlay) {
+        alert("변환이 완료되었습니다.")
         loadingOverlay.style.display = 'none';
     }
 }
