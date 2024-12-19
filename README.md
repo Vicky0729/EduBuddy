@@ -3,16 +3,16 @@
 EduBuddy는 중위권 학생을 위한 맞춤형 학습 플랫폼으로, 학습 방향 설정부터 맞춤 문제 출제까지 학습 전 과정을 지원합니다.
 이 프로젝트는 학습 효율성을 극대화하고 학생들에게 개인화된 학습 경험을 제공합니다.
 
+![서비스소개]/imgs/12.png) 
+
 ---
 
 ## 🗂️ **목차**
 
-1. [프로젝트 개요](https://www.notion.so/EduBuddy-161614e3097b802f9098c83e3b14acf9?pvs=21)
-2. [기술 스택 및 개발 환경](https://www.notion.so/EduBuddy-161614e3097b802f9098c83e3b14acf9?pvs=21)
-3. [주요 기능](https://www.notion.so/EduBuddy-161614e3097b802f9098c83e3b14acf9?pvs=21)
-4. [시스템 아키텍처](https://www.notion.so/EduBuddy-161614e3097b802f9098c83e3b14acf9?pvs=21)
-5. [수익 모델](https://www.notion.so/EduBuddy-161614e3097b802f9098c83e3b14acf9?pvs=21)
-6. [확장성과 미래 발전 방향](https://www.notion.so/EduBuddy-161614e3097b802f9098c83e3b14acf9?pvs=21)
+1. [프로젝트 개요](#프로젝트-개요)
+2. [기술 스택 및 개발 환경](#기술-스택-및-개발-환경)
+3. [주요 기능](#주요-기능)
+4. [시스템 아키텍처](#시스템-아키텍처)
 
 ---
 
@@ -38,11 +38,10 @@ EduBuddy는 중위권 학생을 위한 맞춤형 학습 플랫폼으로, 학습 
 ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white) ![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white)
 
 ### 서버 및 배포 환경
-- ![Tomcat](https://img.shields.io/badge/Tomcat-F8DC75?style=for-the-badge&logo=apachetomcat&logoColor=black)
-- ![Uvicorn](https://img.shields.io/badge/Uvicorn-22C55E?style=for-the-badge&logo=python&logoColor=white)
+![Tomcat](https://img.shields.io/badge/Tomcat-F8DC75?style=for-the-badge&logo=apachetomcat&logoColor=black) ![Uvicorn](https://img.shields.io/badge/Uvicorn-22C55E?style=for-the-badge&logo=python&logoColor=white)
 
 ### 데이터베이스
-- ![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white)
+![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white)
 
 ### 개발 도구
 ![Jupyter Notebook](https://img.shields.io/badge/Jupyter-F37626?style=for-the-badge&logo=jupyter&logoColor=white) ![Colab](https://img.shields.io/badge/Colab-F9AB00?style=for-the-badge&logo=googlecolab&logoColor=white) ![Visual Studio Code](https://img.shields.io/badge/Visual%20Studio%20Code-0078D4?style=for-the-badge&logo=visualstudiocode&logoColor=white)
@@ -66,8 +65,7 @@ EduBuddy는 중위권 학생을 위한 맞춤형 학습 플랫폼으로, 학습 
 4. **동기부여를 위한 학습 현황 제공**
     - 학습 일수와 문제 풀이 수를 숫자로 직관적으로 시각화.
     - 오답 키워드를 중심으로 약점을 분석하고 개선 방향 제시.
-  
-## 주요 기능 화면
+
 
 ## 주요 기능 화면
 
@@ -78,5 +76,10 @@ EduBuddy는 중위권 학생을 위한 맞춤형 학습 플랫폼으로, 학습 
 | 오답노트 화면                   | 강의 녹음 화면                | 강의 키워드 추출              |
 |----------------------------------|-------------------------------|-----------------------------|
 | ![오답노트 화면](./imgs/featureOxnote.png) | ![강의 녹음 화면](./imgs/featureRecoder.png) | ![테스트 화면](./imgs/featureTest.png) |
+
+---
+
+## 🎯 시스템 아키텍처
+![시스템아키텍처 화면](./imgs/20.png)
 
 
