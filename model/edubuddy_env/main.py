@@ -119,7 +119,7 @@ async def transcribe(file: UploadFile = File(...)):
         print("transcribe 도착")
         vito_auth_resp = requests.post(
             'https://openapi.vito.ai/v1/authenticate',
-           data={'client_id': '5ZlST7B9EFdDV5YESXzI', 'client_secret': '36dsqoQPfrxIAdsj8YHePnR3BDxdfKa4Bt_frAsY'}
+           data={'client_id': '{vito.id}', 'client_secret': '{vito.pw}'}
         )
         vito_auth_resp.raise_for_status()
         jwt_token = vito_auth_resp.json().get("access_token")
